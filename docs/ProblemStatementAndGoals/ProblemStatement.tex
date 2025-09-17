@@ -45,6 +45,18 @@ information.}
 \wss{Characterize the problem in terms of ``high level'' inputs and outputs.  
 Use abstraction so that you can avoid details.}
 
+\par{Inputs from users will consist of various query prompts or data visualization requests. These should be easily done
+by users without technical experience. This will include: 1. Submitting queries by applying filter criteria related to the experimental sessions or the data itself.
+These could be but are not limited to: type of file, selected study/experiment, drug injection used in the trial,
+rat bodyweight, date and time of trial, etc...
+2. Submitting queries using natural language. “show me trials with strong checking behavior after 5 injections”
+or “find sessions where rats showed compulsive patterns” are examples of this
+3. Making requests for data visualizations such as behavioral metrics (seperated by injection type for example) or visually plotting trajectories of the rats
+based on their (x,y) coordinates.}
+
+\par{Outputs to users will be constrained to two main categories. Category 1: raw data records returned from a query for the inputting user to view or extract
+Category 2: Data visualizations which include plots of rat trajectories or statistical or graphical displays of behavioural metrics of the rat subjects.}
+
 \subsection{Stakeholders}
 
 \subsection{Environment}
@@ -52,6 +64,44 @@ Use abstraction so that you can avoid details.}
 \wss{Hardware and Software Environment}
 
 \section{Goals}
+
+
+\begin{center}
+\begin{tabular}{ | m{2cm} | m{8cm}| } 
+  \hline
+  Sound and Complete DBMS & A complete database schema must be developed for the purposes
+  of this project. This means that all pieces of data in the FRDR repository have
+  been accounted for and are uniquely identified within tables in the DBMS. This also means that
+  all metadata related to each piece of data are accessible for querying. Finally,
+  the relations between data must be properly represented. Video, track files and trajectory diagrams
+  related to the same session must have relationships between them.
+  
+  Furthermore, a proper query framework must be set up and able to access the DBMS. 
+  The MVP form of this would just be writing SQL into a database request and
+  recieve the correct result. This MVP would essentially just need Rest APIs set up
+  to make a request to the database. However, this should be abstracted with a filtering UI that
+  allows for non-technical people to easily make queries.\\ 
+  \hline
+  Sleek and Non-Technical UI & The main user base for this project will be academics with a psychiatric or
+  animal related background and thus the user interface needs to allow for non-technical
+  people to easily make rather complex queries. Our goal is for our front end system to have an intuitive
+  interface for filtering and searching for data. This would include features such as adding easily adding filters related to metadata annotations, a certain study,
+  or the date of the trial. These filters would then be converted into an equivalent query, sent to the DBMS and return the relevant data. In a similar way,
+  this UI will include natural language searching in which a sentence for what the user wants will be similarily converted into an equivalent query and the data returned.\\ 
+  \hline
+  Data Visualization/Processing Capabilities &  Due to the large amount of data in the repository, processing and visualization are important in
+  helping users more easily interpret and draw conclusions from the data. The first part of this goal is to successfully implement an algorithm that
+  can identify behaviours in the trials and group them accordingly. The MVP of this is simply an algorithm that can distinguish between compulsive and non-compulsive
+  behaviour.
+  
+  On the visualization side, graphical displays of important metrics should be an option for users to view through the user interface. The different
+  visualizations will likely need to be developed on an ad-hoc basis depending on the user needs but an example of an MVP for this goal would be to provide graphical
+  displays of compulsive behavioural metrics based on the type of injection the rat recieved.\\ 
+  \hline
+\end{tabular}
+\end{center}
+\end{document}
+
 
 \section{Stretch Goals}
 
