@@ -2,6 +2,7 @@
 
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{hyperref}
 
 \title{Development Plan\\\progname}
 
@@ -48,11 +49,15 @@ place.}
 information to protect.}
 \section{IP to Protect}
 
+\paragraph{There is no IP to protect for the project. The data provided is openly avaiable to use. Likewise, our code will be open source.}
+
 \wss{State whether there is IP to protect.  If there is, point to the agreement.
 All students who are working on a project that requires an IP agreement are also
 required to sign the ``Intellectual Property Guide Acknowledgement.''}
 
 \section{Copyright License}
+
+\paragraph{The software that we will use will be MIT. The License is linked titled LICENSE and is at the root directory of our repository.}
 
 \wss{What copyright license is your team adopting.  Point to the license in your
 repo.}
@@ -73,9 +78,23 @@ in-person.}
 
 \section{Team Communication Plan}
 
+Our team will primarily communicate using Microsoft Teams and text messaging for quick, day-to-day coordination. For interactions with the professors associated with our project, we will schedule weekly or ad hoc meetings as needed. Email will be our main channel for formal communication with faculty.
+
+To manage and divide work efficiently, we are utilizing GitHub Issues and a Kanban board. GitHub Issues allow us to assign tasks, track progress, and facilitate transparent communication among team members. The Kanban board complements this by providing a clear visual representation of task status and workflow. This will support project planning and execution.
+
 \wss{Issues on GitHub should be part of your communication plan.}
 
 \section{Team Member Roles}
+
+\paragraph{Roles} 
+
+\begin{description}
+    \item[Tim - Team Leader] Oversees members, helps assign tasks, and ensures deadlines are met.
+    \item[Nathan - Administrator] Manages documentation, project logistics, and resources.
+    \item[Leo - Meeting Chair] Organizes and leads team meetings, sets agendas, and keeps discussions on track.
+    \item[Jeremy / Aidan - Software Specalists] Assist with development tasks such as CI/CD setup, code reviews, general project support, and note taking.
+\end{description}
+
 
 \wss{You should identify the types of roles you anticipate, like notetaker,
 leader, meeting chair, reviewer.  Assigning specific people to those roles is
@@ -85,16 +104,41 @@ likely change throughout the year.}
 \section{Workflow Plan}
 
 \begin{itemize}
-	\item How will you be using git, including branches, pull request, etc.?
-	\item How will you be managing issues, including template issues, issue
-	classification, etc.?
+  \item How will you be using git, including branches, pull requests, etc.?
+
+  The team will use Git for version control. Branches will follow the convention:
+  \texttt{<type-of-work>/<issue-name>}, where the types of work are:
+  \begin{itemize}
+      \item documentation
+      \item feature
+      \item bugfix
+  \end{itemize}
+
+  Issue name will follow the name of the issue you are working on.
+
+  For pull requests, GitHub Actions will compile the code and run checks. A reviewer will always be required. Once a branch is merged, it will be deleted.
+
+  \item How will you be managing issues, including template issues, issue classification, etc.?
+  
+  We will manage tasks and bugs using GitHub Issues. To ensure consistency and clarity, we will use issue templates for common types of issues such as feature requests, bug reports, and documentation tasks. Issues will be classified using labels (e.g., "bug", "enhancement", "in progress", "needs review") to track progress and priority. Each issue will be assigned to a team member and linked to relevant pull requests when applicable. This structured approach will help us maintain transparency, accountability, and effective collaboration throughout the development process.
+
   \item Use of CI/CD
+  
+  We will implement Githb actions for CI/CD. This will include automated checks to ensure that the code compiles correctly, passes all tests, and adheres to project standards before being merged into the main branch. By integrating CI/CD, we aim to catch issues early, maintain code quality, and streamline the deployment process.  
+
+
+
 \end{itemize}
+
 
 \section{Project Decomposition and Scheduling}
 
 \begin{itemize}
   \item How will you be using GitHub projects?
+  
+  We will create GitHub issues for each task, and maintain a Kanban board for issues related to the current deliverable.
+  
+
   \item Include a link to your GitHub project
 \end{itemize}
 
