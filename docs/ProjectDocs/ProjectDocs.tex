@@ -1,0 +1,108 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\title{12 Behavioral Data Analysis Platform: Building Research Infrastructure for Animal Models of OCD (SE/CS)}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\textbf{Supervisor(s):} Dr. Henry Szechtman and Dr. Anna Dvorkin-Gheva\\
+\textbf{Organization:} Dept. of Psychiatry and Behavioural Neurosciences, and Dept. of Pathology and Molecular Medicine, McMaster\\
+\textbf{E-mail(s):} \href{mailto:szechtma@mcmaster.ca}{szechtma@mcmaster.ca}, \href{mailto:dvorkin@mcmaster.ca}{dvorkin@mcmaster.ca}\\
+\textbf{Selected:} Available
+
+\section*{Description}
+
+\subsection*{Project Overview}
+This project focuses on creating a comprehensive data analysis platform for one of the most extensive behavioral neuroscience datasets—nearly 20,000 trials of rat behavioral data from studies of Obsessive-Compulsive Disorder (OCD). The dataset contains rich spatial-temporal tracking data (x, y, t coordinates), corresponding video recordings of rat behavior, and additional research files that researchers may use to study psychiatric disorders.
+
+\subsection*{The Challenge}
+While this valuable dataset exists in a public repository, there is currently no user-friendly way for researchers to search, filter, download, or analyze specific subsets of data. Moreover, researchers cannot easily view behavioral trajectories alongside their corresponding videos, a feature that would add to the dataset’s scientific utility.
+
+\subsection*{Project Goals}
+Your team will build a modern web-based platform that makes this behavioral dataset truly accessible to the global research community:
+
+\begin{enumerate}[label=\arabic*.]
+    \item \textbf{Database Design \& Backend Development}
+    \begin{itemize}
+        \item Design a robust PostgreSQL database schema for behavioral data, metadata, video files, and additional research files
+        \item Implement REST API endpoints for data queries and downloads
+        \item Create efficient indexing for large-scale spatial-temporal data and file management system for video content
+    \end{itemize}
+
+    \item \textbf{Interactive Web Interface}
+    \begin{itemize}
+        \item Build a React-based frontend with intuitive search and filtering capabilities
+        \item Implement natural language querying—allow researchers to ask questions like “show me trials with strong checking behavior after 5 injections” or “find sessions where rats showed compulsive patterns”
+        \item Create data visualization tools for trajectory plotting and behavioral metrics
+        \item Implement synchronized video playback—allow researchers to view behavioral trajectories alongside corresponding video recordings
+        \item Design user-friendly interfaces for researchers without programming expertise
+    \end{itemize}
+
+    \item \textbf{Data Processing Pipeline}
+    \begin{itemize}
+        \item Develop Python tools for processing coordinate data into meaningful behavioral measures
+        \item Implement algorithms for detecting key behavioral patterns (home-base behavior, checking routes, exploration metrics)
+        \item Create automated analysis workflows for common research tasks
+        \item Design extensible architecture for future video analysis capabilities
+    \end{itemize}
+\end{enumerate}
+
+\subsection*{Technical Stack}
+\begin{itemize}
+    \item \textbf{Backend:} Python (FastAPI), PostgreSQL, Redis caching
+    \item \textbf{Frontend:} React, modern JavaScript, data visualization libraries
+    \item \textbf{Data Processing:} Python (NumPy, Pandas, scientific computing libraries)
+    \item \textbf{NLP Integration:} Language model APIs for natural language querying
+    \item \textbf{Media Handling:} Video streaming, file management systems
+\end{itemize}
+
+\subsection*{Why This Project Matters}
+\begin{itemize}
+    \item \textbf{Real Impact:} Your work will be used by OCD researchers worldwide, potentially accelerating discoveries that help millions of people
+    \item \textbf{Open Science:} You’ll contribute to making scientific data more accessible and reusable
+    \item \textbf{Technical Challenge:} Handle big data problems with spatial-temporal complexity, large video files, and AI-assisted querying
+    \item \textbf{Professional Experience:} Build a production system that serves an international research community
+\end{itemize}
+
+\subsection*{Learning Outcomes}
+\begin{itemize}
+    \item Full-stack web development with modern technologies
+    \item Database design for scientific data and multimedia content management
+    \item API development and optimization for large file handling
+    \item Data visualization, video integration, and user experience design
+    \item Working with real scientific datasets and research workflows
+\end{itemize}
+
+\subsection*{Deliverables}
+\begin{itemize}
+    \item Functional web platform deployed and accessible online
+    \item Natural language query system for intuitive data exploration
+    \item Synchronized trajectory-video viewing capabilities
+    \item Python analysis tools packaged as open-source libraries
+    \item Extensible file management system for diverse research data
+    \item User documentation and tutorials for researchers
+\end{itemize}
+
+\subsection*{Team Structure (Suggested)}
+\begin{itemize}
+    \item Backend/Database specialist
+    \item Frontend/UI developer
+    \item Data processing/algorithms developer
+    \item NLP/AI integration specialist
+    \item Media/video systems developer
+    \item DevOps/deployment specialist
+\end{itemize}
+
+\subsection*{Links}
+\begin{itemize}
+    \item \href{https://academic.oup.com/gigascience/article/doi/10.1093/gigascience/giac092/6756450}{GigaScience Article}
+    \item \href{https://www.frdr-dfdr.ca/repo/collection/szechtmanlab}{FRDR Szechtman Lab Repository}
+\end{itemize}
+
+\end{document}
