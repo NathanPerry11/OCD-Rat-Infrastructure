@@ -178,6 +178,19 @@ the implementation that you expect you will implement, despite the existence of
 libraries that provide the required functionality.  For projects with machine
 learning, will you use pre-trained models, or be training your own model?  }
 
+A core module of the project is a web interface for researchers to query and interact with data from past experiments. 
+To facilitate this, the team anticipates to use some combination of modern web tools, including HTML, JavaScript, CSS, and a web framework such as React. 
+
+Another core component of the system is the database infrastructure needed to support the querying and storage of the experiment data. The team anticipates using a relational database, such as PostgreSQL or MySQL, to store and manage the data. One or many APIs may be needed to define an interface for interacting with the tools. The team plans to use a framework such as Java Spring Boot to implement these services. 
+
+Further goals include the implementation of data analysis and visualization tools. The team anticipates using Python for this purpose, as this is the lowest common denominator tool for many researchers. Another stakeholder request is the capability for natural language querying of the database. The team anticipates using some combination of pre-trained language models like GPT-5 or equivalent to facilitate this task. 
+
+Testing is another important aspect of the project. As test frameworks are language specific, the team will select an appropriate test framework for the language used. For frontend JavaScript, the team may use Jest. For backend in Java/Python, the team may use JUnit/PyTest in conjunction with other code quality and code coverage tools like SonarQube.
+
+For CI/CD purposes, the team plans to use GitHub Actions to define workflows to build and test the code automatically on each commit and pull request.
+
+
+
 \wss{The implementation decisions can, and likely will, change over the course
 of the project.  The initial documentation should be written in an abstract way;
 it should be agnostic of the implementation choices, unless the implementation
