@@ -2,6 +2,7 @@
 
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{hyperref} 
 
 \title{Development Plan\\\progname}
 
@@ -207,6 +208,13 @@ Topics to discuss include the following:
 \section{Coding Standard}
 
 \wss{What coding standard will you adopt?}
+
+Team members will follow the \href{https://github.com/google/styleguide}{Google Style Guides} for the respective programming languages used in the project. This will help ensure consistencty and define a single source of truth for language conventions. 
+Linters will be used to enforce the standards defined in the style guides. All team members will be expected to run the linters locally before pushing code to the repository, as well as configure their linter to follow the defined ruleset. 
+
+Regarding software testing, the team will enforce a minimum of 80\% code coverage for all new code added to the repository. This will be measured using a covererage tool integrated into the CI/CD pipeline. Pull requests will require passing tests and meeting the code coverage threshold before being merged into the main branch.
+
+In addition to the above, all team members will be required to write clear documentation for new functions, classes, and modules, as well as clear commit messages and pull request descriptions. This must include the purpose and scope of the change, as well as the testing plan. 
 
 \newpage{}
 
