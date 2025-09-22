@@ -66,6 +66,18 @@ based on their (x,y) coordinates.}
 
 \wss{Hardware and Software Environment}
 
+\par{
+  The system must be designed to provide efficient search and querying capabilities over a large, multi-terabyte dataset. The raw data files will remain externally hosted, while our system will manage the metadata and indexing required for efficient access. We anticipate the need for cloud-based database and backend infrastructure in order to load and serve experiment data for users worldwide.  
+}
+
+\par{
+  A publicly accessible web-based platform is required to make the behavioural dataset accessible to the global research community. As such, we must anticpate users accessing the system from a range of web-capable devices, including desktops, laptops, and mobile devices. Users may also be accessing the system from a broad range of network conditions, from high-latencty connections to low bandwidth environments. As such, the system must be designed to be efficient and responsive under varying network conditions. 
+}
+
+\par{
+  The system will also expose natural language querying capabilities to enable researchers with limited technical expertise to access the dataset. This necessitates the need for natural language processing tools or large language models to be integrated into the backend infrastructure. As such, the system design must be open to the integration of third-party APIs and services to support these capabilities.
+}
+
 \section{Goals}
 
   \subsection{Goal 1: Sound and Complete DBMS} 
