@@ -92,11 +92,18 @@ to aid in their academic work and experiments. This will be accomplished via the
 \subsection{Client}
 
 \par{The clients for this project are Dr. Henry Szechtman and Dr. Anna Dvorkin-Gheva, two professors at McMaster University who are experts in
-the fields of Psychiatry & Behavioural Neurosciences and Bioinformatics, respectively. They have worked extensively with these OCD rat trials and
+the fields of Psychiatry and Behavioural Neurosciences and Bioinformatics, respectively. They have worked extensively with these OCD rat trials and
 were responsible for generating and depositing this data in the FRDR repository where it currently is stored. Dr. Szechtman and Dr. Dvorkin-Gheva want
 to drastically improve the availability of the vast data set they have created so that the trials they conducted can become useful to other students and academics in related fields.}
 \lips
 \subsection{Customer}
+
+\par{Since our application is intended to be open-source and accessible to the public for free, our customers will simply be a group of end-users
+of our application. Our end users will primarily involve behavioural neuroscience researchers like Dr. Henry Szechtman and Dr. Anna Dvorkin-Gheva, 
+as well as graduate students and lab members, who will all benefit from the user-friendly and accessible functionality of the platform. 
+Additionally we will have data scientists as customers, who will benefit from our application architecture anf offered functionality for 
+their purposes. Lastly, collaborating institutions and organizations from the open research community will be users of our application, 
+since the application is intended to be free-use and accessible to all.}
 \lips
 \subsection{Other Stakeholders}
 \lips
@@ -246,20 +253,48 @@ involved in the Project}
 \lips
 
 \section{Performance Requirements}
+
 \subsection{Speed and Latency Requirements}
-\lips
+\begin{itemize}
+    \item The system shall return all query results within 2 seconds for result sets of up to 5,000 records.
+    \item All network requests shall have latency below 100 ms under normal operating conditions.
+\end{itemize}
+
 \subsection{Safety-Critical Requirements}
-\lips
+\begin{itemize}
+    \item There are no safety-critical operations for this system, as it handles only user interface and data processing with no direct impact on human safety.
+\end{itemize}
+
 \subsection{Precision or Accuracy Requirements}
-\lips
+\begin{itemize}
+    \item All query results shall be accurate and filtered according to user specifications.
+    \item There shall be no inconsistencies between the source database and query results.
+\end{itemize}
+
 \subsection{Robustness or Fault-Tolerance Requirements}
-\lips
+\begin{itemize}
+    \item The system shall log and report all input errors without crashing.
+    \item The backend shall handle errors gracefully, storing detailed logs for debugging and monitoring purposes.
+\end{itemize}
+
 \subsection{Capacity Requirements}
-\lips
+\begin{itemize}
+    \item The system shall support up to 250 concurrent users and handle 5,000 transactions per hour.
+    \item The database and associated controllers shall be able to manage up to 11 TB of data.
+\end{itemize}
+
 \subsection{Scalability or Extensibility Requirements}
-\lips
+\begin{itemize}
+    \item The system shall allow additional modules to be integrated without requiring major changes to existing features.
+    \item Under heavy user loads, the system shall maintain at least 80\% of its performance efficiency.
+\end{itemize}
+
 \subsection{Longevity Requirements}
-\lips
+\begin{itemize}
+    \item The system shall be designed to operate reliably for at least 5 years, with multiple teams and developers able to maintain and extend it.
+    \item The system shall be compatible with any operating system when running offline.
+\end{itemize}
+
 
 \section{Operational and Environmental Requirements}
 \subsection{Expected Physical Environment}
