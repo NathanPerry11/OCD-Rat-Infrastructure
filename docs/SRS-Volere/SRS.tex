@@ -146,7 +146,13 @@ since the application is intended to be free-use and accessible to all.}
 \end{tabular}
 
 \subsection{Off-the-Shelf Software}
-\lips
+
+\begin{itemize}
+    \item The system shall make use of the FRDR API in order to fetch the relevant data from the data set as we will not be hosting a seperate database to physically store the data for our system
+    \item In the case of implementing natural language processing, an Off-the-Shelf LLM will be used to accomplish this (In other words we will not be writing our own LLM model for this purpose).
+    Note that this model may need to be trained to provide results that are acceptable for our purposes.
+\end{itemize}
+
 \subsection{Anticipated Workplace Environment}
 \lips
 \subsection{Schedule Constraints}
@@ -424,9 +430,14 @@ Inhibit the New Product}
 
 \section{Migration to the New Product}
 \subsection{Requirements for Migration to the New Product}
-\lips
+
+\par{There are no requirements for migration to the new product other than that the user must familiarize themselves with the new domain and UI if they are used to using the FRDR repository.}
+
+
 \subsection{Data That Has to be Modified or Translated for the New System}
-\lips
+
+\par{The new system will take the raw data directly from the FRDR repository and present it to users. There are use cases in which the data will be processed for the purposes 
+     of producing metrics or visualizations which is relevant to the functional requirements rather than this section. Thus, no data needs to be modified or translated for this new system.}
 
 \section{Costs}
 \lips
