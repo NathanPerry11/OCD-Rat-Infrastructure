@@ -330,15 +330,37 @@ involved in the Project}
 
 \section{Operational and Environmental Requirements}
 \subsection{Expected Physical Environment}
-\lips
+\begin{itemize}
+    \item The system shall be able to run on a standard desktop with atleast 12 GB RAM and average processor.
+    \item The software shall function correctly on Windows, macOS, and Linux operating systems.
+    \item The software should be able to run in normal office environment conditions which includes temperatures between 15°C and 30°C. 
+\end{itemize}
+
 \subsection{Wider Environment Requirements}
-\lips
+
+\begin{itemize}
+    \item The system shall be able to run the top three popular browers.
+\end{itemize}
+
+
 \subsection{Requirements for Interfacing with Adjacent Systems}
-\lips
+
+\begin{itemize}
+    \item Data exchanged with adjacent systems shall use JSON format and be transmitted over HTTPS.
+\end{itemize}
+
 \subsection{Productization Requirements}
-\lips
+\begin{itemize}
+    \item The system will use Docker and Kubernetes as it's envoirment for assebility to run on all systems.
+    \item The system will provide all code changes and software updates on the GitHub Repository. 
+\end{itemize}
+
 \subsection{Release Requirements}
-\lips
+\begin{itemize}
+    \item The system releases shall follow the versioning defined by MAJOR\#.MINOR\#.PATCH\#.
+    \item The system will provide all code changes and software updates on the GitHub Repository. Code then can be pulled and tagged from the appraite GitHub release.
+\end{itemize}
+
 
 \section{Maintainability and Support Requirements}
 \subsection{Maintenance Requirements}
@@ -362,7 +384,7 @@ involved in the Project}
 
 \section{Cultural Requirements}
 \subsection{Cultural Requirements}
-\lips
+\par{There are no cultural requirements for the system.}
 
 \section{Compliance Requirements}
 \subsection{Legal Requirements}
