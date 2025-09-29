@@ -422,9 +422,17 @@ we are allowed to reference the work of the capstone group, ratbat.mcmaster.ca, 
 
 \section{New Problems}
 \subsection{Effects on the Current Environment}
-\lips
+
+The new system will be developed from the ground up, there is no current implementation environment to affect. The only existing system that will be interacted with is the FRDR repository which provides
+a stable API for accessing the relevant data sets that will be used and will thus be unaffected by any developments made.
+
 \subsection{Effects on the Installed Systems}
-\lips
+
+\par{ The 'installed system' that concerns this project is the FRDR repository as it will be used as a part of the system to provide the required functionality. The interactions between the new system and
+the FRDR repository will all be through a REST API that the FRDR provides. As a result no effects or conflicts are anticipated, although this conclusion operates under the assumption that the provided
+API is sound. }
+
+
 \subsection{Potential User Problems}
 
 \par{An important note to make about the project is that it is not a mandatory replacement for the existing data set and infrastructure 
@@ -461,9 +469,16 @@ Inhibit the New Product}
 \lips
 \section{User Documentation and Training}
 \subsection{User Documentation Requirements}
-\lips
+
+\begin{itemize}
+    \item The system shall be released alongside a user manual guiding users through the possible inputs they have access to, how to properly execute them as well as the corresponding outputs that will be produced as a result. The inputs that 
+    will be over: querying pre-packaged result sets, generating custom filters, natural language searching, producing behaviour metrics, producing data visualizations.
+\end{itemize}
+
 \subsection{Training Requirements}
-\lips
+
+\par{ There are no explicit training requirements for this system. The interface should be sufficiently intuitive and the user manual must be interpretable by a non-technical user if they need to learn specific functions.
+No explicit training will be needed }
 
 \section{Waiting Room}
 \lips
