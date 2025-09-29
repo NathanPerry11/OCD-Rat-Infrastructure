@@ -146,7 +146,13 @@ since the application is intended to be free-use and accessible to all.}
 \end{tabular}
 
 \subsection{Off-the-Shelf Software}
-\lips
+
+\begin{itemize}
+    \item The system shall make use of the FRDR API in order to fetch the relevant data from the data set as we will not be hosting a seperate database to physically store the data for our system
+    \item In the case of implementing natural language processing, an Off-the-Shelf LLM will be used to accomplish this (In other words we will not be writing our own LLM model for this purpose).
+    Note that this model may need to be trained to provide results that are acceptable for our purposes.
+\end{itemize}
+
 \subsection{Anticipated Workplace Environment}
 \lips
 \subsection{Schedule Constraints}
@@ -235,18 +241,50 @@ involved in the Project}
 \lips
 
 \section{Look and Feel Requirements}
+
+
+
 \subsection{Appearance Requirements}
-\lips
+
+\begin{itemize}
+    \item The system shall resemble a webstore or online boutique in which possibly useful queries are packaged and presented for selection to guide 
+    a non-technical user audience.
+    \item The system shall not overwhelm the user with too many or overly complex visible features as to not intimidate a non-technical user audience.
+    \item The system shall present the filtering and searching capabilities of the system in a way that is familiar and intuitive, such as the 
+    filtering provided in an online shopping storefront.
+\end{itemize}
+
 \subsection{Style Requirements}
 \lips
 
 \section{Usability and Humanity Requirements}
+
+
+
 \subsection{Ease of Use Requirements}
-\lips
+
+\begin{itemize}
+    \item The system shall have a very low ease of use floor. This floor being scrolling through
+    pre-packaged query options and clicking on the one most relevant to their needs.
+    \item The system shall have a reasonably low ease of use ceiling with intuitive an intuitive filtering interface
+    as well as a simple natural language search interface and provided options for generating metrics and visualizations.
+\end{itemize}
+
 \subsection{Personalization and Internationalization Requirements}
 \lips
+
+
+
 \subsection{Learning Requirements}
-\lips
+
+\begin{itemize}
+    \item Assuming that the user is familiar with nature of the data itself, the system should
+    have a learning curve of less than 30 minutes. Users shall easily be able to find and use searching
+    mechanisms and querying pre-packaged and custom searches shall be very intuitive.
+    \item The system shall provide options to generate available metrics or visualizations based on the queried
+    data so the user does not need to learn to create their own.
+\end{itemize}
+
 \subsection{Understandability and Politeness Requirements}
 \lips
 \subsection{Accessibility Requirements}
@@ -410,9 +448,14 @@ Inhibit the New Product}
 
 \section{Migration to the New Product}
 \subsection{Requirements for Migration to the New Product}
-\lips
+
+\par{There are no requirements for migration to the new product other than that the user must familiarize themselves with the new domain and UI if they are used to using the FRDR repository.}
+
+
 \subsection{Data That Has to be Modified or Translated for the New System}
-\lips
+
+\par{The new system will take the raw data directly from the FRDR repository and present it to users. There are use cases in which the data will be processed for the purposes 
+     of producing metrics or visualizations which is relevant to the functional requirements rather than this section. Thus, no data needs to be modified or translated for this new system.}
 
 \section{Costs}
 \lips
