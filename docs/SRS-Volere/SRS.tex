@@ -18,6 +18,166 @@
     urlcolor=cyan           % color of external links
 }
 
+% ~~~~~~~ Glossary Content Goes Here ~~~~~~~
+
+\usepackage[nonumberlist, nopostdot, nogroupskip]{glossaries}
+
+% Define custom glossary types 
+\newglossary[slg]{SWE}{swd}{swi}{Software Engineering Terms}
+\newglossary[dlg]{domain}{dld}{dli}{Domain-Specific Research Terms}
+\newglossary[glg]{general}{gld}{gli}{General Terms}
+
+% Make glossaries
+\makenoidxglossaries
+ 
+% Software Engineering Related Technical Terms 
+
+\newglossaryentry{api}{
+    type=SWE,
+    name={API}, 
+    description={An interface or set of rules that allow different software systems to communicate with each other.}
+}
+
+\newglossaryentry{backend}{
+    type=SWE,
+    name={Backend}, 
+    description={The server-side part of the system responsible for business logic, data processing, storage and retrieval.}
+}
+
+\newglossaryentry{frontend}{
+    type=SWE,
+    name={Frontend}, 
+    description={The part of the system that the user interacts with (e.g. the website interface)}
+}
+
+\newglossaryentry{nlp}{
+    type=SWE,
+    name={Natural Language Processing (NLP)},
+    description={A field of artificial intelligence that enables machine interpretation of human language.}
+}
+
+\newglossaryentry{database-schema}{
+    type=SWE,
+    name={Database Schema},
+    description={The structure of a database, including tables, fields, and relationships}
+}
+
+\newglossaryentry{data-pipeline}{
+    type=SWE,
+    name={Data Pipeline},
+    description={A sequence of data processing steps that transform raw inputs into usable outputs}
+}
+
+\newglossaryentry{metadata}{
+    type=SWE,
+    name={Metadata},
+    description={Descriptive information about a dataset, such as trial number, injection count, or timestamps}
+}
+
+\newglossaryentry{llm}{
+    type=SWE,
+    name={Large Language Model (LLM)},
+    description={An AI model capable of understanding and generating human-like language.}
+}
+
+\newglossaryentry{relational-database}{
+    type=SWE,
+    name={Relational Database},
+    description={A database structured for relations among stored data, typically organized in tables with rows and columns}
+}
+
+\newglossaryentry{dbms}{
+    type=SWE,
+    name={Database Management System (DBMS)},
+    description={Software that allows users to define, create, maintain, and control access to databases.}
+}
+
+\newglossaryentry{query}{
+    type=SWE,
+    name={Query},
+    description={A structured request to retrieve or manipulate data from a database.}
+}
+
+\newglossaryentry{endpoint}{
+    type=SWE,
+    name={Endpoint},
+    description={A specific URL or function in an API that allows access to a particular service or resource.}
+}
+
+
+\newglossaryentry{deployment}{
+    type=SWE,
+    name={Deployment},
+    description={The process of making a software system available for use, including installing, configuring, and launching it in a target environment.}
+}
+
+%Domain Specific Research Terminology 
+
+\newglossaryentry{ocd}{
+    type=domain,
+    name={Obsessive-Compulsive Disorder (OCD)},
+    description={A psychiatric disorder characterized by intrusive thoughts and repetitive behaviors}
+}
+
+\newglossaryentry{rat-behavioral-trials}{
+    type=domain,
+    name={Rat Behavioral Trials},
+    description={Controlled experiments recording rat movements and actions under specific conditions}
+}
+
+\newglossaryentry{spatial-temporal-data}{
+    type=domain,
+    name={Spatial-Temporal Data},
+    description={Data that records both position (x, y coordinates) and time (t)}
+}
+
+\newglossaryentry{trajectory}{
+    type=domain,
+    name={Trajectory},
+    description={The path taken by a rat during a trial, usually represented as a series of coordinates}
+}
+
+\newglossaryentry{behavioral-metrics}{
+    type=domain,
+    name={Behavioral Metrics},
+    description={Quantitative measures of behavior, such as distance traveled or number of returns to a location}
+}
+
+\newglossaryentry{frdr}{
+    type=domain,
+    name={FRDR (Federated Research Data Repository)},
+    description={The Canadian platform where the dataset is currently stored publicly}
+}
+
+%General Definitions
+
+\newglossaryentry{open-source}{
+    type=general,
+    name={Open Source},
+    description={Software whose source code is publicly available for use, modification, and distribution}
+}
+
+\newglossaryentry{user-interface}{
+    type=general,
+    name={User Interface (UI)},
+    description={The visual and interactive elements that allow users to interact with a system}
+}
+
+\newglossaryentry{accessibility}{
+    type=general,
+    name={Accessibility},
+    description={The design of systems so they can be used by people with diverse abilities and disabilities}
+}
+
+\newglossaryentry{usability}{
+    type=general,
+    name={Usability},
+    description={The ease with which a user can learn and effectively interact with a system}
+}
+
+\glsaddallunused
+
+
 \newcommand{\lips}{\textit{Insert your content here.}}
 
 \input{../Comments}
@@ -57,26 +217,26 @@ Date 2 & 1.1 & Notes\\
 
 \par{The business of the user is to use the system to aid in the
 creation and analysis of experiments relating to a large but fragmented data set
-of rat trials that investigate compulsive behaviour of rats and how they relate to various 
+of \gls{rat-behavioral-trials} that investigate compulsive behaviour of rats and how they relate to various 
 factors such as drug injections or brain legions. This data set is comprised of videos of rats
-moving on a flat surface, files of their (x,y) coordinates and plots that show the trajectories
-of these coordinates. Users may want to
+moving on a flat surface, files of their (x,y) coordinates and plots that show the \gls{trajectory} of these coordinates. Users may want to
 extract a concise set of pre-existing data that can be applicable to
 their hypothesis to streamline their workflow and avoid the necessity of carrying out trials.
 Users may also want to use the system to provide analysis on the data set as a means of
-further supplementing ther academic work. This can include drawing behavioural metrics of the rats
+further supplementing their academic work. This can include drawing \gls{behavioral-metrics} of the rats
 based on various parameters (i.e. rate of compulsion based on injection type) or data visualizations
-based similarily on compulsive behaviours as they relate to attributes of the rats.}
+based similarly on compulsive behaviours as they relate to attributes of the rats.}
 
 \lips
+
 \subsection{Goals of the Project}
 
 \par{The high-level goal of the project is to provide users in the field of behavioural sciences,
-a unified and non-technical way of drawing from the vast amount of available data on OCD rat trials
+a unified and non-technical way of drawing from the vast amount of available data on \gls{ocd} rat trials
 to aid in their academic work and experiments. This will be accomplished via the following sub-goals:}
 
 \begin{itemize}
-    \item Create a DBMS that provides query access to the entirety of the data set of rat trials as well as all metadata associated with the data.
+    \item Create a \gls{dbms} that provides \gls{query} access to the entirety of the data set of \gls{rat-behavioral-trials} as well as all \gls{metadata} associated with the data.
     \item Provide a UI that makes querying this data approachable to non-technical users by incorporating familiar and intuitive filtering and searching techniques
     (Attribute filters, Natural Language search bar). Further the UI must provide users with pre-generated query options that are likely to
     be useful for users that may not know where to start. This could include selecting all rat trials of a particular drug injection along with
@@ -92,16 +252,16 @@ to aid in their academic work and experiments. This will be accomplished via the
 \subsection{Client}
 
 \par{The clients for this project are Dr. Henry Szechtman and Dr. Anna Dvorkin-Gheva, two professors at McMaster University who are experts in
-the fields of Psychiatry and Behavioural Neurosciences and Bioinformatics, respectively. They have worked extensively with these OCD rat trials and
-were responsible for generating and depositing this data in the FRDR repository where it currently is stored. Dr. Szechtman and Dr. Dvorkin-Gheva want
+the fields of Psychiatry and Behavioural Neurosciences and Bioinformatics, respectively. They have worked extensively with these \gls{ocd} rat trials and
+were responsible for generating and depositing this data in the \gls{frdr} repository where it currently is stored. Dr. Szechtman and Dr. Dvorkin-Gheva want
 to drastically improve the availability of the vast data set they have created so that the trials they conducted can become useful to other students and academics in related fields.}
 \lips
 \subsection{Customer}
 
-\par{Since our application is intended to be open-source and accessible to the public for free, our customers will simply be a group of end-users
+\par{Since our application is intended to be \gls{open-source} and accessible to the public for free, our customers will simply be a group of end-users
 of our application. Our end users will primarily involve behavioural neuroscience researchers like Dr. Henry Szechtman and Dr. Anna Dvorkin-Gheva, 
 as well as graduate students and lab members, who will all benefit from the user-friendly and accessible functionality of the platform. 
-Additionally we will have data scientists as customers, who will benefit from our application architecture anf offered functionality for 
+Additionally we will have data scientists as customers, who will benefit from our application architecture and offered functionality for 
 their purposes. Lastly, collaborating institutions and organizations from the open research community will be users of our application, 
 since the application is intended to be free-use and accessible to all.}
 \lips
@@ -210,7 +370,12 @@ culmulatively as a team. Thus, the total budget constraints for this project are
 \section{Naming Conventions and Terminology}
 \subsection{Glossary of All Terms, Including Acronyms, Used by Stakeholders
 involved in the Project}
-\lips
+
+\printnoidxglossary[type=SWE, title={Software Engineering Terms}]
+\printnoidxglossary[type=domain, title={Domain-Specific Research Terms}]
+\printnoidxglossary[type=general, title={General Terms}]
+
+
 
 \section{Relevant Facts And Assumptions}
 \subsection{Relevant Facts}
