@@ -235,7 +235,7 @@ The product is a web-based data analysis platform designed specifically for the 
 
 \textbf{In-Scope Features}:
 \begin{itemize}
-    \item \textbf{Database and Backend}: PostgreSQL schema, FastAPI endpoints, metadata management, spatial-temporal indexing, video file management.
+    \item \textbf{Database and Backend}: PostgreSQL schema, FastAPI endpoints, metadata management, video file management.
     \item \textbf{Frontend}: Up to date interface with advanced search/filtering, trajectory visualization, and intuitive design for non-technical researchers.
     \item \textbf{Data Processing}: Python based analysis tools for behavioral metrics, pattern detection algorithms, automated workflows, and an extensible architecture for future video-based analysis.
     \item \textbf{Deployment and Accessibility}: A fully deployed platform accessible to international researchers, with documentation, tutorials, and open-source analysis tools.
@@ -252,43 +252,29 @@ This boundary ensures the platform delivers a usable, scalable, and research-rea
 
 \subsection{Product Use Case Table}
 
-\begin{table}[h]
+\begin{table}[h!]
 \centering
-\begin{tabular}{|c|c|c|c|c|}
+\begin{tabular}{|p{2.5cm}|p{2cm}|p{3.0cm}|p{3.0cm}|p{2.5cm}|}
 \hline
-Use Case & Actors & Description & Preconditions & Outcome \\
+\textbf{Use Case} & \textbf{Actors} & \textbf{Description} & \textbf{Preconditions} & \textbf{Outcome} \\
 \hline
 UC1: Search \& Filter Data & Researcher & Query dataset & User logged in; dataset available & Filtered dataset returned \\
 \hline
-UC2: Download Data & Researcher & Download trials or videos & Dataset query completed & Files downloaded \\
+UC2: Download Data & Researcher & Download trials & Dataset query completed & Files downloaded \\
 \hline
-UC3: Visualize Trajectories & Researcher & Plot movement paths & Data subset selected & Interactive plots displayed \\
-\hline
-UC4: Video with Trajectory & Researcher & Play video with trajectory overlay & Video and trajectory linked & Video + overlay displayed \\
-\hline
-UC5: Natural Language Query & Researcher & Enter plain-English query & NLP service available & Relevant trials returned \\
-\hline
-UC6: Automated Analysis & Researcher & Run predefined workflows & Data subset selected & Metrics/graphs generated \\
-\hline
-UC7: Manage Metadata & Admin/Developer & Update metadata schema & Admin privileges & Metadata updated \\
-\hline
-UC8: Deployment \& Access & DevOps Engineer & Deploy platform online & Backend/frontend configured & Platform accessible \\
+UC4: Deployment \& Access & DevOps Engineer & Deploy platform online or locally & Backend/frontend configured & Platform accessible \\
 \hline
 \end{tabular}
 \caption{Product Use Case Table}
 \end{table}
 
-
 \subsection{Individual Product Use Cases (PUC’s)}
 
-\textbf{PUC1: Search and Filter Data}\\
-The researcher searches the dataset using filters such as trial number, injection count, or behavioral pattern. The system returns relevant subsets of data.  
-
-\textbf{PUC2: Download Data}\\
-The researcher downloads selected subsets of trials, metadata, or video files for offline analysis.  
-
-\textbf{PUC3: Run Automated Analysis}\\
-The researcher executes predefined workflows (e.g., measuring exploration or compulsive checking behavior). The system outputs metrics, graphs, and summary reports.  
+\begin{description}
+\item[PUC1: Search and Filter Data] The researcher searches the dataset using filters such as trial number, injection count, or behavioral pattern. The system returns relevant subsets of data.
+\item[PUC2: Download Data] The researcher downloads selected subsets of trials, metadata, or video files for offline analysis.
+\item[PUC3: System Deployment and Access] The DevOps engineer deploys the platform to ensure that researchers can access it globally, with necessary backend and frontend services running reliably.
+\end{description}
 
 \section{Functional Requirements}
 \subsection{Functional Requirements}
