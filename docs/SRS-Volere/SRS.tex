@@ -206,11 +206,42 @@ involved in the Project}
 
 \section{Relevant Facts And Assumptions}
 \subsection{Relevant Facts}
-\lips
+
+\begin{itemize}
+    \item The entirety of the data set that is being worked with is available in the FRDR repository
+    but is fragmented into 29 independent dats sets. 29 being the number of studies written that required relevant
+    rat trials to be performed.
+    \item The culmination of all the relevant data for this project is 11 terabytes and contains nearly 60,000 data objects with
+    20,000 hours of video files alone.
+    \item Every data object has many metadata annotations (or attributes) associated within them. In the current data hosting
+    implementation on the FRDR, these are all contained in a README file that is stored in the root directory of each dataset.
+    This README file has a row for each data object in the dataset and columns for each attribute.
+\end{itemize}
+
 \subsection{Business Rules}
-\lips
+
+\begin{itemize}
+    \par{This system does not exist within a traditional business environment and is
+    rather in the realm of academia. As a result, there are no specific business rules that shape
+    the requirements, the system acts as a tool in academic pursuits. Additionally, any business rules
+    related to protection of information do not apply as all data being used is publicly available to
+    the general public already. }
+\end{itemize}
+
 \subsection{Assumptions}
-\lips
+
+\begin{itemize}
+    \item The availability and accessibility of the data in the FRDR will be upheld in definitely or at least for the lifecycle of this project.
+    \item The system will not at any point, need to physically store any of the relevant data and can use the FRDR as a datastore.
+    \item The API provided by the FRDR repository will be made available for our use.
+    \item The query performance of the FRDR API will be reasonably efficient for our purposes.
+    \item An out of the box machine learning model(s) will be available and capable of being trained in a way that it can
+    perform natural language queries and categorization of rat behaviours. 
+    \item API requests to the repository are independent of the user's operating system and device state. i.e. Users
+    will not require any setup on their local machine to use the system.
+
+\end{itemize}
+
 
 \section{The Scope of the Work}
 \subsection{The Current Situation}
