@@ -18,6 +18,166 @@
     urlcolor=cyan           % color of external links
 }
 
+% ~~~~~~~ Glossary Content Goes Here ~~~~~~~
+
+\usepackage[nonumberlist, nopostdot, nogroupskip]{glossaries}
+
+% Define custom glossary types 
+\newglossary[slg]{SWE}{swd}{swi}{Software Engineering Terms}
+\newglossary[dlg]{domain}{dld}{dli}{Domain-Specific Research Terms}
+\newglossary[glg]{general}{gld}{gli}{General Terms}
+
+% Make glossaries
+\makenoidxglossaries
+ 
+% Software Engineering Related Technical Terms 
+
+\newglossaryentry{api}{
+    type=SWE,
+    name={API}, 
+    description={An interface or set of rules that allow different software systems to communicate with each other.}
+}
+
+\newglossaryentry{backend}{
+    type=SWE,
+    name={Backend}, 
+    description={The server-side part of the system responsible for business logic, data processing, storage and retrieval.}
+}
+
+\newglossaryentry{frontend}{
+    type=SWE,
+    name={Frontend}, 
+    description={The part of the system that the user interacts with (e.g. the website interface)}
+}
+
+\newglossaryentry{nlp}{
+    type=SWE,
+    name={Natural Language Processing (NLP)},
+    description={A field of artificial intelligence that enables machine interpretation of human language.}
+}
+
+\newglossaryentry{database-schema}{
+    type=SWE,
+    name={Database Schema},
+    description={The structure of a database, including tables, fields, and relationships}
+}
+
+\newglossaryentry{data-pipeline}{
+    type=SWE,
+    name={Data Pipeline},
+    description={A sequence of data processing steps that transform raw inputs into usable outputs}
+}
+
+\newglossaryentry{metadata}{
+    type=SWE,
+    name={Metadata},
+    description={Descriptive information about a dataset, such as trial number, injection count, or timestamps}
+}
+
+\newglossaryentry{llm}{
+    type=SWE,
+    name={Large Language Model (LLM)},
+    description={An AI model capable of understanding and generating human-like language.}
+}
+
+\newglossaryentry{relational-database}{
+    type=SWE,
+    name={Relational Database},
+    description={A database structured for relations among stored data, typically organized in tables with rows and columns}
+}
+
+\newglossaryentry{dbms}{
+    type=SWE,
+    name={Database Management System (DBMS)},
+    description={Software that allows users to define, create, maintain, and control access to databases.}
+}
+
+\newglossaryentry{query}{
+    type=SWE,
+    name={Query},
+    description={A structured request to retrieve or manipulate data from a database.}
+}
+
+\newglossaryentry{endpoint}{
+    type=SWE,
+    name={Endpoint},
+    description={A specific URL or function in an API that allows access to a particular service or resource.}
+}
+
+
+\newglossaryentry{deployment}{
+    type=SWE,
+    name={Deployment},
+    description={The process of making a software system available for use, including installing, configuring, and launching it in a target environment.}
+}
+
+%Domain Specific Research Terminology 
+
+\newglossaryentry{ocd}{
+    type=domain,
+    name={Obsessive-Compulsive Disorder (OCD)},
+    description={A psychiatric disorder characterized by intrusive thoughts and repetitive behaviors}
+}
+
+\newglossaryentry{rat-behavioral-trials}{
+    type=domain,
+    name={Rat Behavioral Trials},
+    description={Controlled experiments recording rat movements and actions under specific conditions}
+}
+
+\newglossaryentry{spatial-temporal-data}{
+    type=domain,
+    name={Spatial-Temporal Data},
+    description={Data that records both position (x, y coordinates) and time (t)}
+}
+
+\newglossaryentry{trajectory}{
+    type=domain,
+    name={Trajectory},
+    description={The path taken by a rat during a trial, usually represented as a series of coordinates}
+}
+
+\newglossaryentry{behavioral-metrics}{
+    type=domain,
+    name={Behavioral Metrics},
+    description={Quantitative measures of behavior, such as distance traveled or number of returns to a location}
+}
+
+\newglossaryentry{frdr}{
+    type=domain,
+    name={FRDR (Federated Research Data Repository)},
+    description={The Canadian platform where the dataset is currently stored publicly}
+}
+
+%General Definitions
+
+\newglossaryentry{open-source}{
+    type=general,
+    name={Open Source},
+    description={Software whose source code is publicly available for use, modification, and distribution}
+}
+
+\newglossaryentry{user-interface}{
+    type=general,
+    name={User Interface (UI)},
+    description={The visual and interactive elements that allow users to interact with a system}
+}
+
+\newglossaryentry{accessibility}{
+    type=general,
+    name={Accessibility},
+    description={The design of systems so they can be used by people with diverse abilities and disabilities}
+}
+
+\newglossaryentry{usability}{
+    type=general,
+    name={Usability},
+    description={The ease with which a user can learn and effectively interact with a system}
+}
+
+\glsaddallunused
+
+
 \newcommand{\lips}{\textit{Insert your content here.}}
 
 \input{../Comments}
@@ -202,7 +362,12 @@ culmulatively as a team. Thus, the total budget constraints for this project are
 \section{Naming Conventions and Terminology}
 \subsection{Glossary of All Terms, Including Acronyms, Used by Stakeholders
 involved in the Project}
-\lips
+
+\printnoidxglossary[type=SWE, title={Software Engineering Terms}]
+\printnoidxglossary[type=domain, title={Domain-Specific Research Terms}]
+\printnoidxglossary[type=general, title={General Terms}]
+
+
 
 \section{Relevant Facts And Assumptions}
 \subsection{Relevant Facts}
