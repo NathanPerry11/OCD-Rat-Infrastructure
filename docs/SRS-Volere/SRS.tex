@@ -229,12 +229,66 @@ involved in the Project}
 \lips
 
 \section{The Scope of the Product}
+
 \subsection{Product Boundary}
-\lips
+The product is a web-based data analysis platform designed specifically for the Dr. Szechtman Lab’s OCD behavioral neuroscience dataset. Its scope includes database design, backend services, frontend user interfaces, and data analysis pipelines to enable global researchers to access, search, analyze, and visualize rat behavioral data.
+
+\textbf{In-Scope Features}:
+\begin{itemize}
+    \item \textbf{Database and Backend}: PostgreSQL schema, FastAPI endpoints, metadata management, spatial-temporal indexing, video file management.
+    \item \textbf{Frontend}: Up to date interface with advanced search/filtering, trajectory visualization, and intuitive design for non-technical researchers.
+    \item \textbf{Data Processing}: Python based analysis tools for behavioral metrics, pattern detection algorithms, automated workflows, and an extensible architecture for future video-based analysis.
+    \item \textbf{Deployment and Accessibility}: A fully deployed platform accessible to international researchers, with documentation, tutorials, and open-source analysis tools.
+\end{itemize}
+
+\textbf{Out-of-Scope Features}:
+\begin{itemize}
+    \item Direct integration with external datasets outside the OCD rat data repository.
+    \item Real-time data collection from new experiments (focus is on analysis of existing dataset).
+    \item Advanced machine learning video recognition (future extensibility only, not initial deliverable).
+\end{itemize}
+
+This boundary ensures the platform delivers a usable, scalable, and research-ready tool while avoiding scope creep into areas requiring separate infrastructure or regulatory compliance.
+
 \subsection{Product Use Case Table}
-\lips
-\subsection{Individual Product Use Cases (PUC's)}
-\lips
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Use Case & Actors & Description & Preconditions & Outcome \\
+\hline
+UC1: Search \& Filter Data & Researcher & Query dataset & User logged in; dataset available & Filtered dataset returned \\
+\hline
+UC2: Download Data & Researcher & Download trials or videos & Dataset query completed & Files downloaded \\
+\hline
+UC3: Visualize Trajectories & Researcher & Plot movement paths & Data subset selected & Interactive plots displayed \\
+\hline
+UC4: Video with Trajectory & Researcher & Play video with trajectory overlay & Video and trajectory linked & Video + overlay displayed \\
+\hline
+UC5: Natural Language Query & Researcher & Enter plain-English query & NLP service available & Relevant trials returned \\
+\hline
+UC6: Automated Analysis & Researcher & Run predefined workflows & Data subset selected & Metrics/graphs generated \\
+\hline
+UC7: Manage Metadata & Admin/Developer & Update metadata schema & Admin privileges & Metadata updated \\
+\hline
+UC8: Deployment \& Access & DevOps Engineer & Deploy platform online & Backend/frontend configured & Platform accessible \\
+\hline
+\end{tabular}
+\caption{Product Use Case Table}
+\end{table}
+
+
+\subsection{Individual Product Use Cases (PUC’s)}
+
+\textbf{PUC1: Search and Filter Data}\\
+The researcher searches the dataset using filters such as trial number, injection count, or behavioral pattern. The system returns relevant subsets of data.  
+
+\textbf{PUC2: Download Data}\\
+The researcher downloads selected subsets of trials, metadata, or video files for offline analysis.  
+
+\textbf{PUC3: Run Automated Analysis}\\
+The researcher executes predefined workflows (e.g., measuring exploration or compulsive checking behavior). The system outputs metrics, graphs, and summary reports.  
 
 \section{Functional Requirements}
 \subsection{Functional Requirements}
