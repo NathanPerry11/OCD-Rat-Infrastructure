@@ -820,11 +820,32 @@ UC4: Deployment \& Access & DevOps Engineer & Deploy platform online or locally 
 
 \section{Maintainability and Support Requirements}
 \subsection{Maintenance Requirements}
-\lips
+
+\begin{itemize}
+    \item Due to the open source nature of this system, maintenance shall be possible for those who are not the original developers.
+    The future design documentation shall provide the necessary information to accomplish this
+    \item The system shall be able to immediately accomodate the addition of new datasets into the \gls{frdr}
+    assuming the contain relevant data and reflect the same structure and template as the existing datasets.
+\end{itemize}
+
 \subsection{Supportability Requirements}
-\lips
+
+\begin{itemize}
+    \item The system shall be released alongside a user manual to support users in helping them understand
+    the capabilities of the system and the methods for producing useful requests to the system.
+    \item The system shall be self-supporting outside of the user manual as the developers will not be able
+    to provide support after the project concludes and the developers graduate.
+\end{itemize}
+
 \subsection{Adaptability Requirements}
-\lips
+
+\begin{itemize}
+    \item The system is expected to run on Windows 10 and later, Linux and MacOS.
+    \item The system is expected to run on the top three most popular web browsers.
+    \item The system is expected to maintain reasonable performance for users using devices
+    with poor processing power. 
+
+\end{itemize}
 
 \section{Security Requirements}
 \subsection{Access Requirements}
@@ -865,14 +886,7 @@ we are allowed to reference the work of the capstone group, ratbat.mcmaster.ca, 
 \lips
 
 \section{Open Issues}
-
-\begin{itemize}
-    \item Verification of the specific capabilities of the \gls{frdr} \gls{api} have not yet been investigated.
-    \item The extraction of the metadata of each data object is not complete and the process for extracting/referencing the metadata
-    into a relational database schema has not yet completed.
-    \item An investigation into the ability for an Off-the-Shelf \gls{llm} model to accurately identify compulsive behavior in the
-    \gls{rat-behavioral-trials} is not yet complete.
-\end{itemize}
+\lips
 
 \section{Off-the-Shelf Solutions}
 \subsection{Ready-Made Products}
