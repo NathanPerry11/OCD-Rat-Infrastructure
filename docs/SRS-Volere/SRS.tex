@@ -9,6 +9,9 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
+\usepackage{float}
+\usepackage{graphicx}
+
 \hypersetup{
     bookmarks=true,         % show bookmarks bar?
       colorlinks=true,      % false: boxed links; true: colored links
@@ -249,13 +252,49 @@ to aid in their academic work and experiments. This will be accomplished via the
 
 \lips
 \section{Stakeholders}
-\subsection{Client}
 
+\subsection{Client}
+\label{sec:2.1client}
 \par{The clients for this project are Dr. Henry Szechtman and Dr. Anna Dvorkin-Gheva, two professors at McMaster University who are experts in
 the fields of Psychiatry and Behavioural Neurosciences and Bioinformatics, respectively. They have worked extensively with these \gls{ocd} rat trials and
 were responsible for generating and depositing this data in the \gls{frdr} repository where it currently is stored. Dr. Szechtman and Dr. Dvorkin-Gheva want
-to drastically improve the availability of the vast data set they have created so that the trials they conducted can become useful to other students and academics in related fields.}
-\lips
+to drastically improve the availability of the vast data set they have created so that the trials they conducted can become useful to other students and academics in related fields. \\\\}
+
+
+
+
+\par{Client Decisions}
+\begin{itemize}
+    \item User Interface (tools and organization of the data).
+    \item The data that is accesible to the user.
+    \item Goals of the project.
+    \item Extensions and add ons in the project.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{2.1 Org Chart.png}
+    \caption{Client Organizational Chart.}
+    \label{fig:myimage}
+\end{figure}
+
+\begin{table}[H] 
+    \centering
+    \caption{Client and Customer Revision Dates}
+    \label{tab:my_table} 
+
+    \begin{tabular}{|l|c|} 
+        \hline 
+        Review Checkpoint & Date \\ 
+        \hline 
+        Revision 0 Design Demonstration  & Feb 2-13 2025 \\
+        \hline 
+        Final System Demonstration & Mar 23-29 2025 \\
+        \hline 
+    \end{tabular}
+\end{table}
+\par{Weekly meetings as well as external contact with professor will be done sporadically.}
+
 \subsection{Customer}
 
 \par{Since our application is intended to be \gls{open-source} and accessible to the public for free, our customers will simply be a group of end-users
@@ -263,22 +302,95 @@ of our application. Our end users will primarily involve behavioural neuroscienc
 as well as graduate students and lab members, who will all benefit from the user-friendly and accessible functionality of the platform. 
 Additionally we will have data scientists as customers, who will benefit from our application architecture and offered functionality for 
 their purposes. Lastly, collaborating institutions and organizations from the open research community will be users of our application, 
-since the application is intended to be free-use and accessible to all.}
-\lips
+since the application is intended to be free-use and accessible to all.\\\\}
+\par{Revision Checkpoitns: See \hyperref[sec:2.1client]{2.1 Client}}
+
+
 \subsection{Other Stakeholders}
 
 \par{Other stakeholders for our project would be defined as any person or group of interest in the project outside the 
 client and the customer. The first one would be our group, Gouda Engineers, as our task is to turn the project from the 
 client/customer’s idea to a real product. We focus on creating documentation, building code, testing and deploying the 
 software. Another stakeholder is our TA, Tiago de Moraes Machado, who is there to help our group along the way with our 
-project by keeping us on track and providing feedback where it is needed. Lastly, our professor, Spencer Smith and our 
+project by keeping us on track and providing feedback where it is needed. Lastly, our professor, Dr. Spencer Smith and our 
 class, Capstone 4G06, would be the final stakeholders as they provide the guide and structure for building the project, 
 knowledge on the topics for each step, and feedback where it is needed.}
-\lips
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{2.3 Other Stakeholders Chart.png}
+    \caption{Stakeholder Chart.}
+    \label{fig:myimage}
+\end{figure}
+
 \subsection{Hands-On Users of the Project}
-\lips
+
+The primary hands-on users of the Platform are those who will directly interact with the system for data access, analysis, and visualization. These include:
+
+\begin{itemize}
+    \item \textbf{Behavioral Neuroscientists:} Researchers who will query the dataset, visualize behavioral trajectories, and extract patterns for their studies.
+    \item \textbf{Graduate and Undergraduate Students:} Students accessing subsets of the dataset for coursework, experiments, or learning purposes.
+    \item \textbf{Data Scientists:} Users who programmatically analyze the data using Python or other tools, running algorithms and generating behavioral metrics.
+    \item \textbf{Developers:} Individuals extending the platform or integrating it into custom workflows, running the system locally when needed.
+\end{itemize}
+
+These users will primarily interact with the system through the web interface for querying, filtering, using software tools for advanced analysis. 
+
+
 \subsection{Personas}
-\lips
+
+Personas represent typical users of the system. They help in understanding user needs, goals, and interactions with the software. Each persona should include demographic information, technical expertise, motivations, and usage patterns.
+
+\begin{itemize}
+    \item \textbf{Persona Name:} Undergraduate Student
+    \begin{itemize}
+        \item \textbf{Role/Occupation:} Undergraduate student studying in the sciences.
+        \item \textbf{Demographics:} 21 years old, undergraduate at McMaster University.
+        \item \textbf{Technical Expertise:} Basic knowledge in the sciences, familiar with query interfaces, moderate computer and data analysis skills.
+        \item \textbf{Goals:} Search, filter, and download records from the database for coursework or research projects.
+        \item \textbf{Tasks/Responsibilities:} Navigate the website, search and filter the database, access relevant datasets.
+        \item \textbf{Pain Points:} Current data is unorganized, difficult to download, and hard to query.
+        \item \textbf{Usage Scenario:} Accessing the platform during a lab session to analyze data and draw conclusions.
+    \end{itemize}
+
+    \item \textbf{Persona Name:} Developer
+    \begin{itemize}
+        \item \textbf{Role/Occupation:} Software developer or technical enthusiast.
+        \item \textbf{Demographics:} 20+ years old, undergraduate-level knowledge, comfortable with computers and software.
+        \item \textbf{Technical Expertise:} High technical skill in programming, database usage, and development tools.
+        \item \textbf{Goals:} Extend system features or integrate the platform into custom workflows.
+        \item \textbf{Tasks/Responsibilities:} DevOps, project management, software development, testing new features.
+        \item \textbf{Pain Points:} Desired features may not yet be implemented; may need to work locally to customize functionality.
+        \item \textbf{Usage Scenario:} Downloading the system to run locally and develop additional features or tools.
+    \end{itemize}
+
+    \item \textbf{Persona Name:} Advisors
+    \begin{itemize}
+        \item \textbf{Role/Occupation:} Experienced researchers or professors overseeing the project.
+        \item \textbf{Demographics:} Highly experienced in behavioral neuroscience, main stakeholders for the project.
+        \item \textbf{Technical Expertise:} Advanced knowledge in the field and research methodologies.
+        \item \textbf{Goals:} Ensure the system is scientifically accurate and usable for research.
+        \item \textbf{Tasks/Responsibilities:} Provide guidance, make decisions on features, validate data integrity.
+        \item \textbf{Pain Points:} Difficulty ensuring the data is accessible and reliable for all users.
+        \item \textbf{Usage Scenario:} Reviewing the platform and verifying its usability for research purposes.
+    \end{itemize}
+
+    \item \textbf{Persona Name:} Data Scientist
+    \begin{itemize}
+        \item \textbf{Role/Occupation:} Researcher or analyst focused on computational analysis.
+        \item \textbf{Demographics:} Graduate student or postdoctoral researcher with experience in data science.
+        \item \textbf{Technical Expertise:} Proficient in Python, R, and statistical/machine learning tools.
+        \item \textbf{Goals:} Analyze large-scale behavioral datasets, extract patterns, and generate insights.
+        \item \textbf{Tasks/Responsibilities:} Run algorithms, process data, visualize results, integrate findings into research.
+        \item \textbf{Pain Points:} Limited access to synchronized trajectory and video data; inefficient querying slows analysis.
+        \item \textbf{Usage Scenario:} Programmatically accessing datasets to perform behavioral analysis and visualize results.
+    \end{itemize}
+\end{itemize}
+
+
+
+
+
 \subsection{Priorities Assigned to Users}
 \lips
 \subsection{User Participation}
@@ -322,7 +434,16 @@ knowledge on the topics for each step, and feedback where it is needed.}
 \end{itemize}
 
 \subsection{Anticipated Workplace Environment}
-\lips
+
+The anticipated workplace environment for the software system includes:
+
+\begin{itemize}
+    \item The workspace is defined as the computer environment where the software will operate.
+    \item The system is expected to be used primarily on standard desktop or laptop computers with modern operating systems such as Windows, macOS, or Linux.
+    \item Users will access the system through web browsers (e.g., Chrome, Edge, Safari) or dedicated client applications, depending on the software configuration.
+    \item The system may require external software installed to run locally, such as Docker and Kubernetes.
+\end{itemize}
+
 \subsection{Schedule Constraints}
 
 \par{Due to the nature of the capstone course, the scheduling constraints
@@ -420,7 +541,54 @@ involved in the Project}
 \subsection{The Context of the Work}
 \lips
 \subsection{Work Partitioning}
-\lips
+
+The work is divided into the following components to ensure clarity, manageability, and efficient development:
+
+\begin{itemize}
+    \item \textbf{Database Design and Backend Development:} 
+        \begin{itemize}
+            \item Design a robust PostgreSQL database schema for behavioral data, metadata, video files, and research files.
+            \item Implement REST API endpoints for data querying, filtering, and downloading.
+            \item Create efficient indexing and file management systems for large-scale spatial-temporal data and video content.
+        \end{itemize}
+        
+    \item \textbf{Interactive Web Interface:} 
+        \begin{itemize}
+            \item Build a React-based frontend with search and filtering capabilities.
+            \item Implement natural language querying for intuitive exploration of behavioral datasets.
+            \item Develop data visualization tools for plotting trajectories and behavioral metrics.
+            \item Integrate synchronized video playback with trajectory data.
+            \item Design user-friendly interfaces accessible to researchers without programming experience.
+        \end{itemize}
+        
+    \item \textbf{Data Processing Pipeline:} 
+        \begin{itemize}
+            \item Develop Python tools to process spatial-temporal coordinate data into meaningful behavioral measures.
+            \item Implement algorithms to detect key behavioral patterns (e.g., home-base behavior, checking routes, exploration metrics).
+            \item Create automated analysis workflows for common research tasks.
+            \item Ensure the architecture is extensible for future video analysis capabilities.
+        \end{itemize}
+        
+    \item \textbf{NLP Integration:} 
+        \begin{itemize}
+            \item Integrate language model APIs to support natural language queries.
+        \end{itemize}
+        
+    \item \textbf{Deployment and DevOps:} 
+        \begin{itemize}
+            \item Deploy the platform for online access with reliability and scalability.
+            \item Implement caching, backup, and security measures.
+        \end{itemize}
+        
+    \item \textbf{Documentation and Tutorials:} 
+        \begin{itemize}
+            \item Prepare user manuals, tutorials, and technical documentation for researchers.
+            \item Provide guidelines for extending and maintaining the platform.
+        \end{itemize}
+\end{itemize}
+
+
+
 \subsection{Specifying a Business Use Case (BUC)}
 \lips
 
@@ -497,7 +665,8 @@ UC4: Deployment \& Access & DevOps Engineer & Deploy platform online or locally 
 \end{itemize}
 
 \subsection{Style Requirements}
-\lips
+
+\par{There are no explicit style requirements for this system.}
 
 \section{Usability and Humanity Requirements}
 
@@ -513,7 +682,8 @@ UC4: Deployment \& Access & DevOps Engineer & Deploy platform online or locally 
 \end{itemize}
 
 \subsection{Personalization and Internationalization Requirements}
-\lips
+
+\par{There are no personalization and internationalization requirements for this system.}
 
 
 
@@ -528,7 +698,15 @@ UC4: Deployment \& Access & DevOps Engineer & Deploy platform online or locally 
 \end{itemize}
 
 \subsection{Understandability and Politeness Requirements}
-\lips
+
+\begin{itemize}
+    \item The system shall hide the technical details of its queries from the users and only present naturally understandable information
+    about the result set (i.e. show applied filters, natural language summary of the results).
+    \item The general interface of the system should only include words that are naturally understandable to a non-technical audience (i.e. Add filters vs.
+    refine query or get data vs. send database request) with the exception of technical terms in the behavioural science domain
+    that are inherent to the dataset.
+\end{itemize}
+
 \subsection{Accessibility Requirements}
 
 \par{
