@@ -887,7 +887,10 @@ publicly available through FRDR. \newline \indent There are no privacy requireme
 and they only view already publicly available data, therefore no auditing is required.}
 
 \subsection{Immunity Requirements}
-\lips
+
+\par{The system shall be immune to unauthorized attemps to alter data queries, inject code or exterior data, or overwhelm 
+the system with an excessive ammount of requests. All inputs must be validated with network traffic being served exclusively over HTTPS, 
+and users must be rate-limited to a maximum of 100 query requests per minute.}
 
 \section{Cultural Requirements}
 \subsection{Cultural Requirements}
