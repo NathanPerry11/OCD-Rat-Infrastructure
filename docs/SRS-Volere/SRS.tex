@@ -9,6 +9,9 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
+\usepackage{float}
+\usepackage{graphicx}
+
 \hypersetup{
     bookmarks=true,         % show bookmarks bar?
       colorlinks=true,      % false: boxed links; true: colored links
@@ -249,13 +252,49 @@ to aid in their academic work and experiments. This will be accomplished via the
 
 \lips
 \section{Stakeholders}
-\subsection{Client}
 
+\subsection{Client}
+\label{sec:2.1client}
 \par{The clients for this project are Dr. Henry Szechtman and Dr. Anna Dvorkin-Gheva, two professors at McMaster University who are experts in
 the fields of Psychiatry and Behavioural Neurosciences and Bioinformatics, respectively. They have worked extensively with these \gls{ocd} rat trials and
 were responsible for generating and depositing this data in the \gls{frdr} repository where it currently is stored. Dr. Szechtman and Dr. Dvorkin-Gheva want
-to drastically improve the availability of the vast data set they have created so that the trials they conducted can become useful to other students and academics in related fields.}
-\lips
+to drastically improve the availability of the vast data set they have created so that the trials they conducted can become useful to other students and academics in related fields. \\\\}
+
+
+
+
+\par{Client Decisions}
+\begin{itemize}
+    \item User Interface (tools and organization of the data).
+    \item The data that is accesible to the user.
+    \item Goals of the project.
+    \item Extensions and add ons in the project.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{2.1 Org Chart.png}
+    \caption{Client Organizational Chart.}
+    \label{fig:myimage}
+\end{figure}
+
+\begin{table}[H] 
+    \centering
+    \caption{Client and Customer Revision Dates}
+    \label{tab:my_table} 
+
+    \begin{tabular}{|l|c|} 
+        \hline 
+        Review Checkpoint & Date \\ 
+        \hline 
+        Revision 0 Design Demonstration  & Feb 2-13 2025 \\
+        \hline 
+        Final System Demonstration & Mar 23-29 2025 \\
+        \hline 
+    \end{tabular}
+\end{table}
+\par{Weekly meetings as well as external contact with professor will be done sporadically.}
+
 \subsection{Customer}
 
 \par{Since our application is intended to be \gls{open-source} and accessible to the public for free, our customers will simply be a group of end-users
@@ -263,18 +302,27 @@ of our application. Our end users will primarily involve behavioural neuroscienc
 as well as graduate students and lab members, who will all benefit from the user-friendly and accessible functionality of the platform. 
 Additionally we will have data scientists as customers, who will benefit from our application architecture and offered functionality for 
 their purposes. Lastly, collaborating institutions and organizations from the open research community will be users of our application, 
-since the application is intended to be free-use and accessible to all.}
-\lips
+since the application is intended to be free-use and accessible to all.\\\\}
+\par{Revision Checkpoitns: See \hyperref[sec:2.1client]{2.1 Client}}
+
+
 \subsection{Other Stakeholders}
 
 \par{Other stakeholders for our project would be defined as any person or group of interest in the project outside the 
 client and the customer. The first one would be our group, Gouda Engineers, as our task is to turn the project from the 
 client/customer’s idea to a real product. We focus on creating documentation, building code, testing and deploying the 
 software. Another stakeholder is our TA, Tiago de Moraes Machado, who is there to help our group along the way with our 
-project by keeping us on track and providing feedback where it is needed. Lastly, our professor, Spencer Smith and our 
+project by keeping us on track and providing feedback where it is needed. Lastly, our professor, Dr. Spencer Smith and our 
 class, Capstone 4G06, would be the final stakeholders as they provide the guide and structure for building the project, 
 knowledge on the topics for each step, and feedback where it is needed.}
-\lips
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{2.3 Other Stakeholders Chart.png}
+    \caption{Stakeholder Chart.}
+    \label{fig:myimage}
+\end{figure}
+
 \subsection{Hands-On Users of the Project}
 
 The primary hands-on users of the Platform are those who will directly interact with the system for data access, analysis, and visualization. These include:
