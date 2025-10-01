@@ -11,6 +11,8 @@
 \usepackage{hyperref}
 \usepackage{float}
 \usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{tikz-uml}
 
 \hypersetup{
     bookmarks=true,         % show bookmarks bar?
@@ -640,7 +642,67 @@ The work is divided into the following components to ensure clarity, manageabili
 
 \section{Business Data Model and Data Dictionary}
 \subsection{Business Data Model}
-\lips
+
+\begin{figure}[H]
+\begin{center}
+\begin{tikzpicture}[
+    auto,
+    umlclass/.style={
+        rectangle,
+        draw,
+        fill=orange!10,
+        text width=2.8cm,
+        minimum height=1cm,
+        align=center,
+        font=\bfseries,
+        outer sep=2pt,
+        node distance=3.5cm
+    },
+    umlrelationship/.style={
+        -,-,
+        line width=0.8pt,
+        draw=blue!70!black,
+        shorten >=1pt, shorten <=1pt
+    },
+    multiplicity/.style={
+        font=\sffamily\small,
+        fill=white,
+        inner sep=1pt
+    },
+    every node/.style={font=\sffamily\small}
+]
+
+\node[umlclass] (Researcher) at (0,8) {Researcher};
+\node[umlclass] (Supervisor) at (0,4) {Project Supervisor};
+\node[umlclass] (Developer) at (0,0) {Developer};
+
+\node[umlclass] (FRDR) at (6,0) {FRDR Repository};
+\node[umlclass] (Trial) at (6,4) {Trial};
+\node[umlclass] (Rat) at (6,8) {Rat};
+
+\node[umlclass] (Condition) at (12,8) {Condition};
+\node[umlclass] (Behavior) at (12, 4) {Behavior};
+\node[umlclass] (Metadata) at (12,0) {Metadata};
+
+\draw[umlrelationship] (Researcher) -- (Supervisor) node[multiplicity, pos=0.1, left] {1} node[multiplicity, pos=0.9, left] {*};
+\draw[umlrelationship] (Supervisor) -- (Developer) node[multiplicity, pos=0.1, left] {*} node[multiplicity, pos=0.9, left] {1};
+
+\draw[umlrelationship] (Researcher) -- (Trial) node[multiplicity, pos=0.1, left] {*} node[multiplicity, pos=0.9, left] {*};
+\draw[umlrelationship] (Researcher) -- (FRDR) node[multiplicity, pos=0.1, below left] {*} node[multiplicity, pos=0.9, above left] {*};
+
+\draw[umlrelationship] (FRDR) -- (Trial) node[multiplicity, pos=0.1, left] {*} node[multiplicity, pos=0.9, left] {*};
+\draw[umlrelationship] (Trial.east) -- (Condition.west) node[multiplicity, pos=0.1, above] {1} node[multiplicity, pos=0.9, above] {*};
+\draw[umlrelationship] (Trial.north) -- (Rat.south) node[multiplicity, pos=0.1, left] {*} node[multiplicity, pos=0.9, left] {1};
+\draw[umlrelationship] (Trial.east) -- (Behavior.west) node[multiplicity, pos=0.1, above] {*} node[multiplicity, pos=0.9, above] {*};
+\draw[umlrelationship] (Trial.south east) -- (Metadata.north west) node[multiplicity, pos=0.1, above] {*} node[multiplicity, pos=0.9, below] {*};
+
+\end{tikzpicture}
+\end{center}
+\caption{Business Data Model}
+\label{fig:myimage}
+\end{figure}
+
+
 \subsection{Data Dictionary}
 \lips
 
