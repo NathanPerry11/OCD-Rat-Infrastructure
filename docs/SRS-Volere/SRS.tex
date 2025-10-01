@@ -13,6 +13,8 @@
 \usepackage{graphicx}
 \usepackage{tikz}
 \usepackage{tikz-uml}
+\usepackage{tabularray}
+\usepackage{xcolor}
 
 \hypersetup{
     bookmarks=true,         % show bookmarks bar?
@@ -651,12 +653,12 @@ The work is divided into the following components to ensure clarity, manageabili
         rectangle,
         draw,
         fill=orange!10,
-        text width=2.8cm,
+        text width=3.5cm,
         minimum height=1cm,
-        align=center,
+        align=left,
         font=\bfseries,
         outer sep=2pt,
-        node distance=3.5cm
+        node distance=4cm
     },
     umlrelationship/.style={
         -,-,
@@ -672,18 +674,20 @@ The work is divided into the following components to ensure clarity, manageabili
     every node/.style={font=\sffamily\small}
 ]
 
-\node[umlclass] (Researcher) at (0,8) {Researcher};
-\node[umlclass] (Supervisor) at (0,4) {Project Supervisor};
-\node[umlclass] (Developer) at (0,0) {Developer};
+% Classes with more attributes separated by line
+\node[umlclass] (Researcher) at (0,12) {Researcher\\ \rule{\linewidth}{0.4pt}\\ + name\\ + email\\ + affiliation\\ + role};
+\node[umlclass] (Supervisor) at (0,6) {Project Supervisor\\ \rule{\linewidth}{0.4pt}\\ + name\\ + department\\ + expertise\\ + contact};
+\node[umlclass] (Developer) at (0,0) {Developer\\ \rule{\linewidth}{0.4pt}\\ + name\\ + skills\\ + githubID\\ + assignedTasks};
 
-\node[umlclass] (FRDR) at (6,0) {FRDR Repository};
-\node[umlclass] (Trial) at (6,4) {Trial};
-\node[umlclass] (Rat) at (6,8) {Rat};
+\node[umlclass] (FRDR) at (6,0) {FRDR Repository\\ \rule{\linewidth}{0.4pt}\\ + repoID\\ + description\\ + numTrials\\ + dataTypes};
+\node[umlclass] (Trial) at (6,6) {Trial\\ \rule{\linewidth}{0.4pt}\\ + trialID\\ + startDate\\ + endDate\\ + injectionType\\ + notes};
+\node[umlclass] (Rat) at (6,12) {Rat\\ \rule{\linewidth}{0.4pt}\\ + ratID\\ + age\\ + sex\\ + weight\\ + strain};
 
-\node[umlclass] (Condition) at (12,8) {Condition};
-\node[umlclass] (Behavior) at (12, 4) {Behavior};
-\node[umlclass] (Metadata) at (12,0) {Metadata};
+\node[umlclass] (Condition) at (12,12) {Condition\\ \rule{\linewidth}{0.4pt}\\ + name\\ + severity\\ + duration\\ + notes};
+\node[umlclass] (Behavior) at (12,6) {Behavior\\ \rule{\linewidth}{0.4pt}\\ + behaviorID\\ + description\\ + timestamp\\ + intensity};
+\node[umlclass] (Metadata) at (12,0) {Metadata\\ \rule{\linewidth}{0.4pt}\\ + key\\ + value\\ + fileType\\ + fileSize};
 
+% Relationships
 \draw[umlrelationship] (Researcher) -- (Supervisor) node[multiplicity, pos=0.1, left] {1} node[multiplicity, pos=0.9, left] {*};
 \draw[umlrelationship] (Supervisor) -- (Developer) node[multiplicity, pos=0.1, left] {*} node[multiplicity, pos=0.9, left] {1};
 
@@ -698,13 +702,48 @@ The work is divided into the following components to ensure clarity, manageabili
 
 \end{tikzpicture}
 \end{center}
-\caption{Business Data Model}
+\caption{Business Data Model with Detailed Attributes}
 \label{fig:myimage}
 \end{figure}
 
 
+
 \subsection{Data Dictionary}
-\lips
+
+
+
+\begin{longtblr}[
+  caption = {Data Dictionary},
+  label = {tab:datadictionary},
+]{
+  colspec = {l X l},  
+  rowhead = 1,          
+  hlines,               
+}
+\textbf{Name} & \textbf{Content/Description} & \textbf{Type} \\
+
+% Classes
+Researcher & name + email + affiliation + role & Class \\
+Supervisor & name + department + expertise + contact & Class \\
+Developer & name + skills + GitHub ID + assigned tasks & Class \\
+FRDR Repository & repoID + description + numTrials + dataTypes & Class \\
+Trial & trialID + startDate + endDate + injectionType + notes & Class \\
+Rat & ratID + age + sex + weight + strain & Class \\
+Condition & name + severity + duration + notes & Class \\
+Behavior & behaviorID + description + timestamp + intensity & Class \\
+Metadata & key + value + fileType + fileSize & Class \\
+
+% Attributes
+Trial Start Date & Start date of trial & Attribute/Element \\
+Trial End Date & End date of trial & Attribute/Element \\
+Injection Type & Type of drug injected & Attribute/Element \\
+Rat Weight & Body weight of rat & Attribute/Element \\
+Behavior Timestamp & Time of observed behavior & Attribute/Element \\
+Behavior Intensity & Measure of behavior strength & Attribute/Element \\
+Metadata FileType & Type of file (video, CSV, etc.) & Attribute/Element \\
+Metadata FileSize & Size of file & Attribute/Element \\
+
+\end{longtblr}
 
 \section{The Scope of the Product}
 
