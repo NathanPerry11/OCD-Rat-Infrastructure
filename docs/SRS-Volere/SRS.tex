@@ -1166,7 +1166,72 @@ sub-section:}
 \end{itemize}
 
 \subsection{Planning of the Development Phases}
-\lips
+
+\par{The development will be delivered in three phases, each focusing on progressively expanding functionality and ensuring 
+the operating environment can support the system.}
+
+\subsection*{Phase 1 -- Core Data Filtering \& Retrieval}
+\begin{itemize}
+    \item \textbf{Value/Benefit:} Provides users with the essential ability to filter and retrieve datasets, enabling basic use of the system.
+    \item \textbf{Required Operational Date:} February 2026
+    \item \textbf{Operating Environment Components:}
+    \begin{itemize}
+        \item Backend server with database (initial configuration)
+        \item User authentication service
+        \item Basic web interface
+    \end{itemize}
+    \item \textbf{Functional Requirements Included:} FR1 (filter data), FR2 (NLP query support)
+    \item \textbf{Non-Functional Requirements Included:} 
+    \begin{itemize}
+        \item Intuitive filtering and natural language querying
+        \item Performance baseline (system responds under 4 seconds for core queries)
+        \item Users can scroll and select simple filters
+        \item Results must match user-selected filters with no inconsistencies
+    \end{itemize}
+\end{itemize}
+
+\subsection*{Phase 2 -- Data Categorization \& Visualization}
+\begin{itemize}
+    \item \textbf{Value/Benefit:} Enables richer exploration of results through categorization and visualization, improving usability and decision-making.
+    \item \textbf{Required Operational Date:} March 2026
+    \item \textbf{Operating Environment Components:}
+    \begin{itemize}
+        \item Extended database schema to support categories
+        \item Visualization library integration
+        \item Enhanced storage for larger result sets
+    \end{itemize}
+    \item \textbf{Functional Requirements Included:} FR3 (categorized browsing), FR4 (behavioral metrics), FR5 (visuals)
+    \item \textbf{Non-Functional Requirements Included:}
+    \begin{itemize}
+        \item Appearance must resemble an online storefront with pre-packaged queries
+        \item Categorized data must be validated against the source
+        \item Compliance with ARIA standards, alt-text for visuals
+        \item All generated visuals and metrics must reflect accurate data
+        \item System logs errors without crashing
+    \end{itemize}
+\end{itemize}
+
+\subsection*{Phase 3 -- Global Accessibility \& Data Export}
+\begin{itemize}
+    \item \textbf{Value/Benefit:} Provides users worldwide with reliable access and ensures portability of data through export features.
+    \item \textbf{Required Operational Date:} April 2026
+    \item \textbf{Operating Environment Components:}
+    \begin{itemize}
+        \item CDN (Content Delivery Network) for global access
+        \item Export/download service
+        \item Scalable cloud infrastructure
+    \end{itemize}
+    \item \textbf{Functional Requirements Included:} FR6 (download data), FR7 (global accessibility)
+    \item \textbf{Non-Functional Requirements Included:}
+    \begin{itemize}
+        \item Security standards: HTTPS, input validation, rate limiting
+        \item Maintain at least 80\% performance under heavy load
+        \item Support up to 250 concurrent users, 5,000 transactions/hour
+        \item Designed for at least 5 years of reliable operation
+        \item Compatibility across Windows, macOS, and Linux
+    \end{itemize}
+\end{itemize}
+
 
 \section{Migration to the New Product}
 \subsection{Requirements for Migration to the New Product}
