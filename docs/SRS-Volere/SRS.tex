@@ -769,7 +769,7 @@ This boundary ensures the platform delivers a usable, scalable, and research-rea
 
 \subsection{Product Use Case Table}
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
 \begin{tabular}{|p{2.5cm}|p{2cm}|p{3.0cm}|p{3.0cm}|p{2.5cm}|}
 \hline
@@ -795,7 +795,29 @@ UC4: Deployment \& Access & DevOps Engineer & Deploy platform online or locally 
 
 \section{Functional Requirements}
 \subsection{Functional Requirements}
-\lips
+
+
+\begin{longtblr}[
+  caption = {Functional Requirements with Fit Criteria},
+  label = {TblFunctionalRequirements},
+]{
+  colspec = {Q[c,1cm] X[2,l] Q[c,1cm] X[2,l] Q[c,1.5cm]}, 
+  rowhead = 1,   
+  row{1} = {font=\bfseries},       
+  hlines,               
+}
+\textbf{Req \#} & \textbf{Description} & \textbf{PUC} & \textbf{Fit Criterion} & \textbf{Creation} \\
+
+1 & The program shall filter data to produce results based on predefined labels. & 1 & When a user selects a filter, the system provides a set that matches the labels to 100\% accuracy. & 1/10/2025 \\
+2 & The program shall generate results based on Natural Language Processing (NLP). & 1 & Given a user query, the system returns one dataset. & 1/10/2025 \\
+3 & The program shall provide categorized data allowing the user to browse different predefined sets. & 1 & The program should have at least 3 predetermined data sets for users to browse. & 1/10/2025 \\
+4 & The program shall provide behavioural categorization for each trial and behavioural metrics for result sets. & 1 & Each trial has at least one categorization. & 1/10/2025 \\
+5 & The program shall create visuals based on the results set. & 1 & For each result set, there is at least one corresponding visual. & 1/10/2025 \\
+6 & The program shall download data. & 1,2 & Users can export data sets or visualizations, verified against the first 100 rows. & 1/10/2025 \\
+7 & The program shall be easily accessible globally. & 3 & Users from multiple regions around the world can access the system without performance degradation; average page load under 4 seconds. & 1/10/2025 \\
+\end{longtblr}
+
+
 
 \section{Look and Feel Requirements}
 
