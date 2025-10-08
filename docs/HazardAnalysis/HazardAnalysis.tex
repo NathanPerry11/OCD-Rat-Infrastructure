@@ -55,12 +55,17 @@ Date2 & Name(s) & Description of changes\\
 
 \section{Introduction}
 
-\wss{You can include your definition of what a hazard is here.}
+Hazard analysis is an important part of this project because it identifies potential risks and outlines how to mitigate and plan for errors that could occur during the development and operating. Conducting this analysis helps ensure that safety, reliability, and stability are addressed early in the design process.
+
+A hazard is a condition in which a failure, malfunction, or unintended behavior of the software occurs which can cause harm, loss, or an unsafe system state.
 
 \section{Scope and Purpose of Hazard Analysis}
 
-\wss{You should say what \textbf{loss} could be incurred because of the
-hazards.}
+The scope of this analysis includes all major software components of the system, such as the data retrieval module interfacing with the FRDR API, the data processing and analysis algorithms, and the user interface for visualization and interaction. External components, including FRDR’s data infrastructure and third-party libraries such as machine learning or natural language processing models. These are considered only in terms of their interactions with the system.
+
+The primary purpose of conducting this analysis is to identify software related hazards that could compromise the accuracy, reliability, or security of the system’s outputs. Potential losses include the generation of misleading behavioural metrics, corruption or misrepresentation of research data, or loss of data availability. By identifying these risks early, this analysis supports the development of safety and security requirements that promote data integrity, consistent functionality, and reliable operation for all users.
+
+\wss{You should say what \textbf{loss} could be incurred because of the hazards.}
 
 \section{System Boundaries and Components}
 
