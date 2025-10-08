@@ -75,6 +75,32 @@ ones.  For projects that involve hardware, the components will typically include
 each individual piece of hardware.  If your software will have a database, or an
 important library, these are also potential components.}
 
+\par{ The components of the system that will be subject to the hazard analysis are as follows:}
+
+\begin{enumerate}
+    \item \textbf{The FRDR Database:} All 29 individual datasets and 60,000 relevant data objects that exist on this repository. Note that this component is
+    incorporated into the system in a read-only fashion meaning that at no point in the system creation will any part of it be changed, developed or written to
+    with the exception of Dr. Henry Szechtman or Dr. Anna Dvorkin-Gheva depositing more data into the repository, the execution of which is seperate from the system.
+    \item \textbf{Front-End Query Application:} A front-end web application that provides access for users to query results from the system. This component contains
+    some subcomponents
+        \begin{itemize}
+            \item \textbf{Natural Language Processor:} This subcomponent takes in natural language input and uses an LLM to generate a relevant query.
+            \item \textbf{Filter Query Engine:} This subcomponent allows the user to manually add filters based on trial data and generates a relevant query.
+            \item \textbf{Webstore Query Engine:} This subcomponent provides pre-defined result sets that may be relevant to the user for the user to browse and
+            use if relevant.
+        \end{itemize}
+    \item \textbf{API Layer:} An API layer will be implemented to connect the constructed system with the FRDR database. This layer will be responsible for 
+    retrieving the relevant data from the FRDR for each individual query.
+    \item \textbf{Backend System:} This component includes several subcomponents:
+        \begin{itemize}
+            \item \textbf{Database Schema:} This subcomponent is a database scehma which unifies the datasets into one schema while also connecting the metadata annotations
+            and related data objects in the format of a relational DBMS and points to the FRDR database.
+            \item \textbf{Behavioural Analysis LLM:} This subcomponent contains the business logic and an LLM model responsible for categorizing the trials
+            based on compulsive behaviour or rat poses.
+            \item \textbf{Visualization Engine:} This subcomponent is responsible for taking a result set and generating requested visualizations from it.
+        \end{itemize}
+\end{enumerate}
+
 \section{Critical Assumptions}
 
 \wss{These assumptions that are made about the software or system.  You should
