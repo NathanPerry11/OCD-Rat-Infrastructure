@@ -3,6 +3,10 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
+\usepackage{graphicx}
+
+\newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\RaggedRight\arraybackslash}X}
 
 \hypersetup{
     colorlinks=true,       % false: boxed links; true: colored links
@@ -109,6 +113,124 @@ you could assume a part will never fail, but it is generally better to include
 this potential failure mode.}
 
 \section{Failure Mode and Effect Analysis}
+
+\subsection{Hazards Considered Out of Scope}
+
+\begin{itemize}
+    \item The FRDR domain goes down for reasons such as maintenance or an outage
+    \item The FRDR repository or a subset of it is lost or corrupted
+    \item Addition, modification, or deletion of FRDR data by an authorized user
+    \item Pre-existing errors in FRDR metadata and mislabeled entries
+    \item The user misuses data by making an error in interpreting information through the system's data visualizer
+    \item User experience affected by local system issues such as slow internet or failing hardware
+\end{itemize}
+
+\subsection{Failure Modes and Effect Analysis Table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Severity Criteria Table} \label{TblSeverityCriteria}
+    \setlength{\arrayrulewidth}{0.4pt}
+    \renewcommand{\arraystretch}{1.3}
+    
+    \begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{2cm}|
+                                   >{\centering\arraybackslash}p{3cm}|
+                                   X|}
+    \hline
+    \textbf{Quantitative Score} & \textbf{Qualitative Score} & \textbf{Definition} \\
+    \hline
+    1 & None & No impact on functionality, usability, or reliability \\
+    \hline
+    2 & Minimal & Small cosmetic or display inconvenience, negligible effect on usability \\
+    \hline
+    3 & Moderate & Noticeable regression in system usability, still functional but reduced performance  \\
+    \hline
+    4 & High & Significant impact on functionality but there is a temporary workaround, harmful for productivity but not halting \\
+    \hline
+    5 & Severe & Major impact on system fidelity with data/analysis errors causing users to lose confidence in results \\
+    \hline
+    6 & Critical & Major functional malfunction for core tasks such as searching, filtering, or visualizing. Users cannot complete primary workflows  \\
+    \hline
+    7 & Catastrophic & System is entirely inoperable or research integrity compromised by materially misleading researchers with invalid results \\
+    \hline
+    \end{tabularx}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Occurrence Criteria Table} \label{TblOccurrenceCriteria}
+    \setlength{\tabcolsep}{4pt}
+    \renewcommand{\arraystretch}{1.3}
+
+    \begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{2cm}|
+        >{\centering\arraybackslash}p{3cm}|
+        X|}
+    \hline
+    \textbf{Quantitative Score} & \textbf{Qualitative Score} & \textbf{Probability} \\
+    \hline
+    1 & Extremely Rare & $<0.1\%$ \\
+    \hline
+    2 & Rare & $0.1-0.5\%$ \\
+    \hline
+    3 & Very Low & $0.5-2\%$ \\
+    \hline
+    4 & Low & $2-5\%$ \\
+    \hline
+    5 & Somewhat Moderate & $5-10\%$ \\
+    \hline
+    6 & Moderate & $10-30\%$ \\
+    \hline
+    7 & Moderately High & $30-50\%$ \\
+    \hline
+    8 & High & $50-75\%$ \\
+    \hline
+    9 & Very Often & $75-90\%$ \\
+    \hline
+    10 & Almost Expected & $>90\%$ \\
+    \hline
+    \end{tabularx}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Detection Criteria Table} \label{TblDetectionCriteria}
+    \setlength{\arrayrulewidth}{0.4pt}
+    \renewcommand{\arraystretch}{1.3}
+
+    \begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{2cm}|
+        >{\centering\arraybackslash}p{3cm}|
+        X|}
+    \hline
+    \textbf{Quantitative Score} & \textbf{Qualitative Score} & \textbf{Detectability} \\
+    \hline
+    1 & Certain & $100\%$ Detection \\
+    \hline
+    2 & Almost certain & $90\%$ Detection \\
+    \hline
+    3 & High & $75\%$ Detection \\
+    \hline
+    4 & Moderate & $50\%$ Detection \\
+    \hline
+    5 & Low & $30\%$ Detection \\
+    \hline
+    6 & Almost Impossible & $<10\%$ Detection \\
+    \hline
+    \end{tabularx}
+\end{table}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\textwidth]{FMEA Table 1.png}
+    \caption{FMEA Table (Part 1)}
+    \label{fig:TblFMEA1}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\textwidth]{FMEA Table 2.png}
+    \caption{FMEA Table (Part 2)}
+    \label{fig:TblFMEA2}
+\end{figure}
 
 \wss{Include your FMEA table here. This is the most important part of this document.}
 \wss{The safety requirements in the table do not have to have the prefix SR.
