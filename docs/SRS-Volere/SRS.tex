@@ -1283,9 +1283,31 @@ No explicit training will be needed }
     \item \textbf{WR.3:} The system will support reusability in a dataset-agnostic way, enabling system functionality to be applied to other behavioral datasets.
 \end{itemize}
 
+\pagebreak
 
 \section{Ideas for Solution}
-\lips
+
+\par{A potential solution is a multi-tiered architecture composed of a frontend web-based interface, a backend api layer, and a database. The division of the system into these three major modules helps establish separation of concerns, and enable parallel development of these sub-systems. }
+
+\vspace{\baselineskip}
+
+\textbf{User Interface}
+
+\par{A JavaScript based web interface utilizing a web framwork like React would provide a responsive and interactive  user experience. This aligns closely with the client-directed goal of building a 'Web-Store' like interface for data access, while aligning with the look and feel requirements. }
+
+\vspace{\baselineskip}
+
+\textbf{API Layer}
+
+\par{A REST API built using a framework such as Python and FastAPI would support the needs for data processing and communication with the database. Python is a strong contender for an implementation language due to its prevalence in research environments making it easily extended in the future. Furthermore, Python has an extensive set of data analysis and ML tools making the backend adatable for data processing needs. }
+
+
+\vspace{\baselineskip}
+
+\textbf{Database}
+
+\par{A relational database such as PostgreSQL enables the structured querying needs of the system. PostgreSQL is a strong option due to the tabular nature of the data, as well as its open-source license.   }
+
 
 \newpage{}
 \section*{Appendix --- Reflection}
