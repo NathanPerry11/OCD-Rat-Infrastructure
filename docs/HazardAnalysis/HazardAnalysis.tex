@@ -112,6 +112,18 @@ minimize the number of assumptions that remove potential hazards.  For instance,
 you could assume a part will never fail, but it is generally better to include
 this potential failure mode.}
 
+
+\begin{enumerate}
+    \item FRDR API Availability
+    \item[] It is assumed that the FRDR repository and corresponding API will remain accessibile and availabile throughout the lifetime of the product. API outages and/or other lapses in availability of this resource will be considered outside of the team's control. 
+    \item Read-Only Data Access
+    \item[] It is assumed that the system will access the FRDR dataset solely in a read-only manner. Therefore, the system will not add, modify, or delete data from the source repository. 
+    \item Minimum System Access Standards
+    \item[] It is assumed that a user will access the system from a modern browser with JavaScript enabled. 
+    \item Source Data Integrity 
+    \item [] The system assumes that the individual data objects are accurate and correctly-labeled, therefore the corerrectness of experiments drawn from the platform is independent of the FRDR. 
+\end{enumerate}
+
 \section{Failure Mode and Effect Analysis}
 
 \subsection{Hazards Considered Out of Scope}
