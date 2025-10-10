@@ -124,6 +124,54 @@ documentation, and/or test cases.}
 \wss{Newly discovered requirements.  These should also be added to the SRS.  (A
 rationale design process how and why to fake it.)}
 
+\subsection{Safety Requirements}
+\par{The system does not directly involve physical safety or critical operations. However, to ensure data reliability and prevent unintended harm to research workflows, the following safety requirements have been identified:}
+\begin{itemize}
+    \item \textbf{SAF.R.1 -- Data Integrity Protection} \\
+    \textbf{Description:} The system shall ensure that all query results are returned exactly as stored in the FRDR repository, without modification or corruption. \\
+    \textbf{Rationale:} Prevents accidental misinterpretation of research data that could lead to invalid conclusions. \\
+    \textbf{Fit Criterion:} Query results match the FRDR source files exactly, verified through checksum or metadata comparison.
+    
+    \item \textbf{SAF.R.2 -- Fault Isolation} \\
+    \textbf{Description:} Failures in one component (e.g., NLP module) shall not compromise the operation of other system components. \\
+    \textbf{Rationale:} Prevents cascading failures that could disrupt research sessions. \\
+    \textbf{Fit Criterion:} The system remains operational when individual modules fail, with appropriate error messages.
+    
+    \item \textbf{SAF.R.3 -- Safe Handling of Large Data Sets} \\
+    \textbf{Description:} The system shall prevent browsers from directly loading excessively large datasets, instead providing download or batch processing options. \\
+    \textbf{Rationale:} Protects user devices from freezing or crashing during analysis. \\
+    \textbf{Fit Criterion:} Queries exceeding size thresholds trigger warnings and offer alternative access methods.
+\end{itemize}
+
+\subsection{Security Requirements}
+\begin{itemize}
+    \item \textbf{SEC.R.1 -- Enhanced Input Validation} \\
+    \textbf{Description:} All user inputs must go through validation to prevent inappropriate queries, code injection, or other malicious activity. \\
+    \textbf{Rationale:} Prevents injection attacks and malformed queries from reaching backend services. \\
+    \textbf{Fit Criterion:} All inputs are sanitized and penetration testing shows no injection vulnerabilities.
+    
+    \item \textbf{SEC.R.2 -- Access Logging} \\
+    \textbf{Description:} All administrative actions, including deployment and maintenance, must be logged to provide traceability. \\
+    \textbf{Rationale:} Ensures accountability and allows auditing of configuration changes. \\
+    \textbf{Fit Criterion:} 100\% of administrative actions are logged with timestamps and stored securely.
+    
+    \item \textbf{SEC.R.3 -- Dependency Monitoring} \\
+    \textbf{Description:} The system shall scan and monitor open-source frameworks, dependencies, and libraries for security vulnerabilities and update them regularly. \\
+    \textbf{Rationale:} Protects against exploitation through known vulnerabilities in third-party components. \\
+    \textbf{Fit Criterion:} Automated scans show no unresolved high-severity vulnerabilities older than 14 days.
+    
+    \item \textbf{SEC.R.4 -- Incident Documentation} \\
+    \textbf{Description:} The team shall maintain documentation outlining procedures for responding to security incidents, including roles, notifications, and mitigation timelines. \\
+    \textbf{Rationale:} Ensures coordinated and timely responses to potential security incidents. \\
+    \textbf{Fit Criterion:} Incident response documentation exists, is reviewed regularly, and defines clear escalation steps.
+    
+    \item \textbf{SEC.R.5 -- Safe File Downloads} \\
+    \textbf{Description:} All downloadable files shall be scanned for malware and saved with appropriate protection to safeguard user environments. \\
+    \textbf{Rationale:} Prevents the distribution of malicious or corrupted files to researchers. \\
+    \textbf{Fit Criterion:} All files pass malware scanning before being made available for download.
+\end{itemize}
+
+
 \section{Roadmap}
 
 \wss{Which safety requirements will be implemented as part of the capstone timeline?
