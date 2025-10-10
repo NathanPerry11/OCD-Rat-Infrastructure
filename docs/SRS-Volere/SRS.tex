@@ -613,7 +613,9 @@ users are able to access all of the available data, it is very fragmented, nearl
 effectively and hard to leverage for any specific research purposes. \newline\newline
 
 Additionally, the project from last year, \href{https://ratbat.mcmaster.ca}{RatBat}, is also pulling from the \gls{frdr}
-dataset using its provided API. Please see below of a graphical layout of the current situation.}
+dataset using its provided API. Please see below of a graphical layout of the current situation.\newline\newline
+
+\indent Note that each arrow simply indicates an exchange of information from the system to some cooperating component or vice versa.}
 
 \begin{figure}[H]
     \centering
@@ -685,7 +687,10 @@ The work is divided into the following components to ensure clarity, manageabili
 
 \par{ Shown below is the Business Use Case diagram for our system. The
 events that can be accessed by an actor are the business use cases and rest of the
-diagram objects represent business events.\newline\newline}
+diagram objects represent business events.\newline\newline
+\indent Note that each arrow represents an "includes" relationship which is a top-down approach
+to the use case with the most high level event (the use case) at the beginning and every subsequent step
+being more granular. i.e. every subsequent step of the business event must be performed for the initial one to be completed. }
 
 \begin{figure}[H]
     \centering
@@ -693,6 +698,25 @@ diagram objects represent business events.\newline\newline}
     \caption{Use Case Diagram}
     \label{fig:myimage}
 \end{figure}
+
+\begin{table}[H]
+\begin{tabular}{|m{2.5cm}|m{2cm}|m{3.0cm}|m{3.0cm}|m{2.5cm}|m{2.5cm}|}
+\hline
+\textbf{Use Case} & \textbf{Actors} & \textbf{Description} & \textbf{Outcome} & \textbf{Functional Requirement}\\ 
+\hline
+BUC1: Get Result Set & Researcher & Query dataset & Filtered dataset returned & FUNC.R.1, FUNC.R.2, FUNC.R.3\\
+\hline
+BUC2: Download Data & Researcher & Download trials & Files downloaded  & FUNC.R.6 \\
+\hline
+BUC3: Get Data Visualizations & Researcher & Generate visualizations based on a requested data set & Graphical visualizations related to relevant dataset & FUNC.R.5\\
+\hline
+BUC4: Get Behavioural Metrics & Researcher & Generate statistical metrics of rat behaviour & Statistical breakdown of behavioural metrics in relevant dataset & FUNC.R.4\\
+\hline
+BUC5: Deposit Data & Dr. Henry Szechtman/Dr. Anna Dvorkin & Deposit New Data into FRDR & New data becomes available & Handled By Methods outside of System Scope \\
+\hline
+\end{tabular}
+\caption{Business Use Case Table}
+\end{table}
 
 
 \section{Business Data Model and Data Dictionary}
@@ -832,7 +856,7 @@ UC1: Search \& Filter Data & Researcher & Query dataset & User logged in; datase
 \hline
 UC2: Download Data & Researcher & Download trials & Dataset query completed & Files downloaded \\
 \hline
-UC4: Deployment \& Access & DevOps Engineer & Deploy platform online or locally & Backend/frontend configured & Platform accessible \\
+UC3: Deployment \& Access & DevOps Engineer & Deploy platform online or locally & Backend/frontend configured & Platform accessible \\
 \hline
 \end{tabular}
 \caption{Product Use Case Table}
@@ -870,6 +894,42 @@ UC4: Deployment \& Access & DevOps Engineer & Deploy platform online or locally 
 \textbf{FUNC.R.7:} & The program shall be easily accessible globally. & 3 & Users from multiple regions around the world can access the system without performance degradation; average page load under 4 seconds. & 1/10/2025 \\
 \end{longtblr}
 
+\begin{longtblr}[
+  caption = {Functional Requirements Rationale},
+  label = {TblFuncReqsRationale},
+]{
+  colspec = {|Q[c,3cm] | Q[c,10cm] | Q[c,3cm]|}, 
+  rowhead = 1,   
+  row{1} = {font=\bfseries},       
+  hlines,               
+}
+\textbf{Functional Requirement} & \textbf{Rationale} & \textbf{Priority} \\
+
+\textbf{FUNC.R.1} & This is the foundation of the system. The most basic and important goal of our users is to be able to access this data in a unified and holistic way to
+            enable researchers to repurpose this vast amount of data in a way that is useful for their experiments. & Very High \\
+
+\textbf{FUNC.R.2} & This is an optimization of FUNC.R.1, simply providing improved accessibility for users who are less technical or may not be comfortable with
+            a strict filter approach. This requirement exists to enable users to receive relevant data based on ideas in natural language & High \\
+
+\textbf{FUNC.R.3} & This is an additional optimization of FUNC.R.1 which provides further accessibility improvements for users who may not know exactly what
+            they are looking for. Providing datasets that may be useful allows a user to browse for something that may be relevant to them
+            and gives users a good starting point. & High \\
+
+\textbf{FUNC.R.4} & This functional requirement provides a level of analysis on top of providing relevant datasets. Users will have a need
+            for insights into the data so that they can draw conclusions from the data. Specifically, behavioural metrics based
+            on certain attributes of \gls{rat-behavioral-trials} will assist researchers in drawing useful conclusions from this dataset.  & High \\
+
+\textbf{FUNC.R.5} & This functional requirement also provides a level of analysis for the datasets. While it may not be as informative as the behavioural
+            categorizations, providing graphical visualizations of important trends in the datasets are very useful in generating any sort 
+            of useful conclusions in a scientific experiment & Medium \\
+
+\textbf{FUNC.R.6} & It is extremely likely that the user will want or need the requested data to be available on their local machine so that they can
+            view, sort, manipulate or some other action. Giving users direct access to the data in this way will increase the things they
+            can do with it thus improving the usefulness of our system. & High \\
+
+\textbf{FUNC.R.7} & The motivation for the creation of this system is to provide better accessibility for this useful dataset. It follows that effort
+            should be made to ensure that the system is available to as many people as possible.  & Medium \\
+\end{longtblr}
 
 
 \section{Look and Feel Requirements}
