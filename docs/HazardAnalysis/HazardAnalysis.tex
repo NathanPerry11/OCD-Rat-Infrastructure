@@ -306,10 +306,54 @@ rationale design process how and why to fake it.)}
 \end{itemize}
 
 
+\pagebreak
+
 \section{Roadmap}
 
-\wss{Which safety requirements will be implemented as part of the capstone timeline?
-Which requirements will be implemented in the future?}
+
+\textbf{Scheduled for Implementation}
+\par{The following safety and security requirements have been prioritized by safety and security impact and relevance to project stakeholders. }
+
+\begin{table*}[h!]
+\begin{tabularx}{\textwidth}{ X X X } 
+    \textbf{ID} & \textbf{Description} & \textbf{Timing} \\
+    \hline
+    SAF.R.1 & Data Integrity Protection &  During Backend API integration phase   \\
+    \hline 
+    SAF.R.2 & Fault Isolation & During Integration Testing phase \\ 
+    \hline 
+    SAF.R.3 & Safe Handling  of Large Data Sets &  During backend query module implementation \\
+    \hline
+    SEC.R.1 & Input Validation & During frontend and API design phase \\ 
+    \hline 
+    SEC.R.3 & Dependency Monitoring & Immediately during development phase. \\
+    \hline 
+\end{tabularx}
+\end{table*}
+
+
+
+\vspace{\baselineskip}
+
+\textbf{Deferred and Future Requirements}
+
+\par{
+The following Safety and Security requirements will not be implemented as part of the capstone due to time constraints and prioritization, however they are noted for future relevance.  
+}
+
+\begin{table*}[h!]
+\begin{tabularx}{\textwidth}{ l X X } 
+    \textbf{ID} & \textbf{Description} & \textbf{Justification} \\
+    \hline
+    SEC.R.2  & Access Logging & Low business value to client  \\
+    \hline
+    SEC.R.4 & Incident Documentation and response procedures & To be implemented by future maintainers of system.  \\
+    \hline
+        SEC.R.5 & Safe File Downloads & Out of scope for current implementation. Not a priority due to the fixed nature of FRDR data.   \\
+    \hline
+\end{tabularx}
+\end{table*}
+
 
 \newpage{}
 
