@@ -11,6 +11,7 @@
     urlcolor=blue
 }
 \usepackage[round]{natbib}
+\usepackage{longtable}
 
 \input{../Comments}
 \input{../Common}
@@ -541,8 +542,80 @@ These tests verify latency, throughput, fault-tolerance, and data integrity.
 
 \subsection{Traceability Between Test Cases and Requirements}
 
-\wss{Provide a table that shows which test cases are supporting which
-  requirements.}
+\section{Traceability Between Test Cases and Requirements}
+
+Table~\ref{tab:traceability} provides a traceability matrix showing the correspondence between each Software Requirements Specification (SRS) requirement and the test cases defined in Sections~4.1 and~4.2. Each requirement identifier (FUNC.R.\#, APP.R.\#, etc.) is mapped to one or more test case identifiers that verify its implementation or satisfaction.
+
+\renewcommand{\arraystretch}{1.2}
+\begin{longtable}{|l|p{10cm}|}
+\caption{Traceability Between Test Cases and Requirements}
+\label{tab:traceability} \\
+\hline
+\textbf{Requirement ID} & \textbf{Associated Test Case(s)} \\
+\hline
+\endfirsthead
+\hline
+\textbf{Requirement ID} & \textbf{Associated Test Case(s)} \\
+\hline
+\endhead
+\hline \multicolumn{2}{r}{{Continued on next page}} \\
+\endfoot
+\hline
+\endlastfoot
+
+FUNC.R.1 & ST-FR1.1 Filter Accuracy Test \\
+FUNC.R.2 & ST-FR2.1 NLP Query Response Test \\
+FUNC.R.3 & ST-FR3.1 Predefined Dataset Browsing Test \\
+FUNC.R.4 & ST-FR4.1 Behavioural Categorization and Metrics Test \\
+FUNC.R.5 & ST-FR5.1 Visualization Generation Test \\
+FUNC.R.6 & ST-FR6.1 Data Download and Export Verification Test \\
+FUNC.R.7 & ST-FR7.1 Global Accessibility and Latency Test \\
+APP.R.1 & ST-NFR1.1 Interface Familiarity Inspection \\
+APP.R.2 & ST-NFR1.2 Visual Simplicity Inspection \\
+APP.R.3 & ST-NFR1.3 Filter Interface Familiarity Test \\
+EOU.R.1 & ST-NFR2.1 Ease of Use (Low Floor) Usability Study \\
+EOU.R.2 & ST-NFR2.2 Ease of Use (Low Ceiling) Usability Study \\
+LEA.R.1 & ST-NFR3.1 Learning Curve Evaluation Test \\
+LEA.R.2 & ST-NFR3.2 Visualization Guidance Test \\
+UAP.R.1 & ST-NFR4.1 Technical Abstraction Inspection \\
+UAP.R.2 & ST-NFR4.2 Terminology Familiarity Review \\
+ACC.R.1 & ST-NFR5.1 Accessibility Compliance Test \\
+SAL.R.1 & ST-NFR6.1 Query Response Time Benchmark \\
+SAL.R.2 & ST-NFR6.2 Network Latency Benchmark \\
+POA.R.1 & ST-NFR7.1 Data Accuracy Cross-Check \\
+POA.R.2 & ST-NFR7.2 Database Consistency Test \\
+ROFT.R.1 & ST-NFR8.1 Input Error Logging Test \\
+ROFT.R.2 & ST-NFR8.2 Backend Fault Tolerance Test \\
+CAP.R.1 & ST-NFR9.1 Concurrent User Load Test \\
+CAP.R.2 & ST-NFR9.2 Data Volume Stress Test \\
+SOE.R.1 & ST-NFR10.1 Module Integration Test \\
+SOE.R.2 & ST-NFR10.2 Performance Under Load Test \\
+LON.R.1 & ST-NFR11.1 Reliability and Maintenance Longevity Test \\
+LON.R.2 & ST-NFR11.2 Cross-OS Compatibility Test \\
+EPE.R.1 & ST-NFR12.1 Desktop Environment Performance Test \\
+EPE.R.2 & ST-NFR12.2 Multi-OS Execution Verification Test \\
+EPE.R.3 & ST-NFR12.3 Environmental Condition Simulation \\
+WE.R.1 & ST-NFR13.1 Browser Compatibility Test \\
+IWAS.R.1 & ST-NFR14.1 API Communication Protocol Test \\
+PROD.R.1 & ST-NFR15.1 Docker/Kubernetes Deployment Test \\
+PROD.R.2 & ST-NFR15.2 Repository Update Verification Test \\
+REL.R.1 & ST-NFR16.1 Versioning Convention Test \\
+REL.R.2 & ST-NFR16.2 Release Consistency Verification Test \\
+MAI.R.1 & ST-NFR17.1 Documentation Maintainability Inspection \\
+MAI.R.2 & ST-NFR17.2 Dataset Integration Maintenance Test \\
+SUP.R.1 & ST-NFR18.1 User Manual Verification Test \\
+SUP.R.2 & ST-NFR18.2 Self-Support Functionality Test \\
+ADA.R.1 & ST-NFR19.1 Platform Adaptability Test \\
+INT.R.1 & ST-NFR20.1 Data Integrity Protection Test \\
+IMM.R.1 & ST-NFR21.1 Security Attack Resistance Test \\
+IMM.R.2 & ST-NFR21.2 Rate Limiting and HTTPS Enforcement Test \\
+LEG.R.1 & ST-NFR22.1 License Compliance Review \\
+STA.R.1 & ST-NFR23.1 FRDR Standards Compliance Test \\
+STA.R.2 & ST-NFR23.2 Ethical Use of Data Verification Test \\
+
+\end{longtable}
+
+
 
 \section{Unit Test Description}
 
