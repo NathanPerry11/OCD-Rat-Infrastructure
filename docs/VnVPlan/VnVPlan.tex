@@ -356,62 +356,188 @@ These tests confirm that datasets and visuals can be downloaded correctly and th
 
 \subsection{Tests for Nonfunctional Requirements}
 
-\wss{The nonfunctional requirements for accuracy will likely just reference the
-  appropriate functional tests from above.  The test cases should mention
-  reporting the relative error for these tests.  Not all projects will
-  necessarily have nonfunctional requirements related to accuracy.}
+This section defines the test procedures for verifying the nonfunctional
+requirements as defined in Sections~10--17 of the SRS. The tests include
+evaluations of appearance, usability, performance, robustness, scalability,
+maintainability, and compliance. 
 
-\wss{For some nonfunctional tests, you won't be setting a target threshold for
-passing the test, but rather describing the experiment you will do to measure
-the quality for different inputs.  For instance, you could measure speed versus
-the problem size.  The output of the test isn't pass/fail, but rather a summary
-table or graph.}
+Since nonfunctional requirements often describe qualities rather than discrete
+functions, many tests in this section are qualitative or metric-based
+evaluations. Several involve user studies, performance measurement, and static
+reviews instead of strict pass/fail results.
 
-\wss{Tests related to usability could include conducting a usability test and
-  survey.  The survey will be in the Appendix.}
+\subsubsection{Look and Feel Requirements}
 
-\wss{Static tests, review, inspections, and walkthroughs, will not follow the
-format for the tests given below.}
+These tests ensure that the interface design aligns with the intended audience
+(non-technical researchers) and provides a simple, familiar, and intuitive
+user experience.
 
-\wss{If you introduce static tests in your plan, you need to provide details.
-How will they be done?  In cases like code (or document) walkthroughs, who will
-be involved? Be specific.}
+\paragraph{Test 1: Interface Resemblance to Webstore/Boutique}
+\begin{itemize}
+    \item \textbf{Related Requirement:} APP.R.1
+    \item \textbf{Test ID:} NFR1-UI-Appearance
+    \item \textbf{Type:} Static, Manual (Usability Review)
+    \item \textbf{Initial State:} Functional web interface deployed.
+    \item \textbf{Input/Condition:} UI inspected by 3 non-technical evaluators.
+    \item \textbf{Output/Result:} 80\% of reviewers confirm the interface resembles a webstore-style interface with clear query “packages.”
+    \item \textbf{How test will be performed:} Conduct a design walkthrough where users compare the layout to an e-commerce platform. Collect ratings via short usability survey (Appendix~A).
+\end{itemize}
 
-\subsubsection{Area of Testing1}
-		
-\paragraph{Title for Test}
+\paragraph{Test 2: Simplicity of Interface Presentation}
+\begin{itemize}
+    \item \textbf{Related Requirement:} APP.R.2
+    \item \textbf{Test ID:} NFR2-UI-Simplicity
+    \item \textbf{Type:} Static, Manual (Heuristic Evaluation)
+    \item \textbf{Initial State:} All major features visible on homepage.
+    \item \textbf{Input/Condition:} Evaluators perform inspection for UI density and feature visibility.
+    \item \textbf{Output/Result:} Interface should not exceed 6 visible interactive elements on the main view; evaluators report no intimidation or confusion.
+    \item \textbf{How test will be performed:} Use heuristic evaluation checklist for cognitive load and visual complexity; summarize reviewer feedback quantitatively.
+\end{itemize}
 
-\begin{enumerate}
+\paragraph{Test 3: Familiar Filtering Presentation}
+\begin{itemize}
+    \item \textbf{Related Requirement:} APP.R.3
+    \item \textbf{Test ID:} NFR3-UI-Familiarity
+    \item \textbf{Type:} Static, Manual
+    \item \textbf{Initial State:} Filtering and search panel implemented.
+    \item \textbf{Input/Condition:} Users asked to find a data subset using filter controls.
+    \item \textbf{Output/Result:} 90\% of participants find the filters intuitive and similar to an online storefront.
+    \item \textbf{How test will be performed:} Conduct usability test with 5 participants. Record task completion time and perceived ease of use (Likert scale).
+\end{itemize}
 
-\item{test-id1\\}
+\subsubsection{Usability and Humanity Requirements}
 
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input/Condition: 
-					
-Output/Result: 
-					
-How test will be performed: 
-					
-\item{test-id2\\}
+These tests measure user learning time, ease of use, and understandability.
 
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
+\paragraph{Test 4: Ease of Use (Floor and Ceiling)}
+\begin{itemize}
+    \item \textbf{Related Requirements:} EOU.R.1, EOU.R.2
+    \item \textbf{Test ID:} NFR4-EaseOfUse
+    \item \textbf{Type:} Dynamic, Manual (User Study)
+    \item \textbf{Initial State:} Functional system with packaged queries and NLP interface.
+    \item \textbf{Input/Condition:} New users complete a task set (select prepackaged query, perform NLP search, generate visualization).
+    \item \textbf{Output/Result:} 100\% task completion; average total completion time $<$ 5 minutes for basic operations.
+    \item \textbf{How test will be performed:} Conduct usability test with 5 non-technical participants. Record success rate and completion time per task.
+\end{itemize}
 
-\end{enumerate}
+\paragraph{Test 5: Learning Curve Assessment}
+\begin{itemize}
+    \item \textbf{Related Requirement:} LEA.R.1
+    \item \textbf{Test ID:} NFR5-LearningCurve
+    \item \textbf{Type:} Dynamic, Manual
+    \item \textbf{Initial State:} Fully functional platform; user documentation accessible.
+    \item \textbf{Input/Condition:} Participants with no prior system experience attempt to complete key workflows.
+    \item \textbf{Output/Result:} Average learning curve $<$ 30 minutes; all users can independently perform search and visualization tasks.
+    \item \textbf{How test will be performed:} Measure total time for users to reach proficiency (defined as completing 3 tasks unassisted).
+\end{itemize}
 
-\subsubsection{Area of Testing2}
+\paragraph{Test 6: Understandability and Terminology Audit}
+\begin{itemize}
+    \item \textbf{Related Requirements:} UAP.R.1, UAP.R.2
+    \item \textbf{Test ID:} NFR6-Understandability
+    \item \textbf{Type:} Static, Manual (Content Review)
+    \item \textbf{Initial State:} Interface text finalized.
+    \item \textbf{Input/Condition:} Non-technical users read through all on-screen text.
+    \item \textbf{Output/Result:} At least 90\% of all interface text rated “understandable” by users.
+    \item \textbf{How test will be performed:} Conduct terminology walkthrough; classify all words/phrases as technical or intuitive. Replace technical terms as necessary.
+\end{itemize}
 
-...
+\paragraph{Test 7: Accessibility Audit}
+\begin{itemize}
+    \item \textbf{Related Requirement:} ACC.R.1
+    \item \textbf{Test ID:} NFR7-Accessibility
+    \item \textbf{Type:} Static + Automated
+    \item \textbf{Initial State:} Frontend deployed.
+    \item \textbf{Input/Condition:} Run Lighthouse, Axe, or WAVE accessibility audit tools.
+    \item \textbf{Output/Result:} Accessibility score $\geq$ 90/100; ARIA labels and alt-text coverage 100\%.
+    \item \textbf{How test will be performed:} Automated scan using accessibility tools; manual confirmation of ARIA compliance and alt-text for media.
+\end{itemize}
+
+\subsubsection{Performance and Reliability Requirements}
+
+These tests verify latency, throughput, fault-tolerance, and data integrity.
+
+\paragraph{Test 8: Query Speed and Latency Benchmark}
+\begin{itemize}
+    \item \textbf{Related Requirements:} SAL.R.1, SAL.R.2
+    \item \textbf{Test ID:} NFR8-Performance
+    \item \textbf{Type:} Dynamic, Automatic
+    \item \textbf{Initial State:} Server and database running under normal load.
+    \item \textbf{Input/Condition:} Execute 100 queries of varying sizes up to 5,000 records.
+    \item \textbf{Output/Result:} Average query time $<$ 2 seconds; request latency $<$ 100 ms.
+    \item \textbf{How test will be performed:} Automated benchmark using JMeter or Locust. Generate graph of response time vs. query size.
+\end{itemize}
+
+\paragraph{Test 9: Fault-Tolerance and Logging Verification}
+\begin{itemize}
+    \item \textbf{Related Requirements:} ROFT.R.1, ROFT.R.2
+    \item \textbf{Test ID:} NFR9-Robustness
+    \item \textbf{Type:} Dynamic, Automatic
+    \item \textbf{Initial State:} Backend running.
+    \item \textbf{Input/Condition:} Submit invalid input payloads and simulate network interruptions.
+    \item \textbf{Output/Result:} Errors logged without system crash; user receives appropriate feedback message.
+    \item \textbf{How test will be performed:} Automated injection of malformed JSON; verify log entries and system stability.
+\end{itemize}
+
+\paragraph{Test 10: Capacity and Scalability Evaluation}
+\begin{itemize}
+    \item \textbf{Related Requirements:} CAP.R.1, CAP.R.2, SOE.R.2
+    \item \textbf{Test ID:} NFR10-Capacity
+    \item \textbf{Type:} Dynamic, Automatic
+    \item \textbf{Initial State:} System deployed in cloud environment.
+    \item \textbf{Input/Condition:} Simulate 250 concurrent users performing queries.
+    \item \textbf{Output/Result:} Throughput $\geq$ 5,000 transactions/hour; performance efficiency $\geq$ 80\%.
+    \item \textbf{How test will be performed:} Use load testing tools (Locust, K6) to simulate concurrent access and measure throughput metrics.
+\end{itemize}
+
+\subsubsection{Maintainability and Support Requirements}
+
+\paragraph{Test 11: Maintainability Code Review}
+\begin{itemize}
+    \item \textbf{Related Requirements:} MAI.R.1, MAI.R.2
+    \item \textbf{Test ID:} NFR11-Maintainability
+    \item \textbf{Type:} Static (Code Walkthrough)
+    \item \textbf{Initial State:} Source code and documentation complete.
+    \item \textbf{Input/Condition:} Independent developer reviews repository structure and documentation.
+    \item \textbf{Output/Result:} Reviewer able to build and extend system within 1 hour using provided documentation.
+    \item \textbf{How test will be performed:} Conduct peer code walkthrough; independent participant attempts new dataset integration per SRS instructions.
+\end{itemize}
+
+\paragraph{Test 12: User Manual Review}
+\begin{itemize}
+    \item \textbf{Related Requirement:} SUP.R.1
+    \item \textbf{Test ID:} NFR12-Documentation
+    \item \textbf{Type:} Static, Manual
+    \item \textbf{Initial State:} User manual drafted.
+    \item \textbf{Input/Condition:} Review manual completeness and clarity.
+    \item \textbf{Output/Result:} 90\% of user study participants rate the manual as “clear” or better.
+    \item \textbf{How test will be performed:} Conduct documentation walkthrough with usability test participants; collect feedback ratings.
+\end{itemize}
+
+\subsubsection{Security and Compliance Requirements}
+
+\paragraph{Test 13: Data Integrity and Abuse Prevention}
+\begin{itemize}
+    \item \textbf{Related Requirement:} INT.R.1, IMM.R.1, IMM.R.2
+    \item \textbf{Test ID:} NFR13-Security
+    \item \textbf{Type:} Dynamic, Automatic
+    \item \textbf{Initial State:} Backend deployed behind HTTPS.
+    \item \textbf{Input/Condition:} Attempt SQL injection, code injection, and rate-limit violations.
+    \item \textbf{Output/Result:} All attacks blocked; valid error message returned; rate-limiting enforced at 100 requests/minute.
+    \item \textbf{How test will be performed:} Perform penetration testing using OWASP ZAP; verify all malicious attempts logged and mitigated.
+\end{itemize}
+
+\paragraph{Test 14: Standards and Licensing Compliance}
+\begin{itemize}
+    \item \textbf{Related Requirements:} LEG.R.1, STA.R.1, STA.R.2
+    \item \textbf{Test ID:} NFR14-Compliance
+    \item \textbf{Type:} Static, Manual Review
+    \item \textbf{Initial State:} Code repository finalized.
+    \item \textbf{Input/Condition:} Review dependency list and license headers.
+    \item \textbf{Output/Result:} All third-party libraries under compatible licenses; repository includes MIT license and citation requirements.
+    \item \textbf{How test will be performed:} Conduct static code inspection; verify license documentation for all dependencies.
+\end{itemize}
+
 
 \subsection{Traceability Between Test Cases and Requirements}
 
