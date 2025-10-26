@@ -244,6 +244,47 @@ issue tracker?}
 
 \subsection{Verification and Validation Plan Verification}
 
+\subsubsection{Verification and Validation Plan Verification Approaches}
+
+\begin{itemize}
+
+  \item{\textbf{Peer Reviewers: } Our first approach for our Verification and Validation Plan verification is reviewing the peer review issues created by our classmates. As
+  mentioned in the earlier section, this is not the most rigorous or systematic but allows our peers to provide insight from an outside perspective and gives us the
+  chance to evaluate these criticisms and determine if changes need to be made.}
+  \item{\textbf{Structured Internal Team VnV Review: } Our second approach for Verification and Validation Plan Verification is to do a structured team review, identical
+  to that mentioned in the SRS verification section. As a team, we will go over the checklist for the VnV plan and each member will be given the chance to critique
+  the section, identify things that should be changed and personally evaluate sections they may have not written or had the chance to inspect closely.}
+  \item{\textbf{Mutation Testing: } The third approach is the only strictly novel approach being used for verifying the Verification and Validation Plan.
+  Mutation tests will be used to validate the unit tests once they are developed and as many system testing modules as are applicable (mutation testing
+  may not be appropriate for some mutation). Each test that is subject to our mutation testing should satisfy the requirements denoted in the checklist written in
+  the next subsection.}
+\end{itemize}
+
+\subsubsection{Verification and Validation Plan Verification Checklist}
+
+\textbf{Mutation Testing Specific Checks:}
+
+\begin{itemize}
+  \item{Do all relevant test modules have at least one mutation test associated with them?}
+  \item{For all test modules, are all mutants caught by the test suite for that module?}
+  \item{In the case that a mutant is not caught, can a convincing reason be developed for why this is okay? If not, new tests must be created.}
+\end{itemize}
+
+\textbf{General VnV Checklist:}
+
+\begin{itemize}
+  \item{Are all the generated tests reasonably valuable and worth the time to implement?}
+  \item{Are all the generated tests feasible to implement?}
+  \item{Do the tests cover the main anticipated error points that the team can come up with for each module?}
+  \item{Are there any glaring and potentially likely failure cases not covered by the test?}
+  \item{Does each component of the system contain a test suite to an acceptable level of granularity?}
+  \item{Does each test have reasonable and easily justifiable connection to a specific requirement(s)?}
+  \item{Does the scope of our testing include all necessary components and are all out of scope components clearly
+  justifiable? Can any team member identify a component that may need to be moved from in scope to out of scope or vice versa?}
+  \item{Do our tests cover every applicable requirement from our SRS? Are there any requirements which can be reasonably tested
+  within the scope of the VnV that are not being tested against?}
+\end{itemize}
+
 \wss{The verification and validation plan is an artifact that should also be
 verified.  Techniques for this include review and mutation testing.}
 
