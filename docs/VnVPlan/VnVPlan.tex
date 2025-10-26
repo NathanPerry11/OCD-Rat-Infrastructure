@@ -236,6 +236,54 @@ issue tracker?}
 
 \subsection{Design Verification}
 
+\par{For the software design process, the goal of verification of this stage is to ensure our design correctly and completely satisfies 
+the SRS before we start coding. The verification will ensure that during the design process we were not focused on 
+"building the right thing", but "building the thing right". The following subsections will describe the verification techniques and 
+checklist to be used during design verification.}
+
+\subsubsection{Design Verification Techniques}
+
+\begin{itemize}
+  \item{\textbf{Structured Supervisor Design Walkthrough:} The first design verification technique will be our team leading a structured 
+  walkthrough of our design documents to our supervisors, Dr. Henry Szechtman and Dr. Anna Dvorkin-Gheva. This will allow our team to present 
+  our relevant technical design documents in a clear and logically structured manner to provide transparency and room for suggestions 
+  on our design decisions, as well as communicate technical aspects as clearly as possible to reviewers with less technical knowledge.
+  }
+  \item{\textbf{Peer Review from Classmates:} The second design verification technique will be the peer reviews we receive from our classmates. 
+  Again, this technique is not expected to be the most rigorous, but another team will review our design process and contribute feedback 
+  which provides us an opportunity to verify our design process to make sure it is consistent with our SRS.
+  }
+  \item{\textbf{Semi-Structured Team Design Inspection:} Our third technique we will use for verifying our design process will be 
+  our team doing a semi-structured inspection of our design documents. Since our team is doing all the design and development 
+  as the only software engineers involved in this project, we only need to keep this inspection among us as the development team. 
+  Doing a semi-structured inspection together would entail going through our relevant technical design documents in a logically 
+  structured manner which would ensure our design process aligns with the SRS and there are no ambiguities in the process. Additionally, 
+  the semi-structured format would allow room for open-ended discussion on design decisions that could be added, modified, or improved.
+  }
+  \item{\textbf{UI Throwaway Prototype Verification:} Finally our last design verification technique will be creating a throwaway prototype specifically 
+  for the UI component using a tool like Figma or actually coding an interface, allowing our team and our supervisors to test the prototype. 
+  A big part of our design process is designing a more user-friendly and accessible UI than the existing one FRDR offers. Conducting a 
+  prototype test with our entire verification and validation team is critical, considering we would have the input and suggestions of our 
+  two supervisors who interface with FRDR on a regular basis.
+  }
+\end{itemize}
+
+\subsubsection{Design Verification Checklist}
+
+\par{Below is a general checklist of questions that our Design Process should satisfy (i.e. the answer should be yes):}
+
+\begin{itemize}
+  \item{Does the design fulfill all functional requirements stated in the SRS?}
+  \item{Does the design adhere to all non-functional requirements devised in the SRS?}
+  \item{Is the design feasible to implement considering the given timeline, resources, and constraints of the project?}
+  \item{Are all subsystems, modules, and components well-defined and logically decomposed within our overall system?}
+  \item{Are the APIs and interfaces between our components clearly specified with their inputs, outputs, and data types?}
+  \item{Is there traceability from our system components and architecture all the way back to our requirements?}
+  \item{Do all diagrams reflect the architecture of our design consistently and accurately?}
+  \item{Do the UIs follow usability and accessibility guidelines?}
+  \item{Has the verification and validation team approved our design process?}
+\end{itemize}
+
 \wss{Plans for design verification}
 
 \wss{The review will include reviews by your classmates}
