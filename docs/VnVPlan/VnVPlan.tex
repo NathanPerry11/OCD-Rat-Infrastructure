@@ -267,20 +267,28 @@ CAS741) for a partial usability survey.}
 
 \subsection{Automated Testing and Verification Tools}
 
-\wss{What tools are you using for automated testing.  Likely a unit testing
-  framework and maybe a profiling tool, like ValGrind.  Other possible tools
-  include a static analyzer, make, continuous integration tools, test coverage
-  tools, etc.  Explain your plans for summarizing code coverage metrics.
-  Linters are another important class of tools.  For the programming language
-  you select, you should look at the available linters.  There may also be tools
-  that verify that coding standards have been respected, like flake9 for
-  Python.}
-
 \wss{If you have already done this in the development plan, you can point to
 that document.}
 
-\wss{The details of this section will likely evolve as you get closer to the
-  implementation.}
+The following tools are to be used during the verification and validation process to facilitate automated testing and verification. Broadly, these tools are separated into frontend and backend categories:
+
+\textbf{Frontend:}
+\begin{itemize}
+  \item Jest: Facilitates frontend unit testing and coverage 
+  \item ESLint: A JavaScript/TypeScript linter with support for JSX
+  \item Puppeteer: End to end testing and automated UI testing.
+\end{itemize}
+
+\textbf{Backend:}
+\begin{itemize}
+  \item flake8: Style guide enforcement for Python backend
+  \item PyTest: Unit testing and integration testing. 
+\end{itemize}
+
+\textbf{Continuous Integration:}
+
+We will use GitHub actions for CI purposes, which will be configured to run the complete test suite for the frontend and backend upon commit, and serve as a quality gate prior to PR merges. Jobs will also be configured to run static analysis and linting checks, as well as generate coverage reports. 
+
 
 \subsection{Software Validation}
 
