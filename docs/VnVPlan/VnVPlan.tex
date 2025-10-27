@@ -11,6 +11,7 @@
     urlcolor=blue
 }
 \usepackage[round]{natbib}
+\usepackage{longtable}
 
 \input{../Comments}
 \input{../Common}
@@ -303,128 +304,385 @@ as a Rev 0 demo for the supervisor.}
 
 \section{System Tests}
 
-\wss{There should be text between all headings, even if it is just a roadmap of
-the contents of the subsections.}
+This section defines the tests used to verify the system’s compliance with the
+Functional Requirements specified in Section~9.1 of the SRS. Each test ensures
+that the implemented features meet the expected behavior and fit criteria
+described in the Software Requirements Specification. 
+
+The subsections are organized according to the main areas of functionality of
+the platform:
+\begin{itemize}
+    \item Data Filtering and Browsing (FUNC.R.1--R.3)
+    \item Behavioral Analysis and Visualization (FUNC.R.4--R.5)
+    \item Data Downloading and Accessibility (FUNC.R.6--R.7)
+\end{itemize}
 
 \subsection{Tests for Functional Requirements}
 
-\wss{Subsets of the tests may be in related, so this section is divided into
-  different areas.  If there are no identifiable subsets for the tests, this
-  level of document structure can be removed.}
+This section provides detailed tests for all functional requirements. Each test
+includes a test ID, control type, initial conditions, inputs, expected outputs,
+test case derivation, and execution description. References to the SRS are
+included for traceability. 
 
-\wss{Include a blurb here to explain why the subsections below
-  cover the requirements.  References to the SRS would be good here.}
+\subsubsection{Data Filtering and Browsing}
 
-\subsubsection{Area of Testing1}
+These tests verify that users can filter, browse, and query data based on
+predefined labels, natural language queries, and preset datasets. They validate
+the backend (FastAPI + PostgreSQL) integration with the frontend filtering and
+NLP modules.
 
-\wss{It would be nice to have a blurb here to explain why the subsections below
-  cover the requirements.  References to the SRS would be good here.  If a section
-  covers tests for input constraints, you should reference the data constraints
-  table in the SRS.}
-		
-\paragraph{Title for Test}
+\paragraph{Test 1: Verify Filtering by Predefined Labels}
+\begin{itemize}
+    \item \textbf{Related Requirement:} FUNC.R.1
+    \item \textbf{Test ID:} FR1-Filter-Labels
+    \item \textbf{Control:} Automatic (API + UI test)
+    \item \textbf{Initial State:} The database contains labeled behavioral trials with fields such as \texttt{behavior\_label}, \texttt{trial\_id}, and \texttt{session\_id}.
+    \item \textbf{Input:} User selects a filter, e.g., \texttt{behavior\_label = 'checking'}.
+    \item \textbf{Output:} Returned dataset contains only trials where \texttt{behavior\_label == 'checking'}; 100\% match accuracy.
+    \item \textbf{Test Case Derivation:} Since the fit criterion requires perfect accuracy between filter condition and output, the expected output is all rows meeting the filter condition.
+    \item \textbf{How test will be performed:} Use an automated test script (e.g., Postman or PyTest) to send GET requests to \texttt{/api/filter?behavior\_label=checking}. Compare returned data with a query directly run on the database to verify no mismatched rows.
+\end{itemize}
 
-\begin{enumerate}
+\paragraph{Test 2: Verify NLP-Based Query Returns Correct Dataset}
+\begin{itemize}
+    \item \textbf{Related Requirement:} FUNC.R.2
+    \item \textbf{Test ID:} FR2-NLP-Query
+    \item \textbf{Control:} Manual + Automatic hybrid (human semantic check)
+    \item \textbf{Initial State:} NLP model and API are running. Database populated with varied behavioral patterns.
+    \item \textbf{Input:} User enters: ``Show me trials with strong checking behavior after 5 injections.''
+    \item \textbf{Output:} One dataset is returned that matches this semantic filter.
+    \item \textbf{Test Case Derivation:} Based on the SRS fit criterion, one dataset should always be returned for a valid query, containing the subset matching the interpreted condition.
+    \item \textbf{How test will be performed:} Send query via UI or API. Validate that the system outputs one dataset (non-empty). A human tester verifies semantic correctness (dataset contextually fits query meaning).
+\end{itemize}
 
-\item{test-id1\\}
+\paragraph{Test 3: Verify Predefined Data Categories Available for Browsing}
+\begin{itemize}
+    \item \textbf{Related Requirement:} FUNC.R.3
+    \item \textbf{Test ID:} FR3-Predefined-Sets
+    \item \textbf{Control:} Manual (UI check)
+    \item \textbf{Initial State:} System deployed with at least 3 predefined sets (e.g., ``Exploration Trials'', ``Compulsive Behavior'', ``Control Trials'').
+    \item \textbf{Input:} User opens the ``Browse'' interface.
+    \item \textbf{Output:} At least 3 predefined datasets appear for selection.
+    \item \textbf{Test Case Derivation:} Requirement specifies a minimum of 3 sets available for browsing.
+    \item \textbf{How test will be performed:} Manually navigate to the Browse page and confirm at least 3 datasets are displayed and accessible.
+\end{itemize}
 
-Control: Manual versus Automatic
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs.  Output is not how you
-are going to return the results of the test.  The output is the expected
-result.}
+\subsubsection{Behavioral Analysis and Visualization}
 
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
-					
-How test will be performed: 
-					
-\item{test-id2\\}
+These tests ensure that behavioral categorizations and visual representations are correctly generated for user-selected data subsets.
 
-Control: Manual versus Automatic
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs}
+\paragraph{Test 4: Verify Each Trial Has Behavioral Categorization}
+\begin{itemize}
+    \item \textbf{Related Requirement:} FUNC.R.4
+    \item \textbf{Test ID:} FR4-Behavior-Metrics
+    \item \textbf{Control:} Automatic (backend validation)
+    \item \textbf{Initial State:} Database populated with trial records.
+    \item \textbf{Input:} Query any trial dataset.
+    \item \textbf{Output:} Each trial entry includes at least one behavioral category field (e.g., ``checking'', ``homebase'', etc.).
+    \item \textbf{Test Case Derivation:} Requirement demands every trial have a behavior category, so absence of any \texttt{NULL} category field indicates success.
+    \item \textbf{How test will be performed:} Run automated query validation across dataset ensuring no missing categorization values.
+\end{itemize}
 
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
+\paragraph{Test 5: Verify Visuals Are Generated for Each Result Set}
+\begin{itemize}
+    \item \textbf{Related Requirement:} FUNC.R.5
+    \item \textbf{Test ID:} FR5-Visualization
+    \item \textbf{Control:} Automatic (UI rendering check)
+    \item \textbf{Initial State:} User has filtered dataset (non-empty result).
+    \item \textbf{Input:} User clicks ``Generate Visualization''.
+    \item \textbf{Output:} Visualization component renders trajectory or metric chart corresponding to the dataset.
+    \item \textbf{Test Case Derivation:} The fit criterion specifies at least one visual per result set; therefore, successful rendering of a chart or trajectory fulfills this requirement.
+    \item \textbf{How test will be performed:} Use UI test automation (e.g., Selenium) to trigger visualization and check that the chart container loads successfully (non-empty DOM element).
+\end{itemize}
 
-How test will be performed: 
+\subsubsection{Data Downloading and Accessibility}
 
-\end{enumerate}
+These tests confirm that datasets and visuals can be downloaded correctly and that the platform maintains global accessibility.
 
-\subsubsection{Area of Testing2}
+\paragraph{Test 6: Verify Data Download and Integrity}
+\begin{itemize}
+    \item \textbf{Related Requirement:} FUNC.R.6
+    \item \textbf{Test ID:} FR6-Download
+    \item \textbf{Control:} Automatic
+    \item \textbf{Initial State:} Dataset generated and displayed.
+    \item \textbf{Input:} User clicks ``Download CSV'' or ``Download Visualization''.
+    \item \textbf{Output:} File downloaded successfully; first 100 rows match database query results.
+    \item \textbf{Test Case Derivation:} Fit criterion requires verification against the first 100 rows; thus, equality of the first 100 entries validates correctness.
+    \item \textbf{How test will be performed:} Automated script downloads dataset and compares first 100 entries with direct database query output.
+\end{itemize}
 
-...
+\paragraph{Test 7: Verify Global Accessibility and Performance}
+\begin{itemize}
+    \item \textbf{Related Requirement:} FUNC.R.7
+    \item \textbf{Test ID:} FR7-Accessibility
+    \item \textbf{Control:} Automatic (load testing + global simulation)
+    \item \textbf{Initial State:} Deployed web system with CDN enabled.
+    \item \textbf{Input:} Users (or simulated clients) from 3+ regions (e.g., North America, Europe, Asia) access the site.
+    \item \textbf{Output:} Average page load time $<$ 4 seconds across all regions; no functional degradation.
+    \item \textbf{Test Case Derivation:} Requirement defines measurable metric (4 seconds); success if timing threshold not exceeded.
+    \item \textbf{How test will be performed:} Use tools such as Lighthouse, GTmetrix, or JMeter with geo-distributed endpoints to measure average response time and record metrics.
+\end{itemize}
+
 
 \subsection{Tests for Nonfunctional Requirements}
 
-\wss{The nonfunctional requirements for accuracy will likely just reference the
-  appropriate functional tests from above.  The test cases should mention
-  reporting the relative error for these tests.  Not all projects will
-  necessarily have nonfunctional requirements related to accuracy.}
+This section defines the test procedures for verifying the nonfunctional
+requirements as defined in Sections~10--17 of the SRS. The tests include
+evaluations of appearance, usability, performance, robustness, scalability,
+maintainability, and compliance. 
 
-\wss{For some nonfunctional tests, you won't be setting a target threshold for
-passing the test, but rather describing the experiment you will do to measure
-the quality for different inputs.  For instance, you could measure speed versus
-the problem size.  The output of the test isn't pass/fail, but rather a summary
-table or graph.}
+Since nonfunctional requirements often describe qualities rather than discrete
+functions, many tests in this section are qualitative or metric-based
+evaluations. Several involve user studies, performance measurement, and static
+reviews instead of strict pass/fail results.
 
-\wss{Tests related to usability could include conducting a usability test and
-  survey.  The survey will be in the Appendix.}
+\subsubsection{Look and Feel Requirements}
 
-\wss{Static tests, review, inspections, and walkthroughs, will not follow the
-format for the tests given below.}
+These tests ensure that the interface design aligns with the intended audience
+(non-technical researchers) and provides a simple, familiar, and intuitive
+user experience.
 
-\wss{If you introduce static tests in your plan, you need to provide details.
-How will they be done?  In cases like code (or document) walkthroughs, who will
-be involved? Be specific.}
+\paragraph{Test 1: Interface Resemblance to Webstore/Boutique}
+\begin{itemize}
+    \item \textbf{Related Requirement:} APP.R.1
+    \item \textbf{Test ID:} NFR1-UI-Appearance
+    \item \textbf{Type:} Static, Manual (Usability Review)
+    \item \textbf{Initial State:} Functional web interface deployed.
+    \item \textbf{Input/Condition:} UI inspected by 3 non-technical evaluators.
+    \item \textbf{Output/Result:} 80\% of reviewers confirm the interface resembles a webstore-style interface with clear query “packages.”
+    \item \textbf{How test will be performed:} Conduct a design walkthrough where users compare the layout to an e-commerce platform. Collect ratings via short usability survey (Appendix~A).
+\end{itemize}
 
-\subsubsection{Area of Testing1}
-		
-\paragraph{Title for Test}
+\paragraph{Test 2: Simplicity of Interface Presentation}
+\begin{itemize}
+    \item \textbf{Related Requirement:} APP.R.2
+    \item \textbf{Test ID:} NFR2-UI-Simplicity
+    \item \textbf{Type:} Static, Manual (Heuristic Evaluation)
+    \item \textbf{Initial State:} All major features visible on homepage.
+    \item \textbf{Input/Condition:} Evaluators perform inspection for UI density and feature visibility.
+    \item \textbf{Output/Result:} Interface should not exceed 6 visible interactive elements on the main view; evaluators report no intimidation or confusion.
+    \item \textbf{How test will be performed:} Use heuristic evaluation checklist for cognitive load and visual complexity; summarize reviewer feedback quantitatively.
+\end{itemize}
 
-\begin{enumerate}
+\paragraph{Test 3: Familiar Filtering Presentation}
+\begin{itemize}
+    \item \textbf{Related Requirement:} APP.R.3
+    \item \textbf{Test ID:} NFR3-UI-Familiarity
+    \item \textbf{Type:} Static, Manual
+    \item \textbf{Initial State:} Filtering and search panel implemented.
+    \item \textbf{Input/Condition:} Users asked to find a data subset using filter controls.
+    \item \textbf{Output/Result:} 90\% of participants find the filters intuitive and similar to an online storefront.
+    \item \textbf{How test will be performed:} Conduct usability test with 5 participants. Record task completion time and perceived ease of use (Likert scale).
+\end{itemize}
 
-\item{test-id1\\}
+\subsubsection{Usability and Humanity Requirements}
 
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input/Condition: 
-					
-Output/Result: 
-					
-How test will be performed: 
-					
-\item{test-id2\\}
+These tests measure user learning time, ease of use, and understandability.
 
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
+\paragraph{Test 4: Ease of Use (Floor and Ceiling)}
+\begin{itemize}
+    \item \textbf{Related Requirements:} EOU.R.1, EOU.R.2
+    \item \textbf{Test ID:} NFR4-EaseOfUse
+    \item \textbf{Type:} Dynamic, Manual (User Study)
+    \item \textbf{Initial State:} Functional system with packaged queries and NLP interface.
+    \item \textbf{Input/Condition:} New users complete a task set (select prepackaged query, perform NLP search, generate visualization).
+    \item \textbf{Output/Result:} 100\% task completion; average total completion time $<$ 5 minutes for basic operations.
+    \item \textbf{How test will be performed:} Conduct usability test with 5 non-technical participants. Record success rate and completion time per task.
+\end{itemize}
 
-\end{enumerate}
+\paragraph{Test 5: Learning Curve Assessment}
+\begin{itemize}
+    \item \textbf{Related Requirement:} LEA.R.1
+    \item \textbf{Test ID:} NFR5-LearningCurve
+    \item \textbf{Type:} Dynamic, Manual
+    \item \textbf{Initial State:} Fully functional platform; user documentation accessible.
+    \item \textbf{Input/Condition:} Participants with no prior system experience attempt to complete key workflows.
+    \item \textbf{Output/Result:} Average learning curve $<$ 30 minutes; all users can independently perform search and visualization tasks.
+    \item \textbf{How test will be performed:} Measure total time for users to reach proficiency (defined as completing 3 tasks unassisted).
+\end{itemize}
 
-\subsubsection{Area of Testing2}
+\paragraph{Test 6: Understandability and Terminology Audit}
+\begin{itemize}
+    \item \textbf{Related Requirements:} UAP.R.1, UAP.R.2
+    \item \textbf{Test ID:} NFR6-Understandability
+    \item \textbf{Type:} Static, Manual (Content Review)
+    \item \textbf{Initial State:} Interface text finalized.
+    \item \textbf{Input/Condition:} Non-technical users read through all on-screen text.
+    \item \textbf{Output/Result:} At least 90\% of all interface text rated “understandable” by users.
+    \item \textbf{How test will be performed:} Conduct terminology walkthrough; classify all words/phrases as technical or intuitive. Replace technical terms as necessary.
+\end{itemize}
 
-...
+\paragraph{Test 7: Accessibility Audit}
+\begin{itemize}
+    \item \textbf{Related Requirement:} ACC.R.1
+    \item \textbf{Test ID:} NFR7-Accessibility
+    \item \textbf{Type:} Static + Automated
+    \item \textbf{Initial State:} Frontend deployed.
+    \item \textbf{Input/Condition:} Run Lighthouse, Axe, or WAVE accessibility audit tools.
+    \item \textbf{Output/Result:} Accessibility score $\geq$ 90/100; ARIA labels and alt-text coverage 100\%.
+    \item \textbf{How test will be performed:} Automated scan using accessibility tools; manual confirmation of ARIA compliance and alt-text for media.
+\end{itemize}
+
+\subsubsection{Performance and Reliability Requirements}
+
+These tests verify latency, throughput, fault-tolerance, and data integrity.
+
+\paragraph{Test 8: Query Speed and Latency Benchmark}
+\begin{itemize}
+    \item \textbf{Related Requirements:} SAL.R.1, SAL.R.2
+    \item \textbf{Test ID:} NFR8-Performance
+    \item \textbf{Type:} Dynamic, Automatic
+    \item \textbf{Initial State:} Server and database running under normal load.
+    \item \textbf{Input/Condition:} Execute 100 queries of varying sizes up to 5,000 records.
+    \item \textbf{Output/Result:} Average query time $<$ 2 seconds; request latency $<$ 100 ms.
+    \item \textbf{How test will be performed:} Automated benchmark using JMeter or Locust. Generate graph of response time vs. query size.
+\end{itemize}
+
+\paragraph{Test 9: Fault-Tolerance and Logging Verification}
+\begin{itemize}
+    \item \textbf{Related Requirements:} ROFT.R.1, ROFT.R.2
+    \item \textbf{Test ID:} NFR9-Robustness
+    \item \textbf{Type:} Dynamic, Automatic
+    \item \textbf{Initial State:} Backend running.
+    \item \textbf{Input/Condition:} Submit invalid input payloads and simulate network interruptions.
+    \item \textbf{Output/Result:} Errors logged without system crash; user receives appropriate feedback message.
+    \item \textbf{How test will be performed:} Automated injection of malformed JSON; verify log entries and system stability.
+\end{itemize}
+
+\paragraph{Test 10: Capacity and Scalability Evaluation}
+\begin{itemize}
+    \item \textbf{Related Requirements:} CAP.R.1, CAP.R.2, SOE.R.2
+    \item \textbf{Test ID:} NFR10-Capacity
+    \item \textbf{Type:} Dynamic, Automatic
+    \item \textbf{Initial State:} System deployed in cloud environment.
+    \item \textbf{Input/Condition:} Simulate 250 concurrent users performing queries.
+    \item \textbf{Output/Result:} Throughput $\geq$ 5,000 transactions/hour; performance efficiency $\geq$ 80\%.
+    \item \textbf{How test will be performed:} Use load testing tools (Locust, K6) to simulate concurrent access and measure throughput metrics.
+\end{itemize}
+
+\subsubsection{Maintainability and Support Requirements}
+
+\paragraph{Test 11: Maintainability Code Review}
+\begin{itemize}
+    \item \textbf{Related Requirements:} MAI.R.1, MAI.R.2
+    \item \textbf{Test ID:} NFR11-Maintainability
+    \item \textbf{Type:} Static (Code Walkthrough)
+    \item \textbf{Initial State:} Source code and documentation complete.
+    \item \textbf{Input/Condition:} Independent developer reviews repository structure and documentation.
+    \item \textbf{Output/Result:} Reviewer able to build and extend system within 1 hour using provided documentation.
+    \item \textbf{How test will be performed:} Conduct peer code walkthrough; independent participant attempts new dataset integration per SRS instructions.
+\end{itemize}
+
+\paragraph{Test 12: User Manual Review}
+\begin{itemize}
+    \item \textbf{Related Requirement:} SUP.R.1
+    \item \textbf{Test ID:} NFR12-Documentation
+    \item \textbf{Type:} Static, Manual
+    \item \textbf{Initial State:} User manual drafted.
+    \item \textbf{Input/Condition:} Review manual completeness and clarity.
+    \item \textbf{Output/Result:} 90\% of user study participants rate the manual as “clear” or better.
+    \item \textbf{How test will be performed:} Conduct documentation walkthrough with usability test participants; collect feedback ratings.
+\end{itemize}
+
+\subsubsection{Security and Compliance Requirements}
+
+\paragraph{Test 13: Data Integrity and Abuse Prevention}
+\begin{itemize}
+    \item \textbf{Related Requirement:} INT.R.1, IMM.R.1, IMM.R.2
+    \item \textbf{Test ID:} NFR13-Security
+    \item \textbf{Type:} Dynamic, Automatic
+    \item \textbf{Initial State:} Backend deployed behind HTTPS.
+    \item \textbf{Input/Condition:} Attempt SQL injection, code injection, and rate-limit violations.
+    \item \textbf{Output/Result:} All attacks blocked; valid error message returned; rate-limiting enforced at 100 requests/minute.
+    \item \textbf{How test will be performed:} Perform penetration testing using OWASP ZAP; verify all malicious attempts logged and mitigated.
+\end{itemize}
+
+\paragraph{Test 14: Standards and Licensing Compliance}
+\begin{itemize}
+    \item \textbf{Related Requirements:} LEG.R.1, STA.R.1, STA.R.2
+    \item \textbf{Test ID:} NFR14-Compliance
+    \item \textbf{Type:} Static, Manual Review
+    \item \textbf{Initial State:} Code repository finalized.
+    \item \textbf{Input/Condition:} Review dependency list and license headers.
+    \item \textbf{Output/Result:} All third-party libraries under compatible licenses; repository includes MIT license and citation requirements.
+    \item \textbf{How test will be performed:} Conduct static code inspection; verify license documentation for all dependencies.
+\end{itemize}
+
 
 \subsection{Traceability Between Test Cases and Requirements}
 
-\wss{Provide a table that shows which test cases are supporting which
-  requirements.}
+Table~\ref{tab:traceability} provides a traceability matrix showing the correspondence between each Software Requirements Specification (SRS) requirement and the test cases defined in Sections~4.1 and~4.2. Each requirement identifier (FUNC.R.\#, APP.R.\#, etc.) is mapped to one or more test case identifiers that verify its implementation or satisfaction.
+
+\renewcommand{\arraystretch}{1.2}
+\begin{longtable}{|l|p{10cm}|}
+\caption{Traceability Between Test Cases and Requirements}
+\label{tab:traceability} \\
+\hline
+\textbf{Requirement ID} & \textbf{Associated Test Case(s)} \\
+\hline
+\endfirsthead
+\hline
+\textbf{Requirement ID} & \textbf{Associated Test Case(s)} \\
+\hline
+\endhead
+\hline \multicolumn{2}{r}{{Continued on next page}} \\
+\endfoot
+\hline
+\endlastfoot
+
+FUNC.R.1 & ST-FR1.1 Filter Accuracy Test \\
+FUNC.R.2 & ST-FR2.1 NLP Query Response Test \\
+FUNC.R.3 & ST-FR3.1 Predefined Dataset Browsing Test \\
+FUNC.R.4 & ST-FR4.1 Behavioural Categorization and Metrics Test \\
+FUNC.R.5 & ST-FR5.1 Visualization Generation Test \\
+FUNC.R.6 & ST-FR6.1 Data Download and Export Verification Test \\
+FUNC.R.7 & ST-FR7.1 Global Accessibility and Latency Test \\
+APP.R.1 & ST-NFR1.1 Interface Familiarity Inspection \\
+APP.R.2 & ST-NFR1.2 Visual Simplicity Inspection \\
+APP.R.3 & ST-NFR1.3 Filter Interface Familiarity Test \\
+EOU.R.1 & ST-NFR2.1 Ease of Use (Low Floor) Usability Study \\
+EOU.R.2 & ST-NFR2.2 Ease of Use (Low Ceiling) Usability Study \\
+LEA.R.1 & ST-NFR3.1 Learning Curve Evaluation Test \\
+LEA.R.2 & ST-NFR3.2 Visualization Guidance Test \\
+UAP.R.1 & ST-NFR4.1 Technical Abstraction Inspection \\
+UAP.R.2 & ST-NFR4.2 Terminology Familiarity Review \\
+ACC.R.1 & ST-NFR5.1 Accessibility Compliance Test \\
+SAL.R.1 & ST-NFR6.1 Query Response Time Benchmark \\
+SAL.R.2 & ST-NFR6.2 Network Latency Benchmark \\
+POA.R.1 & ST-NFR7.1 Data Accuracy Cross-Check \\
+POA.R.2 & ST-NFR7.2 Database Consistency Test \\
+ROFT.R.1 & ST-NFR8.1 Input Error Logging Test \\
+ROFT.R.2 & ST-NFR8.2 Backend Fault Tolerance Test \\
+CAP.R.1 & ST-NFR9.1 Concurrent User Load Test \\
+CAP.R.2 & ST-NFR9.2 Data Volume Stress Test \\
+SOE.R.1 & ST-NFR10.1 Module Integration Test \\
+SOE.R.2 & ST-NFR10.2 Performance Under Load Test \\
+LON.R.1 & ST-NFR11.1 Reliability and Maintenance Longevity Test \\
+LON.R.2 & ST-NFR11.2 Cross-OS Compatibility Test \\
+EPE.R.1 & ST-NFR12.1 Desktop Environment Performance Test \\
+EPE.R.2 & ST-NFR12.2 Multi-OS Execution Verification Test \\
+EPE.R.3 & ST-NFR12.3 Environmental Condition Simulation \\
+WE.R.1 & ST-NFR13.1 Browser Compatibility Test \\
+IWAS.R.1 & ST-NFR14.1 API Communication Protocol Test \\
+PROD.R.1 & ST-NFR15.1 Docker/Kubernetes Deployment Test \\
+PROD.R.2 & ST-NFR15.2 Repository Update Verification Test \\
+REL.R.1 & ST-NFR16.1 Versioning Convention Test \\
+REL.R.2 & ST-NFR16.2 Release Consistency Verification Test \\
+MAI.R.1 & ST-NFR17.1 Documentation Maintainability Inspection \\
+MAI.R.2 & ST-NFR17.2 Dataset Integration Maintenance Test \\
+SUP.R.1 & ST-NFR18.1 User Manual Verification Test \\
+SUP.R.2 & ST-NFR18.2 Self-Support Functionality Test \\
+ADA.R.1 & ST-NFR19.1 Platform Adaptability Test \\
+INT.R.1 & ST-NFR20.1 Data Integrity Protection Test \\
+IMM.R.1 & ST-NFR21.1 Security Attack Resistance Test \\
+IMM.R.2 & ST-NFR21.2 Rate Limiting and HTTPS Enforcement Test \\
+LEG.R.1 & ST-NFR22.1 License Compliance Review \\
+STA.R.1 & ST-NFR23.1 FRDR Standards Compliance Test \\
+STA.R.2 & ST-NFR23.2 Ethical Use of Data Verification Test \\
+
+\end{longtable}
+
+
 
 \section{Unit Test Description}
 
