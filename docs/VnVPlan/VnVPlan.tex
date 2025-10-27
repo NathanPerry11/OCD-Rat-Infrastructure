@@ -302,16 +302,55 @@ verified.  Techniques for this include review and mutation testing.}
 
 \subsection{Implementation Verification}
 
-\wss{You should at least point to the tests listed in this document and the unit
-  testing plan.}
 
-\wss{In this section you would also give any details of any plans for static
-  verification of the implementation.  Potential techniques include code
-  walkthroughs, code inspection, static analyzers, etc.}
+The implementation verification will be used to guide the system's adherance to the specifications as defined in the SRS. Verification will be done using both static and dynamic methods. The team will employ several static tools including linters and code quality analyzers to enforce a high standard and detect vulnerabilities. 
 
-\wss{The final class presentation in CAS 741 could be used as a code
-walkthrough.  There is also a possibility of using the final presentation (in
-CAS741) for a partial usability survey.}
+
+
+
+
+One major source of verification will be our unit test suite, which will be defined for both frontend and backend components of the system and integrated into the CI process. Test cases will target functional requirements as defined in the 
+
+
+\textbf{Unit Testing:}
+
+Unit Test cases will target functional requirements as defined in the System Tests (see \hyperref[sec:system_tests]{Section~\ref{sec:system_tests}}). These tests will be important drivers of system correctness, ensuring functionality works according to specification. Correctness of querying behaviour (\textbf{FR2}) is one example of a critical requirement to verify. 
+
+
+
+
+\textbf{Performance Testing:}
+
+Performance testing will be used to validate several important benchmarks impacting usability including:
+\begin{itemize}
+  \item Query Speed (\textbf{NFR8})
+  \item  Fault Tolerance (\textbf{NFR9}),
+  \item Scalability (\textbf{NFR10}). 
+\end{itemize}
+
+
+Performance testing will utilize end-to-end methods to validate metrics like query speed, where the response time can be measured using an automated UI test. 
+
+\textbf{Static Analysis:}
+
+Static analysis tools will be employed to maintain a consistent quality threshold throughout the development lifecycle, helping adhere to style guidelines and protecting against defects early on. Specific tools are defined in section 3.6.  
+
+\textbf{Code Walkthroughs and Inspections}
+
+\begin{itemize}
+  \item \textbf{Peer Review:} Pull Requests will go through a mandatory peer review process prior to any PR being merged. A minimum of 2 reviewers will be required prior to merging.  
+\end{itemize}
+
+\textbf{Manual Reviews:}
+
+To verify many of the non-functional requirements, the team will employ manual reviews and user studies to ensure the sytem meets look, feel, and usability requirements.  Walkthroughs will be useful for several of the following: 
+
+\begin{itemize}
+    \item NFR3 UI Familiarity
+  \item NFR4 Ease of Use
+ \item NFR5 Learning Curve Assessment
+\end{itemize}
+
 
 \subsection{Automated Testing and Verification Tools}
 
@@ -350,6 +389,7 @@ as a Rev 0 demo for the supervisor.}
 
 \wss{This section might reference back to the SRS verification section.}
 
+\label{sec:system_tests}
 \section{System Tests}
 
 This section defines the tests used to verify the system’s compliance with the
