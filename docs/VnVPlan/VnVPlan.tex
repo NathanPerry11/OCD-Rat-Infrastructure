@@ -31,36 +31,15 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+Oct 27 2025 & 1.0 & Initial Document\\
 \bottomrule
 \end{tabularx}
 
 ~\\
-\wss{The intention of the VnV plan is to increase confidence in the software.
-However, this does not mean listing every verification and validation technique
-that has ever been devised.  The VnV plan should also be a \textbf{feasible}
-plan. Execution of the plan should be possible with the time and team available.
-If the full plan cannot be completed during the time available, it can either be
-modified to ``fake it'', or a better solution is to add a section describing
-what work has been completed and what work is still planned for the future.}
-
-\wss{The VnV plan is typically started after the requirements stage, but before
-the design stage.  This means that the sections related to unit testing cannot
-initially be completed.  The sections will be filled in after the design stage
-is complete.  the final version of the VnV plan should have all sections filled
-in.}
 
 \newpage
 
 \tableofcontents
-
-\listoftables
-\wss{Remove this section if it isn't needed}
-
-\listoffigures
-\wss{Remove this section if it isn't needed}
-
 \newpage
 
 \section{Symbols, Abbreviations, and Acronyms}
@@ -206,14 +185,8 @@ list the entities that will participate in the verification and validation steps
 verification and validation team. Then we will discuss the verification plans of the SRS, design, VnV Plan, implementation, and 
 the automatic tools we use for testing and verification. Lastly, we will discuss how we will perform the validation of our software.}
 
-\wss{Introduce this section.  You can provide a roadmap of the sections to
-  come.}
 
 \subsection{Verification and Validation Team}
-
-\wss{Your teammates.  Maybe your supervisor.
-  You should do more than list names.  You should say what each person's role is
-  for the project's verification.  A table is a good way to summarize this information.}
 
 \begin{itemize}
   \item{\textbf{Aidan Goodyer},\textbf{Jeremy Orr},\textbf{Nathan Perry},\textbf{Timothy Pokanai},\textbf{Leo Vugert}:}
@@ -231,18 +204,6 @@ the automatic tools we use for testing and verification. Lastly, we will discuss
 \end{itemize}
 
 \subsection{SRS Verification}
-
-\wss{List any approaches you intend to use for SRS verification.  This may
-  include ad hoc feedback from reviewers, like your classmates (like your
-  primary reviewer), or you may plan for something more rigorous/systematic.}
-
-\wss{If you have a supervisor for the project, you shouldn't just say they will
-read over the SRS.  You should explain your structured approach to the review.
-Will you have a meeting?  What will you present?  What questions will you ask?
-Will you give them instructions for a task-based inspection?  Will you use your
-issue tracker?}
-
-\wss{Maybe create an SRS checklist?}
 
 \subsubsection{SRS Verification Approaches}
 
@@ -341,20 +302,7 @@ checklist to be used during design verification.}
   \item{Has the verification and validation team approved our design process?}
 \end{itemize}
 
-\wss{Plans for design verification}
-
-\wss{The review will include reviews by your classmates}
-
-\wss{Create a checklists?}
-
 \subsection{Verification and Validation Plan Verification}
-
-\wss{The verification and validation plan is an artifact that should also be
-verified.  Techniques for this include review and mutation testing.}
-
-\wss{The review will include reviews by your classmates}
-
-\wss{Create a checklists?}
 
 \subsection{Implementation Verification}
 
@@ -1054,12 +1002,8 @@ all of which will be considered for a usability survey.}
   user-friendly)?}
 \end{itemize}
 
-\wss{This is a section that would be appropriate for some projects.}
-
 \newpage{}
 \section*{Appendix --- Reflection}
-
-\wss{This section is not required for CAS 741}
 
 The information in this section will be used to evaluate the team members on the
 graduate attribute of Lifelong Learning.
@@ -1085,10 +1029,45 @@ graduate attribute of Lifelong Learning.
   Examples of possible knowledge and skills include dynamic testing knowledge,
   static testing knowledge, specific tool usage, Valgrind etc.  You should look to
   identify at least one item for each team member.
+
+  \begin{itemize}
+
+    \item \textbf{Static analysis Approaches: }A very basic approach to testing but often an effective, especially when there is a large team to review each other's code. It will be very useful to review the most relevant static analysis approaches both for this test plan and so that we can generally improve our ability to review each other's code. This can include tools like SonarQube or can just be manual static analysis.
+
+    \item \textbf{JMeter or other Load Testing Tools: }We will need to test the performance of our web application to identify how it performs under increased loads. JMeter allows us to create HTTP requests and measure how the system responds. This will be especially useful in testing the system response under increased user load or a request with a large data result.
+
+    \item \textbf{Selenium or other test automation approaches: }Selenium is a good example of an
+automated web application testing tool. This is a tool that we expect to use, given
+that we will be creating a web application for the front-end of our system. The use of Selenium or a similar tool allows us to create repeatable and autonomous web application inputs that can be used to effectively test our front-end interface.
+
+    \item \textbf{PyTest or other unit testing approaches: }Although not yet composed, the VnV plan
+will eventually contain an extensive set of unit tests which need to be implemented
+in our system. Reviewing or learning about a relevant unit test implementation approach
+will be crucial in effectively implementing robust unit tests in our project.
+
+  
+  \end{itemize}
+
+
+
+
+
   \item For each of the knowledge areas and skills identified in the previous
   question, what are at least two approaches to acquiring the knowledge or
   mastering the skill?  Of the identified approaches, which will each team
   member pursue, and why did they make this choice?
+
+  \begin{itemize}
+
+    \item \textbf{All team Members - Static Analysis: }As mentioned above, this is an important skill for general code review as well as our testing plan. As a result, it is important for all team members to review this. Internet tutorials such as a SonarQube walkthrough and reviewing the SFWRENG 3S03 class material are both good approaches for this.
+
+    \item \textbf{Nathan and Leo - JMeter: }Both these team members have experience with load testing and thus it would be most effective for them to refresh their skills in JMeter. We expect the testing implementation to be largely compartmentalized so it would be best for each team member to play into their already existing strengths. Good tools to gain knowledge on this topic would be an internet tutorial such as one from tutorialspoint. Additionally, Nathan has a Kubernetes test-bed with JMeter on his device from an old project which would be useful to refresh knowledge.
+
+    \item \textbf{Jeremy - Selenium: }Jeremy has done reasonably extensive work with Selenium and thus it makes the most sense for him to focus on this aspect of the testing technologies. A refresher from the internet, again from tutorialspoint would be useful. Alternatively, Jeremy can review old projects from his time on Coop to refresh his skills.
+
+    \item \textbf{Tim and Aidan - PyTest: }Much like the other technologies, these team members will be taking this knowledge area because it plays into their already existing strengths. Many online tutorials about this can be found. Again, tutorialspoint is a good option (they seem to have tutorials on everything). Additionally, PyTest was covered in our SWFRENG 3S03 class so that is another good option.
+
+  \end{itemize}
 \end{enumerate}
 
 \end{document}
