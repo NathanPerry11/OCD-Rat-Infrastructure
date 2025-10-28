@@ -66,80 +66,136 @@ in.}
 \section{Symbols, Abbreviations, and Acronyms}
 
 \renewcommand{\arraystretch}{1.2}
-\begin{tabular}{l l} 
-  \toprule		
-  \textbf{symbol} & \textbf{description}\\
-  \midrule 
-  T & Test\\
+\begin{longtable}{l l}
+  \caption{List of Symbols, Abbreviations, and Acronyms} \\
+  \toprule
+  \textbf{Symbol / Acronym} & \textbf{Description} \\
+  \midrule
+  \endfirsthead
+
+  \toprule
+  \textbf{Symbol / Acronym} & \textbf{Description (continued)} \\
+  \midrule
+  \endhead
+
   \bottomrule
-\end{tabular}\\
+  \multicolumn{2}{r}{\textit{Continued on next page}} \\
+  \endfoot
 
-\wss{symbols, abbreviations, or acronyms --- you can simply reference the SRS
-  \citep{SRS} tables, if appropriate}
+  \bottomrule
+  \endlastfoot
 
-\wss{Remove this section if it isn't needed}
+  T & Test \\
+  SRS & System Requirements Specification \\
+  V\&V & Verification and Validation \\
+  FR & Functional Requirement \\
+  NFR & Nonfunctional Requirement \\
+  MIS & Module Interface Specification \\
+  MG & Module Guide \\
+  CI & Continuous Integration \\
+  UI & User Interface \\
+  FRDR & Federated Research Data Repository \\
+  API & Application Programming Interface \\
+  PR & Pull Request \\
+  ID & Identification \\
+  NLP & Natural Language Processing \\
+  SQL & Structured Query Language \\
+  CSV & Comma-Separated Values \\
+  GTmetrix & Grand Touring Metrix (web performance analysis tool) \\
+  APP & Application \\
+  EOU & Ease of Use \\
+  LEA & Learning \\
+  UAP & Understandability and Politeness \\
+  ACC & Accessibility \\
+  ARIA & Accessible Rich Internet Applications \\
+  SAL & Speed and Latency \\
+  ROFT & Robustness or Fault Tolerance \\
+  CAP & Capacity \\
+  SOE & Scalability or Extensibility \\
+  MAI & Maintainability \\
+  SUP & Supportability \\
+  INT & Integrity \\
+  IMM & Immunity \\
+  OWASP ZAP & Open Web Application Security Project Zed Attack Proxy \\
+  LEG & Legal \\
+  STA & Standards Compliance \\
+  ST-FR & System Test – Functional Requirement \\
+  ST-NFR & System Test – Nonfunctional Requirement \\
+  LON & Longevity \\
+  EPE & Expected Physical Environment \\
+  WE & Wider Environment \\
+  IWAS & Interfacing with Adjacent Systems \\
+  PROD & Productization \\
+  REI & Release \\
+  ADA & Adaptability \\
+\end{longtable}
+
 
 \newpage
 
 \pagenumbering{arabic}
-
-This document ... \wss{provide an introductory blurb and roadmap of the
-  Verification and Validation plan}
+This section defines the symbols, abbreviations, and acronyms used throughout the plan. The purpose of this section is to
+ make sure clarity and 
+consistency remains when referring the plan.
 
 \section{General Information}
 
 \subsection{Summary}
 
-\wss{Say what software is being tested.  Give its name and a brief overview of
-  its general functions.}
+The Gouda Engineers team built this entire software system. Their core aim? To deliver a platform—one that's both
+ robust and lightning-quick—that doesn't just meet but exceeds every single functional and non-functional requirement laid 
+ out in the official SRS.
+
+This document looks into the system's VnV process. This process 
+is  essential as it guarantees the software  behaves exactly how it's supposed to and, crucially, completely
+ satisfies what the stakeholders want. We will be checking that every single part of the development 
+ puzzle—the initial SRS, the intricate design blueprints, the lines of code itself—perfectly aligns with its own set of 
+ specifications and validation, is the final check.
+
+Our rigorous VnV approach pulls together a variety of methods: automated testing provides speed, while painstaking manual
+ inspections and collaborative peer reviews inject human judgment to evaluate the system's correctness, performance, and 
+ general usability. These activities are what fundamentally build confidence in the software's ultimate quality and 
+ unwavering reliability, simultaneously rooting out any lingering risks or pesky issues long before the final, official 
+ release.
+
 
 \subsection{Objectives}
 
-\wss{State what is intended to be accomplished.  The objective will be around
-  the qualities that are most important for your project.  You might have
-  something like: ``build confidence in the software correctness,''
-  ``demonstrate adequate usability.'' etc.  You won't list all of the qualities,
-  just those that are most important.}
 
-\wss{You should also list the objectives that are out of scope.  You don't have 
-the resources to do everything, so what will you be leaving out.  For instance, 
-if you are not going to verify the quality of usability, state this.  It is also 
-worthwhile to justify why the objectives are left out.}
+   The main objective of this plan is to build confidence in the accuracy, reliability and stability of the software we 
+   are developing. The system works as a connection between researchers and the data set of rat trials. Our focus is on providing 
+   a program that retrieves correct data and works smoothy with no errors. AN objective is that the layout and information presented
+   is usable and doesn't provide any friction in it use. However, we are not able to do user testing on a wide population and are 
+   beyond the scope of the project. WE assume that the underlying database and external libraries are already validated.
 
-\wss{The objectives are important because they highlight that you are aware of 
-limitations in your resources for verification and validation.  You can't do everything, 
-so what are you going to prioritize?  As an example, if your system depends on an 
-external library, you can explicitly state that you will assume that external library 
-has already been verified by its implementation team.}
+The plan wants to ensure that the core functions of the interface like data access, filtering and display are
+ accurate and reliable,  long-term performance testing is beyond the scope of 
+ this phase.
 
 \subsection{Challenge Level and Extras}
 
-\wss{State the challenge level (advanced, general, basic) for your project.
-Your challenge level should exactly match what is included in your problem
-statement.  This should be the challenge level agreed on between you and the
-course instructor.  You can use a pull request to update your challenge level
-(in TeamComposition.csv or Repos.csv) if your plan changes as a result of the
-VnV planning exercise.}
+The project would be advanced because it uses many complex software engineering ideas and principles. Creating a visually appealing UI, integrating NLP, implementing the store front display while
+also ensuring that the performance is good. These features require to make both the desing and verification of the system very in depth to fit the project.\\
 
-\wss{Summarize the extras (if any) that were tackled by this project.  Extras
-can include usability testing, code walkthroughs, user documentation, formal
-proof, GenderMag personas, Design Thinking, etc.  Extras should have already
-been approved by the course instructor as included in your problem statement.
-You can use a pull request to update your extras (in TeamComposition.csv or
-Repos.csv) if your plan changes as a result of the VnV planning exercise.}
+The project includes two extras, a performance report and a user manual. The performance report identifies ares of the code where the software can be optimized to make it faster and more effecient, and the user manual
+offers the user guidance through the program.
+
 
 \subsection{Relevant Documentation}
 
-\wss{Reference relevant documentation.  This will definitely include your SRS
-  and your other project documents (design documents, like MG, MIS, etc).  You
-  can include these even before they are written, since by the time the project
-  is done, they will be written.  You can create BibTeX entries for your
-  documents and within those entries include a hyperlink to the documents.}
+\begin{itemize}
+    \item Perry, Nathan, Aidan Goodyer, Jeremy Orr, et al. "OCD-Rat-Infrastructure/Docs/Problemstatementandgoals at Main - OCD-Rats-Capstone/OCD-Rat-Infrastructure." GitHub. Accessed 27 Oct. 2025. \url{https://github.com/OCD-Rats-Capstone/OCD-Rat-Infrastructure/tree/main/docs/ProblemStatementAndGoals}
 
-\citet{SRS}
+    \item Perry, Nathan, Aidan Goodyer, Tim Pokanai, et al. "OCD-Rat-Infrastructure/Docs/SRS-Volere at Main - OCD-Rats-Capstone/OCD-Rat-Infrastructure." GitHub. Accessed 27 Oct. 2025. \url{https://github.com/OCD-Rats-Capstone/OCD-Rat-Infrastructure/tree/main/docs/SRS-Volere}
 
-\wss{Don't just list the other documents.  You should explain why they are relevant and 
-how they relate to your VnV efforts.}
+    \item Perry, Nathan, Leo Vugert, Tim Pokanai, Jeremy Orr, et al. "OCD-Rat-Infrastructure/Docs/Hazardanalysis at Main - OCD-Rats-Capstone/OCD-Rat-Infrastructure." GitHub. Accessed 27 Oct. 2025. \url{https://github.com/OCD-Rats-Capstone/OCD-Rat-Infrastructure/tree/main/docs/HazardAnalysis}
+
+    \item Perry, Nathan, Tim Pokanai, Aidan Goodyer, Jeremy Orr, et al. "OCD-Rat-Infrastructure/Docs/Design at Main - OCD-Rats-Capstone/OCD-Rat-Infrastructure." GitHub. Accessed 27 Oct. 2025. \url{https://github.com/OCD-Rats-Capstone/OCD-Rat-Infrastructure/tree/main/docs/Design}
+
+    \item Perry, Nathan, Tim Pokanai, Jeremy Orr, Aidan Goodyer, et al. "OCD-Rat-Infrastructure/Docs/Developmentplan at Main - OCD-Rats-Capstone/OCD-Rat-Infrastructure." GitHub. Accessed 27 Oct. 2025. \url{https://github.com/OCD-Rats-Capstone/OCD-Rat-Infrastructure/tree/main/docs/DevelopmentPlan}
+\end{itemize}
+
+\citet{SRS-Volere}
 
 \section{Plan}
 
@@ -910,6 +966,75 @@ This is where you can place additional information.
 
 The definition of the test cases will call for SYMBOLIC\_CONSTANTS.
 Their values are defined in this section for easy maintenance.
+
+\paragraph{Test 7: Accessibility Audit}
+\begin{itemize}
+    \item \textbf{Related Requirement:} ACC.R.1
+    \item \textbf{Test ID:} NFR7-Accessibility
+    \item \textbf{Type:} Static, Manual (Accessibility Review)
+    \item \textbf{Initial State:} Fully implemented UI with all interactive elements deployed.
+    \item \textbf{Input/Condition:} Users and automated accessibility tools evaluate the system.
+    \item \textbf{Output/Result:} WCAG 2.1 AA compliance met; all interactive elements accessible via keyboard; screen readers correctly announce content.
+    \item \textbf{How test will be performed:} Use accessibility testing tools (e.g., WAVE, Axe) and manual inspection; verify color contrast, tab navigation, and ARIA attributes.
+\end{itemize}
+
+\subsubsection{Performance, Robustness, and Scalability Requirements}
+
+\paragraph{Test 8: Query Performance Benchmark}
+\begin{itemize}
+    \item \textbf{Related Requirement:} SAL.R.1
+    \item \textbf{Test ID:} NFR8-Performance
+    \item \textbf{Type:} Dynamic, Automatic
+    \item \textbf{Initial State:} System deployed with representative dataset.
+    \item \textbf{Input/Condition:} Run standardized queries on backend.
+    \item \textbf{Output/Result:} Average query response time $<$ 2 seconds for typical queries; $<$ 4 seconds for complex queries.
+    \item \textbf{How test will be performed:} Use automated scripts and CI tools to record response times; compare against thresholds.
+\end{itemize}
+
+\paragraph{Test 9: Fault Tolerance}
+\begin{itemize}
+    \item \textbf{Related Requirement:} ROFT.R.1
+    \item \textbf{Test ID:} NFR9-FaultTolerance
+    \item \textbf{Type:} Dynamic, Automatic
+    \item \textbf{Initial State:} System deployed with simulated failure scenarios.
+    \item \textbf{Input/Condition:} Induce backend failure, network disruption, or unexpected user input.
+    \item \textbf{Output/Result:} System continues operation with minimal disruption; errors logged and no data loss occurs.
+    \item \textbf{How test will be performed:} Simulate failures in test environment; monitor system responses and error handling.
+\end{itemize}
+
+\paragraph{Test 10: Scalability Testing}
+\begin{itemize}
+    \item \textbf{Related Requirement:} SOE.R.1
+    \item \textbf{Test ID:} NFR10-Scalability
+    \item \textbf{Type:} Dynamic, Automatic
+    \item \textbf{Initial State:} System deployed in staging with incremental load testing.
+    \item \textbf{Input/Condition:} Gradually increase number of simultaneous users and dataset size.
+    \item \textbf{Output/Result:} System maintains acceptable performance; response time remains within defined thresholds.
+    \item \textbf{How test will be performed:} Use load testing tools (e.g., JMeter, Locust) to simulate increasing load; monitor performance metrics.
+\end{itemize}
+
+\paragraph{Test 11: Maintainability and Supportability}
+\begin{itemize}
+    \item \textbf{Related Requirement:} MAI.R.1, SUP.R.1
+    \item \textbf{Test ID:} NFR11-Maintainability
+    \item \textbf{Type:} Static, Manual (Code Review)
+    \item \textbf{Initial State:} Source code in version control with documentation.
+    \item \textbf{Input/Condition:} Review code, documentation, and deployment scripts.
+    \item \textbf{Output/Result:} Code conforms to style guides; sufficient comments and documentation for maintenance; modular design observed.
+    \item \textbf{How test will be performed:} Conduct peer code reviews and documentation walkthroughs.
+\end{itemize}
+
+\paragraph{Test 12: Compliance and Legal Checks}
+\begin{itemize}
+    \item \textbf{Related Requirement:} LEG.R.1, STA.R.1
+    \item \textbf{Test ID:} NFR12-Compliance
+    \item \textbf{Type:} Static, Manual
+    \item \textbf{Initial State:} System fully deployed; policies and regulations reviewed.
+    \item \textbf{Input/Condition:} Evaluate compliance with data protection, licensing, and applicable legal standards.
+    \item \textbf{Output/Result:} System meets all regulatory and legal requirements; no unlicensed content used.
+    \item \textbf{How test will be performed:} Conduct legal and standards compliance audit; document verification steps.
+\end{itemize}
+
 
 \subsection{Usability Survey Questions?}
 
