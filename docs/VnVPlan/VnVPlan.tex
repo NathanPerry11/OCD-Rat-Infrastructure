@@ -11,6 +11,7 @@
     urlcolor=blue
 }
 \usepackage[round]{natbib}
+\usepackage{longtable}
 
 \input{../Comments}
 \input{../Common}
@@ -30,115 +31,150 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+Oct 27 2025 & 1.0 & Initial Document\\
 \bottomrule
 \end{tabularx}
 
 ~\\
-\wss{The intention of the VnV plan is to increase confidence in the software.
-However, this does not mean listing every verification and validation technique
-that has ever been devised.  The VnV plan should also be a \textbf{feasible}
-plan. Execution of the plan should be possible with the time and team available.
-If the full plan cannot be completed during the time available, it can either be
-modified to ``fake it'', or a better solution is to add a section describing
-what work has been completed and what work is still planned for the future.}
-
-\wss{The VnV plan is typically started after the requirements stage, but before
-the design stage.  This means that the sections related to unit testing cannot
-initially be completed.  The sections will be filled in after the design stage
-is complete.  the final version of the VnV plan should have all sections filled
-in.}
 
 \newpage
 
 \tableofcontents
-
-\listoftables
-\wss{Remove this section if it isn't needed}
-
-\listoffigures
-\wss{Remove this section if it isn't needed}
-
 \newpage
 
 \section{Symbols, Abbreviations, and Acronyms}
 
 \renewcommand{\arraystretch}{1.2}
-\begin{tabular}{l l} 
-  \toprule		
-  \textbf{symbol} & \textbf{description}\\
-  \midrule 
-  T & Test\\
+\begin{longtable}{l l}
+  \caption{List of Symbols, Abbreviations, and Acronyms} \\
+  \toprule
+  \textbf{Symbol / Acronym} & \textbf{Description} \\
+  \midrule
+  \endfirsthead
+
+  \toprule
+  \textbf{Symbol / Acronym} & \textbf{Description (continued)} \\
+  \midrule
+  \endhead
+
   \bottomrule
-\end{tabular}\\
+  \multicolumn{2}{r}{\textit{Continued on next page}} \\
+  \endfoot
 
-\wss{symbols, abbreviations, or acronyms --- you can simply reference the SRS
-  \citep{SRS} tables, if appropriate}
+  \bottomrule
+  \endlastfoot
 
-\wss{Remove this section if it isn't needed}
+  T & Test \\
+  SRS & System Requirements Specification \\
+  V\&V & Verification and Validation \\
+  FR & Functional Requirement \\
+  NFR & Nonfunctional Requirement \\
+  MIS & Module Interface Specification \\
+  MG & Module Guide \\
+  CI & Continuous Integration \\
+  UI & User Interface \\
+  FRDR & Federated Research Data Repository \\
+  API & Application Programming Interface \\
+  PR & Pull Request \\
+  ID & Identification \\
+  NLP & Natural Language Processing \\
+  SQL & Structured Query Language \\
+  CSV & Comma-Separated Values \\
+  GTmetrix & Grand Touring Metrix (web performance analysis tool) \\
+  APP & Application \\
+  EOU & Ease of Use \\
+  LEA & Learning \\
+  UAP & Understandability and Politeness \\
+  ACC & Accessibility \\
+  ARIA & Accessible Rich Internet Applications \\
+  SAL & Speed and Latency \\
+  ROFT & Robustness or Fault Tolerance \\
+  CAP & Capacity \\
+  SOE & Scalability or Extensibility \\
+  MAI & Maintainability \\
+  SUP & Supportability \\
+  INT & Integrity \\
+  IMM & Immunity \\
+  OWASP ZAP & Open Web Application Security Project Zed Attack Proxy \\
+  LEG & Legal \\
+  STA & Standards Compliance \\
+  ST-FR & System Test – Functional Requirement \\
+  ST-NFR & System Test – Nonfunctional Requirement \\
+  LON & Longevity \\
+  EPE & Expected Physical Environment \\
+  WE & Wider Environment \\
+  IWAS & Interfacing with Adjacent Systems \\
+  PROD & Productization \\
+  REI & Release \\
+  ADA & Adaptability \\
+\end{longtable}
+
 
 \newpage
 
 \pagenumbering{arabic}
-
-This document ... \wss{provide an introductory blurb and roadmap of the
-  Verification and Validation plan}
+This section defines the symbols, abbreviations, and acronyms used throughout the plan. The purpose of this section is to
+ make sure clarity and 
+consistency remains when referring the plan.
 
 \section{General Information}
 
 \subsection{Summary}
 
-\wss{Say what software is being tested.  Give its name and a brief overview of
-  its general functions.}
+The Gouda Engineers team built this entire software system. Their core aim? To deliver a platform—one that's both
+ robust and lightning-quick—that doesn't just meet but exceeds every single functional and non-functional requirement laid 
+ out in the official SRS.
+
+This document looks into the system's VnV process. This process 
+is  essential as it guarantees the software  behaves exactly how it's supposed to and, crucially, completely
+ satisfies what the stakeholders want. We will be checking that every single part of the development 
+ puzzle—the initial SRS, the intricate design blueprints, the lines of code itself—perfectly aligns with its own set of 
+ specifications and validation, is the final check.
+
+Our rigorous VnV approach pulls together a variety of methods: automated testing provides speed, while painstaking manual
+ inspections and collaborative peer reviews inject human judgment to evaluate the system's correctness, performance, and 
+ general usability. These activities are what fundamentally build confidence in the software's ultimate quality and 
+ unwavering reliability, simultaneously rooting out any lingering risks or pesky issues long before the final, official 
+ release.
+
 
 \subsection{Objectives}
 
-\wss{State what is intended to be accomplished.  The objective will be around
-  the qualities that are most important for your project.  You might have
-  something like: ``build confidence in the software correctness,''
-  ``demonstrate adequate usability.'' etc.  You won't list all of the qualities,
-  just those that are most important.}
 
-\wss{You should also list the objectives that are out of scope.  You don't have 
-the resources to do everything, so what will you be leaving out.  For instance, 
-if you are not going to verify the quality of usability, state this.  It is also 
-worthwhile to justify why the objectives are left out.}
+   The main objective of this plan is to build confidence in the accuracy, reliability and stability of the software we 
+   are developing. The system works as a connection between researchers and the data set of rat trials. Our focus is on providing 
+   a program that retrieves correct data and works smoothy with no errors. AN objective is that the layout and information presented
+   is usable and doesn't provide any friction in it use. However, we are not able to do user testing on a wide population and are 
+   beyond the scope of the project. WE assume that the underlying database and external libraries are already validated.
 
-\wss{The objectives are important because they highlight that you are aware of 
-limitations in your resources for verification and validation.  You can't do everything, 
-so what are you going to prioritize?  As an example, if your system depends on an 
-external library, you can explicitly state that you will assume that external library 
-has already been verified by its implementation team.}
+The plan wants to ensure that the core functions of the interface like data access, filtering and display are
+ accurate and reliable,  long-term performance testing is beyond the scope of 
+ this phase.
 
 \subsection{Challenge Level and Extras}
 
-\wss{State the challenge level (advanced, general, basic) for your project.
-Your challenge level should exactly match what is included in your problem
-statement.  This should be the challenge level agreed on between you and the
-course instructor.  You can use a pull request to update your challenge level
-(in TeamComposition.csv or Repos.csv) if your plan changes as a result of the
-VnV planning exercise.}
+The project would be advanced because it uses many complex software engineering ideas and principles. Creating a visually appealing UI, integrating NLP, implementing the store front display while
+also ensuring that the performance is good. These features require to make both the desing and verification of the system very in depth to fit the project.\\
 
-\wss{Summarize the extras (if any) that were tackled by this project.  Extras
-can include usability testing, code walkthroughs, user documentation, formal
-proof, GenderMag personas, Design Thinking, etc.  Extras should have already
-been approved by the course instructor as included in your problem statement.
-You can use a pull request to update your extras (in TeamComposition.csv or
-Repos.csv) if your plan changes as a result of the VnV planning exercise.}
+The project includes two extras, a performance report and a user manual. The performance report identifies ares of the code where the software can be optimized to make it faster and more effecient, and the user manual
+offers the user guidance through the program.
+
 
 \subsection{Relevant Documentation}
 
-\wss{Reference relevant documentation.  This will definitely include your SRS
-  and your other project documents (design documents, like MG, MIS, etc).  You
-  can include these even before they are written, since by the time the project
-  is done, they will be written.  You can create BibTeX entries for your
-  documents and within those entries include a hyperlink to the documents.}
+\begin{itemize}
+    \item Perry, Nathan, Aidan Goodyer, Jeremy Orr, et al. "OCD-Rat-Infrastructure/Docs/Problemstatementandgoals at Main - OCD-Rats-Capstone/OCD-Rat-Infrastructure." GitHub. Accessed 27 Oct. 2025. \url{https://github.com/OCD-Rats-Capstone/OCD-Rat-Infrastructure/tree/main/docs/ProblemStatementAndGoals}
 
-\citet{SRS}
+    \item Perry, Nathan, Aidan Goodyer, Tim Pokanai, et al. "OCD-Rat-Infrastructure/Docs/SRS-Volere at Main - OCD-Rats-Capstone/OCD-Rat-Infrastructure." GitHub. Accessed 27 Oct. 2025. \url{https://github.com/OCD-Rats-Capstone/OCD-Rat-Infrastructure/tree/main/docs/SRS-Volere}
 
-\wss{Don't just list the other documents.  You should explain why they are relevant and 
-how they relate to your VnV efforts.}
+    \item Perry, Nathan, Leo Vugert, Tim Pokanai, Jeremy Orr, et al. "OCD-Rat-Infrastructure/Docs/Hazardanalysis at Main - OCD-Rats-Capstone/OCD-Rat-Infrastructure." GitHub. Accessed 27 Oct. 2025. \url{https://github.com/OCD-Rats-Capstone/OCD-Rat-Infrastructure/tree/main/docs/HazardAnalysis}
+
+    \item Perry, Nathan, Tim Pokanai, Aidan Goodyer, Jeremy Orr, et al. "OCD-Rat-Infrastructure/Docs/Design at Main - OCD-Rats-Capstone/OCD-Rat-Infrastructure." GitHub. Accessed 27 Oct. 2025. \url{https://github.com/OCD-Rats-Capstone/OCD-Rat-Infrastructure/tree/main/docs/Design}
+
+    \item Perry, Nathan, Tim Pokanai, Jeremy Orr, Aidan Goodyer, et al. "OCD-Rat-Infrastructure/Docs/Developmentplan at Main - OCD-Rats-Capstone/OCD-Rat-Infrastructure." GitHub. Accessed 27 Oct. 2025. \url{https://github.com/OCD-Rats-Capstone/OCD-Rat-Infrastructure/tree/main/docs/DevelopmentPlan}
+\end{itemize}
+
+\citet{SRS-Volere}
 
 \section{Plan}
 
@@ -149,14 +185,8 @@ list the entities that will participate in the verification and validation steps
 verification and validation team. Then we will discuss the verification plans of the SRS, design, VnV Plan, implementation, and 
 the automatic tools we use for testing and verification. Lastly, we will discuss how we will perform the validation of our software.}
 
-\wss{Introduce this section.  You can provide a roadmap of the sections to
-  come.}
 
 \subsection{Verification and Validation Team}
-
-\wss{Your teammates.  Maybe your supervisor.
-  You should do more than list names.  You should say what each person's role is
-  for the project's verification.  A table is a good way to summarize this information.}
 
 \begin{itemize}
   \item{\textbf{Aidan Goodyer},\textbf{Jeremy Orr},\textbf{Nathan Perry},\textbf{Timothy Pokanai},\textbf{Leo Vugert}:}
@@ -174,18 +204,6 @@ the automatic tools we use for testing and verification. Lastly, we will discuss
 \end{itemize}
 
 \subsection{SRS Verification}
-
-\wss{List any approaches you intend to use for SRS verification.  This may
-  include ad hoc feedback from reviewers, like your classmates (like your
-  primary reviewer), or you may plan for something more rigorous/systematic.}
-
-\wss{If you have a supervisor for the project, you shouldn't just say they will
-read over the SRS.  You should explain your structured approach to the review.
-Will you have a meeting?  What will you present?  What questions will you ask?
-Will you give them instructions for a task-based inspection?  Will you use your
-issue tracker?}
-
-\wss{Maybe create an SRS checklist?}
 
 \subsubsection{SRS Verification Approaches}
 
@@ -236,11 +254,53 @@ issue tracker?}
 
 \subsection{Design Verification}
 
-\wss{Plans for design verification}
+\par{For the software design process, the goal of verification of this stage is to ensure our design correctly and completely satisfies 
+the SRS before we start coding. The verification will ensure that during the design process we were not focused on 
+"building the right thing", but "building the thing right". The following subsections will describe the verification techniques and 
+checklist to be used during design verification.}
 
-\wss{The review will include reviews by your classmates}
+\subsubsection{Design Verification Techniques}
 
-\wss{Create a checklists?}
+\begin{itemize}
+  \item{\textbf{Structured Supervisor Design Walkthrough:} The first design verification technique will be our team leading a structured 
+  walkthrough of our design documents to our supervisors, Dr. Henry Szechtman and Dr. Anna Dvorkin-Gheva. This will allow our team to present 
+  our relevant technical design documents in a clear and logically structured manner to provide transparency and room for suggestions 
+  on our design decisions, as well as communicate technical aspects as clearly as possible to reviewers with less technical knowledge.
+  }
+  \item{\textbf{Peer Review from Classmates:} The second design verification technique will be the peer reviews we receive from our classmates. 
+  Again, this technique is not expected to be the most rigorous, but another team will review our design process and contribute feedback 
+  which provides us an opportunity to verify our design process to make sure it is consistent with our SRS.
+  }
+  \item{\textbf{Semi-Structured Team Design Inspection:} Our third technique we will use for verifying our design process will be 
+  our team doing a semi-structured inspection of our design documents. Since our team is doing all the design and development 
+  as the only software engineers involved in this project, we only need to keep this inspection among us as the development team. 
+  Doing a semi-structured inspection together would entail going through our relevant technical design documents in a logically 
+  structured manner which would ensure our design process aligns with the SRS and there are no ambiguities in the process. Additionally, 
+  the semi-structured format would allow room for open-ended discussion on design decisions that could be added, modified, or improved.
+  }
+  \item{\textbf{Low Fidelity UI Prototype Verification:} Finally our last design verification technique will be creating a low fidelity prototype specifically 
+  for the UI component using a tool like Figma or actually coding an interface, allowing our team and our supervisors to test the prototype. 
+  A big part of our design process is designing a more user-friendly and accessible UI than the existing one FRDR offers. Conducting a 
+  prototype test with our entire verification and validation team is critical, considering we would have the input and suggestions of our 
+  two supervisors who interface with FRDR on a regular basis.
+  }
+\end{itemize}
+
+\subsubsection{Design Verification Checklist}
+
+\par{Below is a general checklist of questions that our Design Process should satisfy (i.e. the answer should be yes):}
+
+\begin{itemize}
+  \item{Does the design fulfill all functional requirements stated in the SRS?}
+  \item{Does the design adhere to all non-functional requirements devised in the SRS?}
+  \item{Is the design feasible to implement considering the given timeline, resources, and constraints of the project?}
+  \item{Are all subsystems, modules, and components well-defined and logically decomposed within our overall system?}
+  \item{Are the APIs and interfaces between our components clearly specified with their inputs, outputs, and data types?}
+  \item{Is there traceability from our system components and architecture all the way back to our requirements?}
+  \item{Do all diagrams reflect the architecture of our design consistently and accurately?}
+  \item{Do the UIs follow usability and accessibility guidelines?}
+  \item{Has the verification and validation team approved our design process?}
+\end{itemize}
 
 \subsection{Verification and Validation Plan Verification}
 
@@ -285,187 +345,476 @@ issue tracker?}
   within the scope of the VnV that are not being tested against?}
 \end{itemize}
 
-\wss{The verification and validation plan is an artifact that should also be
-verified.  Techniques for this include review and mutation testing.}
-
-\wss{The review will include reviews by your classmates}
-
-\wss{Create a checklists?}
-
 \subsection{Implementation Verification}
 
-\wss{You should at least point to the tests listed in this document and the unit
-  testing plan.}
 
-\wss{In this section you would also give any details of any plans for static
-  verification of the implementation.  Potential techniques include code
-  walkthroughs, code inspection, static analyzers, etc.}
+The implementation verification will be used to guide the system's adherance to the specifications as defined in the SRS. Verification will be done using both static and dynamic methods. The team will employ several static tools including linters and code quality analyzers to enforce a high standard and detect vulnerabilities. 
 
-\wss{The final class presentation in CAS 741 could be used as a code
-walkthrough.  There is also a possibility of using the final presentation (in
-CAS741) for a partial usability survey.}
+
+
+
+
+One major source of verification will be our unit test suite, which will be defined for both frontend and backend components of the system and integrated into the CI process. Test cases will target functional requirements as defined in the 
+
+
+\textbf{Unit Testing:}
+
+Unit Test cases will target functional requirements as defined in the System Tests (see \hyperref[sec:system_tests]{Section~\ref{sec:system_tests}}). These tests will be important drivers of system correctness, ensuring functionality works according to specification. Correctness of querying behaviour (\textbf{FR2}) is one example of a critical requirement to verify. 
+
+
+
+
+\textbf{Performance Testing:}
+
+Performance testing will be used to validate several important benchmarks impacting usability including:
+\begin{itemize}
+  \item Query Speed (\textbf{NFR8})
+  \item  Fault Tolerance (\textbf{NFR9}),
+  \item Scalability (\textbf{NFR10}). 
+\end{itemize}
+
+
+Performance testing will utilize end-to-end methods to validate metrics like query speed, where the response time can be measured using an automated UI test. 
+
+\textbf{Static Analysis:}
+
+Static analysis tools will be employed to maintain a consistent quality threshold throughout the development lifecycle, helping adhere to style guidelines and protecting against defects early on. Specific tools are defined in section 3.6.  
+
+\textbf{Code Walkthroughs and Inspections}
+
+\begin{itemize}
+  \item \textbf{Peer Review:} Pull Requests will go through a mandatory peer review process prior to any PR being merged. A minimum of 2 reviewers will be required prior to merging.  
+\end{itemize}
+
+\textbf{Manual Reviews:}
+
+To verify many of the non-functional requirements, the team will employ manual reviews and user studies to ensure the sytem meets look, feel, and usability requirements.  Walkthroughs will be useful for several of the following: 
+
+\begin{itemize}
+    \item NFR3 UI Familiarity
+  \item NFR4 Ease of Use
+ \item NFR5 Learning Curve Assessment
+\end{itemize}
+
 
 \subsection{Automated Testing and Verification Tools}
 
-\wss{What tools are you using for automated testing.  Likely a unit testing
-  framework and maybe a profiling tool, like ValGrind.  Other possible tools
-  include a static analyzer, make, continuous integration tools, test coverage
-  tools, etc.  Explain your plans for summarizing code coverage metrics.
-  Linters are another important class of tools.  For the programming language
-  you select, you should look at the available linters.  There may also be tools
-  that verify that coding standards have been respected, like flake9 for
-  Python.}
+The following tools are to be used during the verification and validation process to facilitate automated testing and verification. Broadly, these tools are separated into frontend and backend categories:
 
-\wss{If you have already done this in the development plan, you can point to
-that document.}
+\textbf{Frontend:}
+\begin{itemize}
+  \item Jest: Facilitates frontend unit testing and coverage 
+  \item ESLint: A JavaScript/TypeScript linter with support for JSX
+  \item Puppeteer: End to end testing and automated UI testing.
+\end{itemize}
 
-\wss{The details of this section will likely evolve as you get closer to the
-  implementation.}
+\textbf{Backend:}
+\begin{itemize}
+  \item flake8: Style guide enforcement for Python backend
+  \item PyTest: Unit testing and integration testing. 
+\end{itemize}
+
+\textbf{Continuous Integration:}
+
+We will use GitHub actions for CI purposes, which will be configured to run the complete test suite for the frontend and backend upon commit, and serve as a quality gate prior to PR merges. Jobs will also be configured to run static analysis and linting checks, as well as generate coverage reports. 
+
 
 \subsection{Software Validation}
 
-\wss{If there is any external data that can be used for validation, you should
-  point to it here.  If there are no plans for validation, you should state that
-  here.}
 
-\wss{You might want to use review sessions with the stakeholder to check that
-the requirements document captures the right requirements.  Maybe task based
-inspection?}
+This section outlines our plan for validating the system to ensure it meets the needs of our stakeholders and users. Our core goal is to confirm the system provides an accessible and non-technical interface for researchers to analyze the rat behavioural data. The project is not defined in terms of specific performance metrics, but instead by its utility as an exploratory platform for researchers. Therefore, our validation strategy focuses on researcher utility and data integrity. 
 
-\wss{For those capstone teams with an external supervisor, the Rev 0 demo should 
-be used as an opportunity to validate the requirements.  You should plan on 
-demonstrating your project to your supervisor shortly after the scheduled Rev 0 demo.  
-The feedback from your supervisor will be very useful for improving your project.}
 
-\wss{For teams without an external supervisor, user testing can serve the same purpose 
-as a Rev 0 demo for the supervisor.}
+The following methods will be used to engage our project stakeholders and elicit feedback throughout the project lifecycle. 
 
-\wss{This section might reference back to the SRS verification section.}
+\begin{itemize}
+  \item \textbf{ Revision 0 Demonstration:}  The revision 0 demonstratation will be an important validation milestone for our software requirements. We will present this revision of the system to our supervisors to demonstrate the core features of the system. This will allow us to validate that the implementation aligns with the client goals and needs effectively. 
+  \item \textbf{Iterative Supervisor Feedback:} The team will leverage our weekly scheduled meetings with Dr. Szechtman and Dr. Dvorkin-Gheva to elicit ongoing feedback during the project's development. These meetings will provide continuous validation and will help us ensure that the project is aligned with our stakeholder expectations.  
+  \item \textbf{User Testing:} Towards the end of the developnent cycle we will conduct user testing. The user will be asked to perform tasks like executing a natural language query, filtering the data, or producing a visualization. We will use this user feedback to validate that the system is ready for its intended users.  
+ \end{itemize}
 
+\label{sec:system_tests}
 \section{System Tests}
 
-\wss{There should be text between all headings, even if it is just a roadmap of
-the contents of the subsections.}
+This section defines the tests used to verify the system’s compliance with the
+Functional Requirements specified in Section~9.1 of the SRS. Each test ensures
+that the implemented features meet the expected behavior and fit criteria
+described in the Software Requirements Specification. 
+
+The subsections are organized according to the main areas of functionality of
+the platform:
+\begin{itemize}
+    \item Data Filtering and Browsing (FUNC.R.1--R.3)
+    \item Behavioral Analysis and Visualization (FUNC.R.4--R.5)
+    \item Data Downloading and Accessibility (FUNC.R.6--R.7)
+\end{itemize}
 
 \subsection{Tests for Functional Requirements}
 
-\wss{Subsets of the tests may be in related, so this section is divided into
-  different areas.  If there are no identifiable subsets for the tests, this
-  level of document structure can be removed.}
+This section provides detailed tests for all functional requirements. Each test
+includes a test ID, control type, initial conditions, inputs, expected outputs,
+test case derivation, and execution description. References to the SRS are
+included for traceability. 
 
-\wss{Include a blurb here to explain why the subsections below
-  cover the requirements.  References to the SRS would be good here.}
+\subsubsection{Data Filtering and Browsing}
 
-\subsubsection{Area of Testing1}
+These tests verify that users can filter, browse, and query data based on
+predefined labels, natural language queries, and preset datasets. They validate
+the backend (FastAPI + PostgreSQL) integration with the frontend filtering and
+NLP modules.
 
-\wss{It would be nice to have a blurb here to explain why the subsections below
-  cover the requirements.  References to the SRS would be good here.  If a section
-  covers tests for input constraints, you should reference the data constraints
-  table in the SRS.}
-		
-\paragraph{Title for Test}
+\paragraph{Test 1: Verify Filtering by Predefined Labels}
+\begin{itemize}
+    \item \textbf{Related Requirement:} FUNC.R.1
+    \item \textbf{Test ID:} FR1-Filter-Labels
+    \item \textbf{Control:} Automatic (API + UI test)
+    \item \textbf{Initial State:} The database contains labeled behavioral trials with fields such as \texttt{behavior\_label}, \texttt{trial\_id}, and \texttt{session\_id}.
+    \item \textbf{Input:} User selects a filter, e.g., \texttt{behavior\_label = 'checking'}.
+    \item \textbf{Output:} Returned dataset contains only trials where \texttt{behavior\_label == 'checking'}; 100\% match accuracy.
+    \item \textbf{Test Case Derivation:} Since the fit criterion requires perfect accuracy between filter condition and output, the expected output is all rows meeting the filter condition.
+    \item \textbf{How test will be performed:} Use an automated test script (e.g., Postman or PyTest) to send GET requests to \texttt{/api/filter?behavior\_label=checking}. Compare returned data with a query directly run on the database to verify no mismatched rows.
+\end{itemize}
 
-\begin{enumerate}
+\paragraph{Test 2: Verify NLP-Based Query Returns Correct Dataset}
+\begin{itemize}
+    \item \textbf{Related Requirement:} FUNC.R.2
+    \item \textbf{Test ID:} FR2-NLP-Query
+    \item \textbf{Control:} Manual + Automatic hybrid (human semantic check)
+    \item \textbf{Initial State:} NLP model and API are running. Database populated with varied behavioral patterns.
+    \item \textbf{Input:} User enters: ``Show me trials with strong checking behavior after 5 injections.''
+    \item \textbf{Output:} One dataset is returned that matches this semantic filter.
+    \item \textbf{Test Case Derivation:} Based on the SRS fit criterion, one dataset should always be returned for a valid query, containing the subset matching the interpreted condition.
+    \item \textbf{How test will be performed:} Send query via UI or API. Validate that the system outputs one dataset (non-empty). A human tester verifies semantic correctness (dataset contextually fits query meaning).
+\end{itemize}
 
-\item{test-id1\\}
+\paragraph{Test 3: Verify Predefined Data Categories Available for Browsing}
+\begin{itemize}
+    \item \textbf{Related Requirement:} FUNC.R.3
+    \item \textbf{Test ID:} FR3-Predefined-Sets
+    \item \textbf{Control:} Manual (UI check)
+    \item \textbf{Initial State:} System deployed with at least 3 predefined sets (e.g., ``Exploration Trials'', ``Compulsive Behavior'', ``Control Trials'').
+    \item \textbf{Input:} User opens the ``Browse'' interface.
+    \item \textbf{Output:} At least 3 predefined datasets appear for selection.
+    \item \textbf{Test Case Derivation:} Requirement specifies a minimum of 3 sets available for browsing.
+    \item \textbf{How test will be performed:} Manually navigate to the Browse page and confirm at least 3 datasets are displayed and accessible.
+\end{itemize}
 
-Control: Manual versus Automatic
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs.  Output is not how you
-are going to return the results of the test.  The output is the expected
-result.}
+\subsubsection{Behavioral Analysis and Visualization}
 
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
-					
-How test will be performed: 
-					
-\item{test-id2\\}
+These tests ensure that behavioral categorizations and visual representations are correctly generated for user-selected data subsets.
 
-Control: Manual versus Automatic
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs}
+\paragraph{Test 4: Verify Each Trial Has Behavioral Categorization}
+\begin{itemize}
+    \item \textbf{Related Requirement:} FUNC.R.4
+    \item \textbf{Test ID:} FR4-Behavior-Metrics
+    \item \textbf{Control:} Automatic (backend validation)
+    \item \textbf{Initial State:} Database populated with trial records.
+    \item \textbf{Input:} Query any trial dataset.
+    \item \textbf{Output:} Each trial entry includes at least one behavioral category field (e.g., ``checking'', ``homebase'', etc.).
+    \item \textbf{Test Case Derivation:} Requirement demands every trial have a behavior category, so absence of any \texttt{NULL} category field indicates success.
+    \item \textbf{How test will be performed:} Run automated query validation across dataset ensuring no missing categorization values.
+\end{itemize}
 
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
+\paragraph{Test 5: Verify Visuals Are Generated for Each Result Set}
+\begin{itemize}
+    \item \textbf{Related Requirement:} FUNC.R.5
+    \item \textbf{Test ID:} FR5-Visualization
+    \item \textbf{Control:} Automatic (UI rendering check)
+    \item \textbf{Initial State:} User has filtered dataset (non-empty result).
+    \item \textbf{Input:} User clicks ``Generate Visualization''.
+    \item \textbf{Output:} Visualization component renders trajectory or metric chart corresponding to the dataset.
+    \item \textbf{Test Case Derivation:} The fit criterion specifies at least one visual per result set; therefore, successful rendering of a chart or trajectory fulfills this requirement.
+    \item \textbf{How test will be performed:} Use UI test automation (e.g., Selenium) to trigger visualization and check that the chart container loads successfully (non-empty DOM element).
+\end{itemize}
 
-How test will be performed: 
+\subsubsection{Data Downloading and Accessibility}
 
-\end{enumerate}
+These tests confirm that datasets and visuals can be downloaded correctly and that the platform maintains global accessibility.
 
-\subsubsection{Area of Testing2}
+\paragraph{Test 6: Verify Data Download and Integrity}
+\begin{itemize}
+    \item \textbf{Related Requirement:} FUNC.R.6
+    \item \textbf{Test ID:} FR6-Download
+    \item \textbf{Control:} Automatic
+    \item \textbf{Initial State:} Dataset generated and displayed.
+    \item \textbf{Input:} User clicks ``Download CSV'' or ``Download Visualization''.
+    \item \textbf{Output:} File downloaded successfully; first 100 rows match database query results.
+    \item \textbf{Test Case Derivation:} Fit criterion requires verification against the first 100 rows; thus, equality of the first 100 entries validates correctness.
+    \item \textbf{How test will be performed:} Automated script downloads dataset and compares first 100 entries with direct database query output.
+\end{itemize}
 
-...
+\paragraph{Test 7: Verify Global Accessibility and Performance}
+\begin{itemize}
+    \item \textbf{Related Requirement:} FUNC.R.7
+    \item \textbf{Test ID:} FR7-Accessibility
+    \item \textbf{Control:} Automatic (load testing + global simulation)
+    \item \textbf{Initial State:} Deployed web system with CDN enabled.
+    \item \textbf{Input:} Users (or simulated clients) from 3+ regions (e.g., North America, Europe, Asia) access the site.
+    \item \textbf{Output:} Average page load time $<$ 4 seconds across all regions; no functional degradation.
+    \item \textbf{Test Case Derivation:} Requirement defines measurable metric (4 seconds); success if timing threshold not exceeded.
+    \item \textbf{How test will be performed:} Use tools such as Lighthouse, GTmetrix, or JMeter with geo-distributed endpoints to measure average response time and record metrics.
+\end{itemize}
+
 
 \subsection{Tests for Nonfunctional Requirements}
 
-\wss{The nonfunctional requirements for accuracy will likely just reference the
-  appropriate functional tests from above.  The test cases should mention
-  reporting the relative error for these tests.  Not all projects will
-  necessarily have nonfunctional requirements related to accuracy.}
+This section defines the test procedures for verifying the nonfunctional
+requirements as defined in Sections~10--17 of the SRS. The tests include
+evaluations of appearance, usability, performance, robustness, scalability,
+maintainability, and compliance. 
 
-\wss{For some nonfunctional tests, you won't be setting a target threshold for
-passing the test, but rather describing the experiment you will do to measure
-the quality for different inputs.  For instance, you could measure speed versus
-the problem size.  The output of the test isn't pass/fail, but rather a summary
-table or graph.}
+Since nonfunctional requirements often describe qualities rather than discrete
+functions, many tests in this section are qualitative or metric-based
+evaluations. Several involve user studies, performance measurement, and static
+reviews instead of strict pass/fail results.
 
-\wss{Tests related to usability could include conducting a usability test and
-  survey.  The survey will be in the Appendix.}
+\subsubsection{Look and Feel Requirements}
 
-\wss{Static tests, review, inspections, and walkthroughs, will not follow the
-format for the tests given below.}
+These tests ensure that the interface design aligns with the intended audience
+(non-technical researchers) and provides a simple, familiar, and intuitive
+user experience.
 
-\wss{If you introduce static tests in your plan, you need to provide details.
-How will they be done?  In cases like code (or document) walkthroughs, who will
-be involved? Be specific.}
+\paragraph{Test 1: Interface Resemblance to Webstore/Boutique}
+\begin{itemize}
+    \item \textbf{Related Requirement:} APP.R.1
+    \item \textbf{Test ID:} NFR1-UI-Appearance
+    \item \textbf{Type:} Static, Manual (Usability Review)
+    \item \textbf{Initial State:} Functional web interface deployed.
+    \item \textbf{Input/Condition:} UI inspected by 3 non-technical evaluators.
+    \item \textbf{Output/Result:} 80\% of reviewers confirm the interface resembles a webstore-style interface with clear query “packages.”
+    \item \textbf{How test will be performed:} Conduct a design walkthrough where users compare the layout to an e-commerce platform. Collect ratings via short usability survey (Appendix~A).
+\end{itemize}
 
-\subsubsection{Area of Testing1}
-		
-\paragraph{Title for Test}
+\paragraph{Test 2: Simplicity of Interface Presentation}
+\begin{itemize}
+    \item \textbf{Related Requirement:} APP.R.2
+    \item \textbf{Test ID:} NFR2-UI-Simplicity
+    \item \textbf{Type:} Static, Manual (Heuristic Evaluation)
+    \item \textbf{Initial State:} All major features visible on homepage.
+    \item \textbf{Input/Condition:} Evaluators perform inspection for UI density and feature visibility.
+    \item \textbf{Output/Result:} Interface should not exceed 6 visible interactive elements on the main view; evaluators report no intimidation or confusion.
+    \item \textbf{How test will be performed:} Use heuristic evaluation checklist for cognitive load and visual complexity; summarize reviewer feedback quantitatively.
+\end{itemize}
 
-\begin{enumerate}
+\paragraph{Test 3: Familiar Filtering Presentation}
+\begin{itemize}
+    \item \textbf{Related Requirement:} APP.R.3
+    \item \textbf{Test ID:} NFR3-UI-Familiarity
+    \item \textbf{Type:} Static, Manual
+    \item \textbf{Initial State:} Filtering and search panel implemented.
+    \item \textbf{Input/Condition:} Users asked to find a data subset using filter controls.
+    \item \textbf{Output/Result:} 90\% of participants find the filters intuitive and similar to an online storefront.
+    \item \textbf{How test will be performed:} Conduct usability test with 5 participants. Record task completion time and perceived ease of use (Likert scale).
+\end{itemize}
 
-\item{test-id1\\}
+\subsubsection{Usability and Humanity Requirements}
 
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input/Condition: 
-					
-Output/Result: 
-					
-How test will be performed: 
-					
-\item{test-id2\\}
+These tests measure user learning time, ease of use, and understandability.
 
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
+\paragraph{Test 4: Ease of Use (Floor and Ceiling)}
+\begin{itemize}
+    \item \textbf{Related Requirements:} EOU.R.1, EOU.R.2
+    \item \textbf{Test ID:} NFR4-EaseOfUse
+    \item \textbf{Type:} Dynamic, Manual (User Study)
+    \item \textbf{Initial State:} Functional system with packaged queries and NLP interface.
+    \item \textbf{Input/Condition:} New users complete a task set (select prepackaged query, perform NLP search, generate visualization).
+    \item \textbf{Output/Result:} 100\% task completion; average total completion time $<$ 5 minutes for basic operations.
+    \item \textbf{How test will be performed:} Conduct usability test with 5 non-technical participants. Record success rate and completion time per task.
+\end{itemize}
 
-\end{enumerate}
+\paragraph{Test 5: Learning Curve Assessment}
+\begin{itemize}
+    \item \textbf{Related Requirement:} LEA.R.1
+    \item \textbf{Test ID:} NFR5-LearningCurve
+    \item \textbf{Type:} Dynamic, Manual
+    \item \textbf{Initial State:} Fully functional platform; user documentation accessible.
+    \item \textbf{Input/Condition:} Participants with no prior system experience attempt to complete key workflows.
+    \item \textbf{Output/Result:} Average learning curve $<$ 30 minutes; all users can independently perform search and visualization tasks.
+    \item \textbf{How test will be performed:} Measure total time for users to reach proficiency (defined as completing 3 tasks unassisted).
+\end{itemize}
 
-\subsubsection{Area of Testing2}
+\paragraph{Test 6: Understandability and Terminology Audit}
+\begin{itemize}
+    \item \textbf{Related Requirements:} UAP.R.1, UAP.R.2
+    \item \textbf{Test ID:} NFR6-Understandability
+    \item \textbf{Type:} Static, Manual (Content Review)
+    \item \textbf{Initial State:} Interface text finalized.
+    \item \textbf{Input/Condition:} Non-technical users read through all on-screen text.
+    \item \textbf{Output/Result:} At least 90\% of all interface text rated “understandable” by users.
+    \item \textbf{How test will be performed:} Conduct terminology walkthrough; classify all words/phrases as technical or intuitive. Replace technical terms as necessary.
+\end{itemize}
 
-...
+\paragraph{Test 7: Accessibility Audit}
+\begin{itemize}
+    \item \textbf{Related Requirement:} ACC.R.1
+    \item \textbf{Test ID:} NFR7-Accessibility
+    \item \textbf{Type:} Static + Automated
+    \item \textbf{Initial State:} Frontend deployed.
+    \item \textbf{Input/Condition:} Run Lighthouse, Axe, or WAVE accessibility audit tools.
+    \item \textbf{Output/Result:} Accessibility score $\geq$ 90/100; ARIA labels and alt-text coverage 100\%.
+    \item \textbf{How test will be performed:} Automated scan using accessibility tools; manual confirmation of ARIA compliance and alt-text for media.
+\end{itemize}
+
+\subsubsection{Performance and Reliability Requirements}
+
+These tests verify latency, throughput, fault-tolerance, and data integrity.
+
+\paragraph{Test 8: Query Speed and Latency Benchmark}
+\begin{itemize}
+    \item \textbf{Related Requirements:} SAL.R.1, SAL.R.2
+    \item \textbf{Test ID:} NFR8-Performance
+    \item \textbf{Type:} Dynamic, Automatic
+    \item \textbf{Initial State:} Server and database running under normal load.
+    \item \textbf{Input/Condition:} Execute 100 queries of varying sizes up to 5,000 records.
+    \item \textbf{Output/Result:} Average query time $<$ 2 seconds; request latency $<$ 100 ms.
+    \item \textbf{How test will be performed:} Automated benchmark using JMeter or Locust. Generate graph of response time vs. query size.
+\end{itemize}
+
+\paragraph{Test 9: Fault-Tolerance and Logging Verification}
+\begin{itemize}
+    \item \textbf{Related Requirements:} ROFT.R.1, ROFT.R.2
+    \item \textbf{Test ID:} NFR9-Robustness
+    \item \textbf{Type:} Dynamic, Automatic
+    \item \textbf{Initial State:} Backend running.
+    \item \textbf{Input/Condition:} Submit invalid input payloads and simulate network interruptions.
+    \item \textbf{Output/Result:} Errors logged without system crash; user receives appropriate feedback message.
+    \item \textbf{How test will be performed:} Automated injection of malformed JSON; verify log entries and system stability.
+\end{itemize}
+
+\paragraph{Test 10: Capacity and Scalability Evaluation}
+\begin{itemize}
+    \item \textbf{Related Requirements:} CAP.R.1, CAP.R.2, SOE.R.2
+    \item \textbf{Test ID:} NFR10-Capacity
+    \item \textbf{Type:} Dynamic, Automatic
+    \item \textbf{Initial State:} System deployed in cloud environment.
+    \item \textbf{Input/Condition:} Simulate 250 concurrent users performing queries.
+    \item \textbf{Output/Result:} Throughput $\geq$ 5,000 transactions/hour; performance efficiency $\geq$ 80\%.
+    \item \textbf{How test will be performed:} Use load testing tools (Locust, K6) to simulate concurrent access and measure throughput metrics.
+\end{itemize}
+
+\subsubsection{Maintainability and Support Requirements}
+
+\paragraph{Test 11: Maintainability Code Review}
+\begin{itemize}
+    \item \textbf{Related Requirements:} MAI.R.1, MAI.R.2
+    \item \textbf{Test ID:} NFR11-Maintainability
+    \item \textbf{Type:} Static (Code Walkthrough)
+    \item \textbf{Initial State:} Source code and documentation complete.
+    \item \textbf{Input/Condition:} Independent developer reviews repository structure and documentation.
+    \item \textbf{Output/Result:} Reviewer able to build and extend system within 1 hour using provided documentation.
+    \item \textbf{How test will be performed:} Conduct peer code walkthrough; independent participant attempts new dataset integration per SRS instructions.
+\end{itemize}
+
+\paragraph{Test 12: User Manual Review}
+\begin{itemize}
+    \item \textbf{Related Requirement:} SUP.R.1
+    \item \textbf{Test ID:} NFR12-Documentation
+    \item \textbf{Type:} Static, Manual
+    \item \textbf{Initial State:} User manual drafted.
+    \item \textbf{Input/Condition:} Review manual completeness and clarity.
+    \item \textbf{Output/Result:} 90\% of user study participants rate the manual as “clear” or better.
+    \item \textbf{How test will be performed:} Conduct documentation walkthrough with usability test participants; collect feedback ratings.
+\end{itemize}
+
+\subsubsection{Security and Compliance Requirements}
+
+\paragraph{Test 13: Data Integrity and Abuse Prevention}
+\begin{itemize}
+    \item \textbf{Related Requirement:} INT.R.1, IMM.R.1, IMM.R.2
+    \item \textbf{Test ID:} NFR13-Security
+    \item \textbf{Type:} Dynamic, Automatic
+    \item \textbf{Initial State:} Backend deployed behind HTTPS.
+    \item \textbf{Input/Condition:} Attempt SQL injection, code injection, and rate-limit violations.
+    \item \textbf{Output/Result:} All attacks blocked; valid error message returned; rate-limiting enforced at 100 requests/minute.
+    \item \textbf{How test will be performed:} Perform penetration testing using OWASP ZAP; verify all malicious attempts logged and mitigated.
+\end{itemize}
+
+\paragraph{Test 14: Standards and Licensing Compliance}
+\begin{itemize}
+    \item \textbf{Related Requirements:} LEG.R.1, STA.R.1, STA.R.2
+    \item \textbf{Test ID:} NFR14-Compliance
+    \item \textbf{Type:} Static, Manual Review
+    \item \textbf{Initial State:} Code repository finalized.
+    \item \textbf{Input/Condition:} Review dependency list and license headers.
+    \item \textbf{Output/Result:} All third-party libraries under compatible licenses; repository includes MIT license and citation requirements.
+    \item \textbf{How test will be performed:} Conduct static code inspection; verify license documentation for all dependencies.
+\end{itemize}
+
 
 \subsection{Traceability Between Test Cases and Requirements}
 
-\wss{Provide a table that shows which test cases are supporting which
-  requirements.}
+Table~\ref{tab:traceability} provides a traceability matrix showing the correspondence between each Software Requirements Specification (SRS) requirement and the test cases defined in Sections~4.1 and~4.2. Each requirement identifier (FUNC.R.\#, APP.R.\#, etc.) is mapped to one or more test case identifiers that verify its implementation or satisfaction.
+
+\renewcommand{\arraystretch}{1.2}
+\begin{longtable}{|l|p{10cm}|}
+\caption{Traceability Between Test Cases and Requirements}
+\label{tab:traceability} \\
+\hline
+\textbf{Requirement ID} & \textbf{Associated Test Case(s)} \\
+\hline
+\endfirsthead
+\hline
+\textbf{Requirement ID} & \textbf{Associated Test Case(s)} \\
+\hline
+\endhead
+\hline \multicolumn{2}{r}{{Continued on next page}} \\
+\endfoot
+\hline
+\endlastfoot
+
+FUNC.R.1 & ST-FR1.1 Filter Accuracy Test \\
+FUNC.R.2 & ST-FR2.1 NLP Query Response Test \\
+FUNC.R.3 & ST-FR3.1 Predefined Dataset Browsing Test \\
+FUNC.R.4 & ST-FR4.1 Behavioural Categorization and Metrics Test \\
+FUNC.R.5 & ST-FR5.1 Visualization Generation Test \\
+FUNC.R.6 & ST-FR6.1 Data Download and Export Verification Test \\
+FUNC.R.7 & ST-FR7.1 Global Accessibility and Latency Test \\
+APP.R.1 & ST-NFR1.1 Interface Familiarity Inspection \\
+APP.R.2 & ST-NFR1.2 Visual Simplicity Inspection \\
+APP.R.3 & ST-NFR1.3 Filter Interface Familiarity Test \\
+EOU.R.1 & ST-NFR2.1 Ease of Use (Low Floor) Usability Study \\
+EOU.R.2 & ST-NFR2.2 Ease of Use (Low Ceiling) Usability Study \\
+LEA.R.1 & ST-NFR3.1 Learning Curve Evaluation Test \\
+LEA.R.2 & ST-NFR3.2 Visualization Guidance Test \\
+UAP.R.1 & ST-NFR4.1 Technical Abstraction Inspection \\
+UAP.R.2 & ST-NFR4.2 Terminology Familiarity Review \\
+ACC.R.1 & ST-NFR5.1 Accessibility Compliance Test \\
+SAL.R.1 & ST-NFR6.1 Query Response Time Benchmark \\
+SAL.R.2 & ST-NFR6.2 Network Latency Benchmark \\
+POA.R.1 & ST-NFR7.1 Data Accuracy Cross-Check \\
+POA.R.2 & ST-NFR7.2 Database Consistency Test \\
+ROFT.R.1 & ST-NFR8.1 Input Error Logging Test \\
+ROFT.R.2 & ST-NFR8.2 Backend Fault Tolerance Test \\
+CAP.R.1 & ST-NFR9.1 Concurrent User Load Test \\
+CAP.R.2 & ST-NFR9.2 Data Volume Stress Test \\
+SOE.R.1 & ST-NFR10.1 Module Integration Test \\
+SOE.R.2 & ST-NFR10.2 Performance Under Load Test \\
+LON.R.1 & ST-NFR11.1 Reliability and Maintenance Longevity Test \\
+LON.R.2 & ST-NFR11.2 Cross-OS Compatibility Test \\
+EPE.R.1 & ST-NFR12.1 Desktop Environment Performance Test \\
+EPE.R.2 & ST-NFR12.2 Multi-OS Execution Verification Test \\
+EPE.R.3 & ST-NFR12.3 Environmental Condition Simulation \\
+WE.R.1 & ST-NFR13.1 Browser Compatibility Test \\
+IWAS.R.1 & ST-NFR14.1 API Communication Protocol Test \\
+PROD.R.1 & ST-NFR15.1 Docker/Kubernetes Deployment Test \\
+PROD.R.2 & ST-NFR15.2 Repository Update Verification Test \\
+REL.R.1 & ST-NFR16.1 Versioning Convention Test \\
+REL.R.2 & ST-NFR16.2 Release Consistency Verification Test \\
+MAI.R.1 & ST-NFR17.1 Documentation Maintainability Inspection \\
+MAI.R.2 & ST-NFR17.2 Dataset Integration Maintenance Test \\
+SUP.R.1 & ST-NFR18.1 User Manual Verification Test \\
+SUP.R.2 & ST-NFR18.2 Self-Support Functionality Test \\
+ADA.R.1 & ST-NFR19.1 Platform Adaptability Test \\
+INT.R.1 & ST-NFR20.1 Data Integrity Protection Test \\
+IMM.R.1 & ST-NFR21.1 Security Attack Resistance Test \\
+IMM.R.2 & ST-NFR21.2 Rate Limiting and HTTPS Enforcement Test \\
+LEG.R.1 & ST-NFR22.1 License Compliance Review \\
+STA.R.1 & ST-NFR23.1 FRDR Standards Compliance Test \\
+STA.R.2 & ST-NFR23.2 Ethical Use of Data Verification Test \\
+
+\end{longtable}
+
+
 
 \section{Unit Test Description}
 
@@ -607,14 +956,95 @@ This is where you can place additional information.
 The definition of the test cases will call for SYMBOLIC\_CONSTANTS.
 Their values are defined in this section for easy maintenance.
 
+\paragraph{Test 7: Accessibility Audit}
+\begin{itemize}
+    \item \textbf{Related Requirement:} ACC.R.1
+    \item \textbf{Test ID:} NFR7-Accessibility
+    \item \textbf{Type:} Static, Manual (Accessibility Review)
+    \item \textbf{Initial State:} Fully implemented UI with all interactive elements deployed.
+    \item \textbf{Input/Condition:} Users and automated accessibility tools evaluate the system.
+    \item \textbf{Output/Result:} WCAG 2.1 AA compliance met; all interactive elements accessible via keyboard; screen readers correctly announce content.
+    \item \textbf{How test will be performed:} Use accessibility testing tools (e.g., WAVE, Axe) and manual inspection; verify color contrast, tab navigation, and ARIA attributes.
+\end{itemize}
+
+\subsubsection{Performance, Robustness, and Scalability Requirements}
+
+\paragraph{Test 8: Query Performance Benchmark}
+\begin{itemize}
+    \item \textbf{Related Requirement:} SAL.R.1
+    \item \textbf{Test ID:} NFR8-Performance
+    \item \textbf{Type:} Dynamic, Automatic
+    \item \textbf{Initial State:} System deployed with representative dataset.
+    \item \textbf{Input/Condition:} Run standardized queries on backend.
+    \item \textbf{Output/Result:} Average query response time $<$ 2 seconds for typical queries; $<$ 4 seconds for complex queries.
+    \item \textbf{How test will be performed:} Use automated scripts and CI tools to record response times; compare against thresholds.
+\end{itemize}
+
+\paragraph{Test 9: Fault Tolerance}
+\begin{itemize}
+    \item \textbf{Related Requirement:} ROFT.R.1
+    \item \textbf{Test ID:} NFR9-FaultTolerance
+    \item \textbf{Type:} Dynamic, Automatic
+    \item \textbf{Initial State:} System deployed with simulated failure scenarios.
+    \item \textbf{Input/Condition:} Induce backend failure, network disruption, or unexpected user input.
+    \item \textbf{Output/Result:} System continues operation with minimal disruption; errors logged and no data loss occurs.
+    \item \textbf{How test will be performed:} Simulate failures in test environment; monitor system responses and error handling.
+\end{itemize}
+
+\paragraph{Test 10: Scalability Testing}
+\begin{itemize}
+    \item \textbf{Related Requirement:} SOE.R.1
+    \item \textbf{Test ID:} NFR10-Scalability
+    \item \textbf{Type:} Dynamic, Automatic
+    \item \textbf{Initial State:} System deployed in staging with incremental load testing.
+    \item \textbf{Input/Condition:} Gradually increase number of simultaneous users and dataset size.
+    \item \textbf{Output/Result:} System maintains acceptable performance; response time remains within defined thresholds.
+    \item \textbf{How test will be performed:} Use load testing tools (e.g., JMeter, Locust) to simulate increasing load; monitor performance metrics.
+\end{itemize}
+
+\paragraph{Test 11: Maintainability and Supportability}
+\begin{itemize}
+    \item \textbf{Related Requirement:} MAI.R.1, SUP.R.1
+    \item \textbf{Test ID:} NFR11-Maintainability
+    \item \textbf{Type:} Static, Manual (Code Review)
+    \item \textbf{Initial State:} Source code in version control with documentation.
+    \item \textbf{Input/Condition:} Review code, documentation, and deployment scripts.
+    \item \textbf{Output/Result:} Code conforms to style guides; sufficient comments and documentation for maintenance; modular design observed.
+    \item \textbf{How test will be performed:} Conduct peer code reviews and documentation walkthroughs.
+\end{itemize}
+
+\paragraph{Test 12: Compliance and Legal Checks}
+\begin{itemize}
+    \item \textbf{Related Requirement:} LEG.R.1, STA.R.1
+    \item \textbf{Test ID:} NFR12-Compliance
+    \item \textbf{Type:} Static, Manual
+    \item \textbf{Initial State:} System fully deployed; policies and regulations reviewed.
+    \item \textbf{Input/Condition:} Evaluate compliance with data protection, licensing, and applicable legal standards.
+    \item \textbf{Output/Result:} System meets all regulatory and legal requirements; no unlicensed content used.
+    \item \textbf{How test will be performed:} Conduct legal and standards compliance audit; document verification steps.
+\end{itemize}
+
+
 \subsection{Usability Survey Questions?}
 
-\wss{This is a section that would be appropriate for some projects.}
+\par{The following is a list of straightforward and open ended questions, good for both clear answers and to allow room for discussion, 
+all of which will be considered for a usability survey.}
+
+\begin{itemize}
+  \item{Were the system's features and functionalities easy to find and intuitively placed?}
+  \item{Did the system's functionalities respond quickly to your input?}
+  \item{Were you aware of what the system was doing at all times and did you receive feedback after performing an action?}
+  \item{Were the search and webstore functionalities easy to use?}
+  \item{How well do the search filters satisfy your needs?}
+  \item{Are the system's information display and data visualization clear and well organized?}
+  \item{What were your least favourite parts of using the system to complete a workflow?}
+  \item{On a scale of one to five, how easy was it to learn how to use the system (one meaning impossible and five meaning easy)?}
+  \item{On a scale of one to ten, how was your experience using the system's UI (one meaning not user-friendly at all and ten meaning very 
+  user-friendly)?}
+\end{itemize}
 
 \newpage{}
 \section*{Appendix --- Reflection}
-
-\wss{This section is not required for CAS 741}
 
 The information in this section will be used to evaluate the team members on the
 graduate attribute of Lifelong Learning.
@@ -623,17 +1053,62 @@ graduate attribute of Lifelong Learning.
 
 \begin{enumerate}
   \item What went well while writing this deliverable? 
+  \begin{itemize}
+        \item What went well writing this deliverable was our groups collaboration and finishing in a timely mannaer for the most part.
+        For example, this past week we had two midterms that took away from our time to complete the deliverable. However, we all managed our time
+        and finished the VnV plan in time.
+  \end{itemize}
   \item What pain points did you experience during this deliverable, and how
     did you resolve them?
+  \begin{itemize}
+        \item A pain point we experienced during the deliverable was Leo falling ill before submission and our midterms from the last week. We also have another midterm coming up Wednesday, this 
+         made us intredibly nervous for time management, but the group submitted on time 
+         by focusing and collaborating with each other. Some would take extra parts and make the process better for others.
+  \end{itemize}
   \item What knowledge and skills will the team collectively need to acquire to
   successfully complete the verification and validation of your project?
   Examples of possible knowledge and skills include dynamic testing knowledge,
   static testing knowledge, specific tool usage, Valgrind etc.  You should look to
   identify at least one item for each team member.
+
+  \begin{itemize}
+
+    \item \textbf{Static analysis Approaches: }A very basic approach to testing but often an effective, especially when there is a large team to review each other's code. It will be very useful to review the most relevant static analysis approaches both for this test plan and so that we can generally improve our ability to review each other's code. This can include tools like SonarQube or can just be manual static analysis.
+
+    \item \textbf{JMeter or other Load Testing Tools: }We will need to test the performance of our web application to identify how it performs under increased loads. JMeter allows us to create HTTP requests and measure how the system responds. This will be especially useful in testing the system response under increased user load or a request with a large data result.
+
+    \item \textbf{Selenium or other test automation approaches: }Selenium is a good example of an
+automated web application testing tool. This is a tool that we expect to use, given
+that we will be creating a web application for the front-end of our system. The use of Selenium or a similar tool allows us to create repeatable and autonomous web application inputs that can be used to effectively test our front-end interface.
+
+    \item \textbf{PyTest or other unit testing approaches: }Although not yet composed, the VnV plan
+will eventually contain an extensive set of unit tests which need to be implemented
+in our system. Reviewing or learning about a relevant unit test implementation approach
+will be crucial in effectively implementing robust unit tests in our project.
+
+  
+  \end{itemize}
+
+
+
+
+
   \item For each of the knowledge areas and skills identified in the previous
   question, what are at least two approaches to acquiring the knowledge or
   mastering the skill?  Of the identified approaches, which will each team
   member pursue, and why did they make this choice?
+
+  \begin{itemize}
+
+    \item \textbf{All team Members - Static Analysis: }As mentioned above, this is an important skill for general code review as well as our testing plan. As a result, it is important for all team members to review this. Internet tutorials such as a SonarQube walkthrough and reviewing the SFWRENG 3S03 class material are both good approaches for this.
+
+    \item \textbf{Nathan and Leo - JMeter: }Both these team members have experience with load testing and thus it would be most effective for them to refresh their skills in JMeter. We expect the testing implementation to be largely compartmentalized so it would be best for each team member to play into their already existing strengths. Good tools to gain knowledge on this topic would be an internet tutorial such as one from tutorialspoint. Additionally, Nathan has a Kubernetes test-bed with JMeter on his device from an old project which would be useful to refresh knowledge.
+
+    \item \textbf{Jeremy - Selenium: }Jeremy has done reasonably extensive work with Selenium and thus it makes the most sense for him to focus on this aspect of the testing technologies. A refresher from the internet, again from tutorialspoint would be useful. Alternatively, Jeremy can review old projects from his time on Coop to refresh his skills.
+
+    \item \textbf{Tim and Aidan - PyTest: }Much like the other technologies, these team members will be taking this knowledge area because it plays into their already existing strengths. Many online tutorials about this can be found. Again, tutorialspoint is a good option (they seem to have tutorials on everything). Additionally, PyTest was covered in our SWFRENG 3S03 class so that is another good option.
+
+  \end{itemize}
 \end{enumerate}
 
 \end{document}
