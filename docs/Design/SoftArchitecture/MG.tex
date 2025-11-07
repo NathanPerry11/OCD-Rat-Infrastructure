@@ -409,9 +409,39 @@ needed. Drawings, Sketches, Figma}
 
 \section{Timeline}
 
-\wss{Schedule of tasks and who is responsible}
+The project timeline outlines the major milestones, deliverables, and responsibilities
+for each development phase. Progress, task assignments, and discussions are tracked
+publicly through the project's GitHub repository at:
 
-\wss{You can point to GitHub if this information is included there}
+\begin{center}
+\url{https://github.com/OCD-Rats-Capstone/OCD-Rat-Infrastructure/issues}
+\end{center}
+
+This repository serves as the primary project management platform, where issues correspond
+to individual tasks or features, each labeled with priority, category, and assignee.
+
+Table~\ref{tab:timeline} summarizes the high-level schedule of the project, organized
+by development phase and major deliverables.
+
+\begin{table}[h!]
+\centering
+\caption{Project Timeline and Responsibilities}
+\label{tab:timeline}
+\begin{tabular}{|p{2.5cm}|p{5.5cm}|p{3.5cm}|p{2cm}|}
+\hline
+\textbf{Phase} & \textbf{Major Tasks / Deliverables} & \textbf{Responsible Members} & \textbf{Duration} \\ \hline
+\textbf{Week 1--2} & Project setup, environment configuration, and repository initialization. Define database schema draft. & Backend + Database Teams & 2 weeks \\ \hline
+\textbf{Week 3--5} & Develop and test PostgreSQL schema. Implement initial API endpoints for data ingestion and retrieval. & Backend Team & 3 weeks \\ \hline
+\textbf{Week 6--8} & Implement frontend React interface for search and filtering. Integrate with backend API endpoints. & Frontend Team & 3 weeks \\ \hline
+\textbf{Week 9--10} & Implement data visualization and synchronized video playback components. & Frontend + Visualization Teams & 2 weeks \\ \hline
+\textbf{Week 11--12} & Integrate NLP query functionality and improve search capabilities. & NLP + Backend Teams & 2 weeks \\ \hline
+\textbf{Week 13--14} & Conduct system testing, debugging, and performance optimization. Prepare user documentation. & All Members & 2 weeks \\ \hline
+\textbf{Week 15} & Final deployment, demonstration, and report submission. & Entire Team & 1 week \\ \hline
+\end{tabular}
+\end{table}
+
+Ongoing updates, issue tracking, and future work will continue to be maintained through
+GitHub to ensure transparency and collaboration with supervisors and contributors.
 
 \bibliographystyle {plainnat}
 \bibliography{../../../refs/References}
