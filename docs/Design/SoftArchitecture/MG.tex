@@ -251,86 +251,121 @@ actually be implemented.
 \label{TblMH}
 \end{table}
 
-\section{Connection Between Requirements and Design} \label{SecConnection}
+\section{Connection Between Requirements and Design} \label{SecReqDesign}
 
-The design of the system is intended to satisfy the requirements developed in
-the SRS. In this stage, the system is decomposed into modules. The connection
-between requirements and modules is listed in Table~\ref{TblRT}.
+The design of the behavioral neuroscience data analysis platform is directly driven by the requirements specified in the SRS. Each module in the hierarchy (\autoref{SecMH}) was designed to fulfill specific functional, application, or system-level requirements. This section documents the decisions made to satisfy requirements and ensures traceability from requirements to design modules.
 
-\wss{The intention of this section is to document decisions that are made
-  ``between'' the requirements and the design.  To satisfy some requirements,
-  design decisions need to be made.  Rather than make these decisions implicit,
-  they are explicitly recorded here.  For instance, if a program has security
-  requirements, a specific design decision may be made to satisfy those
-  requirements with a password.}
+Table~\ref{tab:req_design} maps key requirements to the corresponding design modules, explaining the rationale behind each decision.
+
+\begin{table}[H]
+\centering
+\caption{Mapping Between System Requirements and Design Modules}
+\label{tab:req_design}
+\begin{tabularx}{\textwidth}{|p{3cm}|p{3cm}|X|}
+\hline
+\textbf{Requirement ID} & \textbf{Design Module} & \textbf{Design Decision / Rationale} \\ \hline
+FUNC.R.1 -- Store and manage behavioral datasets & Data Schema and Storage Module (\mref{mDSS}) & Implemented a PostgreSQL schema supporting spatial-temporal data, video references, and metadata to ensure efficient storage and retrieval. \\ \hline
+FUNC.R.2 -- Query and filter trials & API Layer Module (\mref{mAPI}) & REST API endpoints allow parameterized and natural language-based querying of trial data. \\ \hline
+FUNC.R.3 -- Visualize trajectories and metrics & Data Visualization Module (\mref{mDV}) & React components and charting libraries render spatial trajectories, heatmaps, and statistical summaries. \\ \hline
+APP.R.1 -- Enable intuitive researcher interaction & Front-End Interface Module (\mref{mUI}) & Accessible, responsive UI allows non-technical users to explore, filter, and download datasets. \\ \hline
+APP.R.2 -- Natural language querying & NLP Query Processor Module (\mref{mNLP}) & Translates user queries in natural language into structured database queries. \\ \hline
+SYS.R.1 -- Scalable and performant system & Data Processing Pipeline Module (\mref{mDPP}) & Parallelized pipelines and efficient indexing handle large datasets and multiple concurrent users. \\ \hline
+SYS.R.2 -- Secure and reliable data access & Authentication and Access Control Module (\mref{mAAC}) & User authentication, role-based access, and HTTPS protocols ensure secure access to sensitive research data. \\ \hline
+SYS.R.3 -- Extensible architecture for future analysis tools & Software Decision Modules (\mref{mSDM}) & Modular design with clear interfaces allows new algorithms and tools to be integrated without disrupting existing components. \\ \hline
+\end{tabularx}
+\end{table}
+
+
+This mapping makes the relationship between requirements and design explicit, demonstrating how each architectural decision satisfies specific functional, performance, and security objectives.
 
 \section{Module Decomposition} \label{SecMD}
 
-Modules are decomposed according to the principle of ``information hiding''
-proposed by \citet{ParnasEtAl1984}. The \emph{Secrets} field in a module
-decomposition is a brief statement of the design decision hidden by the
-module. The \emph{Services} field specifies \emph{what} the module will do
-without documenting \emph{how} to do it. For each module, a suggestion for the
-implementing software is given under the \emph{Implemented By} title. If the
-entry is \emph{OS}, this means that the module is provided by the operating
-system or by standard programming language libraries.  \emph{\progname{}} means the
-module will be implemented by the \progname{} software.
+The system is decomposed according to principles of information hiding \citep{ParnasEtAl1984}. Each module is defined by its \textit{Secrets} (hidden design decisions), \textit{Services} (exposed functionality), and the software or technology used for implementation. Only leaf modules in the hierarchy (\autoref{SecMH}) are directly implemented.
 
-Only the leaf modules in the hierarchy have to be implemented. If a dash
-(\emph{--}) is shown, this means that the module is not a leaf and will not have
-to be implemented.
-
-\subsection{Hardware Hiding Modules (\mref{mHH})}
+\subsection{Hardware-Hiding Module (\mref{mHH})}
 
 \begin{description}
-\item[Secrets:]The data structure and algorithm used to implement the virtual
-  hardware.
-\item[Services:]Serves as a virtual hardware used by the rest of the
-  system. This module provides the interface between the hardware and the
-  software. So, the system can use it to display outputs or to accept inputs.
-\item[Implemented By:] OS
+\item[Secrets:] Configuration of computing infrastructure including backend servers, databases, and frontend deployment environments.
+\item[Services:] Provides physical and virtual infrastructure for computation, storage, and web services.
+\item[Implemented By:] OS / Cloud Infrastructure
 \end{description}
 
-\subsection{Behaviour-Hiding Module}
+\subsection{Behaviour-Hiding Modules}
+
+\subsubsection{Front-End Interface Module (\mref{mUI})}
 
 \begin{description}
-\item[Secrets:]The contents of the required behaviours.
-\item[Services:]Includes programs that provide externally visible behaviour of
-  the system as specified in the software requirements specification (SRS)
-  documents. This module serves as a communication layer between the
-  hardware-hiding module and the software decision module. The programs in this
-  module will need to change if there are changes in the SRS.
-\item[Implemented By:] --
+\item[Secrets:] Frontend state management, routing, and layout design.
+\item[Services:] User interface for dataset search, visualization, filtering, and download.
+\item[Implemented By:] React
 \end{description}
 
-\subsubsection{Input Format Module (\mref{mInput})}
+\subsubsection{API Layer Module (\mref{mAPI})}
 
 \begin{description}
-\item[Secrets:]The format and structure of the input data.
-\item[Services:]Converts the input data into the data structure used by the
-  input parameters module.
-\item[Implemented By:] [Your Program Name Here]
-\item[Type of Module:] [Record, Library, Abstract Object, or Abstract Data Type]
-  [Information to include for leaf modules in the decomposition by secrets tree.]
+\item[Secrets:] API routing, endpoint definition, query optimization.
+\item[Services:] Provides REST API for structured and natural language queries.
+\item[Implemented By:] FastAPI
 \end{description}
 
-\subsubsection{Etc.}
-
-
-\subsection{Software Decision Module}
+\subsubsection{NLP Query Processor Module (\mref{mNLP})}
 
 \begin{description}
-\item[Secrets:] The design decision based on mathematical theorems, physical
-  facts, or programming considerations. The secrets of this module are
-  \emph{not} described in the SRS.
-\item[Services:] Includes data structure and algorithms used in the system that
-  do not provide direct interaction with the user. 
-  % Changes in these modules are more likely to be motivated by a desire to
-  % improve performance than by externally imposed changes.
-\item[Implemented By:] --
+\item[Secrets:] Query interpretation logic and integration with language model APIs.
+\item[Services:] Converts natural language queries into structured database commands.
+\item[Implemented By:] Custom Python code
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{Authentication and Access Control Module (\mref{mAAC})}
+
+\begin{description}
+\item[Secrets:] User authentication and role-based access control.
+\item[Services:] Manages secure access to data and APIs.
+\item[Implemented By:] FastAPI Security Layer
+\end{description}
+
+\subsection{Software Decision Modules}
+
+\subsubsection{Data Processing Pipeline Module (\mref{mDPP})}
+
+\begin{description}
+\item[Secrets:] Data processing algorithms and pipeline configuration for efficiency and scalability.
+\item[Services:] Processes behavioral datasets to compute metrics and prepare data for visualization.
+\item[Implemented By:] Python (NumPy, Pandas)
+\end{description}
+
+\subsubsection{Data Schema and Storage Module (\mref{mDSS})}
+
+\begin{description}
+\item[Secrets:] Database schema, indexing strategies, and query optimization.
+\item[Services:] Efficient storage and retrieval of behavioral datasets and metadata.
+\item[Implemented By:] PostgreSQL
+\end{description}
+
+\subsubsection{Data Visualization Module (\mref{mDV})}
+
+\begin{description}
+\item[Secrets:] Visualization design and interactive plotting logic.
+\item[Services:] Generates charts, trajectories, and heatmaps for research analysis.
+\item[Implemented By:] React + Charting Libraries
+\end{description}
+
+\subsubsection{Fault and Error Management Module (\mref{mFEM})}
+
+\begin{description}
+\item[Secrets:] Error detection, logging, and recovery mechanisms.
+\item[Services:] Ensures robustness and reliability during runtime exceptions or unexpected input.
+\item[Implemented By:] Python logging / monitoring frameworks
+\end{description}
+
+\subsubsection{Security and Dependency Management Module (\mref{mSDM})}
+
+\begin{description}
+\item[Secrets:] Internal security protocols, dependency versions, and update management.
+\item[Services:] Maintains system integrity, reduces vulnerabilities, and ensures reproducibility.
+\item[Implemented By:] OS / Package Management Tools
+\end{description}
+
 
 \section{Traceability Matrix} \label{SecTM}
 
