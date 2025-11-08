@@ -89,7 +89,7 @@ export function HomeCarousel() {
                                 <CardContent className="flex flex-col justify-between flex-1 p-6">
                                     <img
                                         src={useCase.imageUrl}
-                                        className="w-100 object-contain mb-4 mx-auto"
+                                        className="w-40 object-contain mb-4 mx-auto"
                                         alt={useCase.title}
                                     />
                                     <div>
