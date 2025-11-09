@@ -31,6 +31,8 @@ urlcolor=cyan          % color of external links
 
 \usepackage{array}
 
+\allowdisplaybreaks
+
 \externaldocument{../../SRS/SRS}
 
 \input{../../Comments}
@@ -186,16 +188,21 @@ The following table is taken directly from the Module Guide document for this pr
 \newpage
 ~\newpage
 
-\section{MIS of \wss{Module Name}} \label{Module} \wss{Use labels for
-  cross-referencing}
+\section{MIS of M1: Hardware-Hiding Module} \label{Module 1}
 
-\wss{You can reference SRS labels, such as R\ref{R_Inputs}.}
+\subsection{Module}
 
-\wss{It is also possible to use \LaTeX for hypperlinks to external documents.}
+\par{The hardware hiding module will be implemented by the native OS of the machine running our system. This will not be designed by us. For
+detailed design implementation please see the breakdown of the OS of the local machine running our system's web page (client-side) or the 
+Linux-based OS of the server hosting our system's backend and database.}
+
+\section{MIS of M2: Query Processor Module} \label{Module 2}
 
 \subsection{Module}
 
 \wss{Short name for the module}
+
+NLPModule
 
 \subsection{Uses}
 
@@ -204,14 +211,16 @@ The following table is taken directly from the Module Guide document for this pr
 
 \subsubsection{Exported Constants}
 
+\par
+
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+\begin{tabular}{p{4cm} p{4cm} p{4cm} p{4cm}}
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\wss{accessProg} & - & - & - \\
+NLP Processor & String & String & incoherent prompt, empty input \\
 \hline
 \end{tabular}
 \end{center}
@@ -220,42 +229,141 @@ The following table is taken directly from the Module Guide document for this pr
 
 \subsubsection{State Variables}
 
-\wss{Not all modules will have state variables.  State variables give the module
-  a memory.}
+\par{None}
 
 \subsubsection{Environment Variables}
 
-\wss{This section is not necessary for all modules.  Its purpose is to capture
-  when the module has external interaction with the environment, such as for a
-  device driver, screen interface, keyboard, file, etc.}
+\begin{itemize}
+
+  \item{$LLM\_API\_KEY$: String}
+  \item{$System\_Prompt$: String}
+  \item{$Schema\_Attributes$: String{}}
+  \item{$Valid\_Operators$: String{}}
+
+\end{itemize}
 
 \subsubsection{Assumptions}
 
-\wss{Try to minimize assumptions and anticipate programmer errors via
-  exceptions, but for practical purposes assumptions are sometimes appropriate.}
+\begin{itemize}
+
+  \item{The system prompt environment variable will provide enough information to the LLM to ensure that the returned response string conforms exactly
+  to the structure of the needed input format for a database query.}
+  \item{The large language model used to process the natural language input into database commands will require the use of an API key and will not
+  be locally hosted, thus the need for an API key environment variable.}
+
+
+\end{itemize}
+
 
 \subsubsection{Access Routine Semantics}
 
-\noindent \wss{accessProg}():
+\noindent $NLP\_Processor(String: natural\_language)$:
 \begin{itemize}
-\item transition: \wss{if appropriate} 
-\item output: \wss{if appropriate} 
-\item exception: \wss{if appropriate} 
+\item output: out := if $(is\_valid\_output(natural\_language))~then~
+\\ \{LLM\_API\_Response(natural\_language)\}~else~\{raise~incoherent\_prompt\}$ 
+\item exceptions: $(natural\_language$ IS NULL $=> empty\_input), (!is\_valid\_output(natural\_language) => incoherent\_prompt)$
 \end{itemize}
-
-\wss{A module without environment variables or state variables is unlikely to
-  have a state transition.  In this case a state transition can only occur if
-  the module is changing the state of another module.}
-
-\wss{Modules rarely have both a transition and an output.  In most cases you
-  will have one or the other.}
 
 \subsubsection{Local Functions}
 
-\wss{As appropriate} \wss{These functions are for the purpose of specification.
-  They are not necessarily something that is going to be implemented
-  explicitly.  Even if they are implemented, they are not exported; they only
-  have local scope.}
+\noindent $is\_valid\_output(String: LLM\_Response) \rightarrow bool$
+\begin{itemize}
+\item output: out := $($b such that b $\in ([x \in Schema\_Attributes];[y \in Valid\_Operators];[<Value>]))$
+\end{itemize}
+
+\noindent $LLM\_API\_Call(String: natural\_language, String: System\_Prompt) \rightarrow String$
+\begin{itemize}
+\item $output: LLM\_Response := (Call~LLM~API~where: \\ Prompt input = natural\_language~prepended~by~System\_Prompt)$
+\end{itemize}
+
+
+
+\section{MIS of M3: Front-End Interface Module} \label{Module 3}
+
+\wss{You can reference SRS labels, such as R\ref{R_Inputs}.}
+
+\wss{It is also possible to use \LaTeX for hypperlinks to external documents.}
+
+\subsection{Module}
+
+FrontEnd
+
+\subsection{Uses}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+\par{N/A}
+
+\subsubsection{Exported Access Programs}
+
+\par{N/A}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\begin{itemize}
+  \item{NavPage: String (URL)}
+  \item{HTTPStatusCode: int}
+  \item{UserInterfaceComponents: {bool, String, int, char} (Variables which provide values to UI components such as a checkbox being checked or the value
+  in an input box. Aggregated as it would be a waste of time to list each individual component and it's state variable(s))}
+  \item{DataSet: JSON Object}
+\end{itemize}
+
+\subsubsection{State Invariant}
+
+\begin{itemize}
+  \item{$NavPage \in \{FrontEndURLs\}$ }
+  \item{$HTTPStatusCode \in \{$Standard HTTP Status Codes$\}$}
+\end{itemize}
+
+\subsubsection{Environment Variables}
+
+  \begin{itemize}
+    \item{BackEndLocation: String (URL for HTTP request destinations)}
+    \item{FrontEndURLs: String{}}
+  \end{itemize}
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+  \item{Only one backend location will be necessary. HTTP request body will contain sufficient information to call the correct corresponding
+  module and serve the proper response.}
+  \item{Front end module will be free of explicit business logic and will simply package user input and serve output responded. Aggregating user input,
+  formatting HTTP requests and serving responses are the extent of the front end requirements.}
+\end{itemize}
+\subsubsection{Access Routine Semantics}
+
+\par{N/A}
+
+\subsubsection{Local Functions}
+
+\par{$HTTP\_Send\_Request(HTTP~Request: HTTP\_request) \rightarrow HTTP\_Response$: }
+\begin{itemize}
+  \item{output: $out := HTTP\_response~form~backend~modules$}
+  \item{exception: None}
+\end{itemize}
+
+\par{$Nav\_Page(String: Nav\_URL):$ }
+\begin{itemize}
+  \item{$transition: NavPage := Nav\_URL$}
+  \item{$exception: exc := (NavPage = bad~URL => page\_not\_found)$}
+\end{itemize}
+
+\par{$HTTP\_Error\_Handle(HTTP~Response: HTTP\_response):$ }
+\begin{itemize}
+  \item{$transition: HTTPStatusCode := HTTP\_response.StatusCode, NavPage := \\'Initial~Landing~Page', UserInterfaceComponents := \{$component initial values$\}$ }
+  \item{exception: None}
+\end{itemize}
+
+\par{$HTTP\_Serve\_Data($JSON Object: DataSet): }
+\begin{itemize}
+  \item{$transition: DataSet := HTTP\_Send\_Request(HTTP\_request).body$}
+  \item{$exception: exc := (HTTP\_Send\_Request(HTTP\_request).body == NULL =>$ Empty HTTP Response)}
+
+\end{itemize}
 
 \newpage
 
