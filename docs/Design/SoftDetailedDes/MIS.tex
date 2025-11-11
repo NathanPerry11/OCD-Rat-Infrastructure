@@ -257,7 +257,7 @@ NLP Processor & String & String & incoherent prompt, empty input \\
 
 \subsubsection{Access Routine Semantics}
 
-\noindent $NLP\_Processor(String: natural\_language)$:
+\noindent $NLP\_Processor(String: natural\_language) \rightarrow String$:
 \begin{itemize}
 \item output: out := if $(is\_valid\_output(natural\_language))~then~
 \\ \{LLM\_API\_Response(natural\_language)\}~else~\{raise~incoherent\_prompt\}$ 
@@ -342,7 +342,7 @@ FrontEnd
 
 \par{$HTTP\_Send\_Request(HTTP~Request: HTTP\_request) \rightarrow HTTP\_Response$: }
 \begin{itemize}
-  \item{output: $out := HTTP\_response~form~backend~modules$}
+  \item{output: $out := HTTP\_response~from~backend~modules$}
   \item{exception: None}
 \end{itemize}
 
@@ -362,6 +362,109 @@ FrontEnd
 \begin{itemize}
   \item{$transition: DataSet := HTTP\_Send\_Request(HTTP\_request).body$}
   \item{$exception: exc := (HTTP\_Send\_Request(HTTP\_request).body == NULL =>$ Empty HTTP Response)}
+
+\end{itemize}
+
+\section{MIS of M4: API Layer Module} \label{Module 4}
+
+\subsection{Module}
+
+APILayer
+
+\subsection{Uses}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+\par{N/A}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{4cm} p{5cm} p{3cm} p{4cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+Get DataSet & None & JSON Object & empty dataset \\
+Request RawFiles & DataSet\{"FileLocations"\} & File[] & empty dataset, bad URL\\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\begin{itemize}
+  \item{$QueryType: String \in \{'NaturalLanguage','Structured'\}$}
+  \item{ModuleHasData: bool}
+  \item{Dataset: JSON Object}
+  \item{RequestedQuery: SQL Query}
+
+
+\end{itemize}
+
+\subsubsection{Environment Variables}
+
+  \begin{itemize}
+    \item{HostedDatabaseEndPoint: String (URL for Database Connection)}
+    \item{DatabaseAccessKey: String}
+    \item{FRDRDataSetEndPoint: String (URL EndPoint for Dr.Szechtman's Data Sets in the FRDR repository)}
+    \item{BaseQuery: SQL Query (To be augmented by requested filters)}
+  \end{itemize}
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+  \item{Only one instance of our database will be hosted and thus, one hardcoded endpoint will be sufficient for handling our database connection. Additionally,
+  a single access key will be sufficient to provide all users access to the database connection.}
+  \item{The Endpoint for accessing Dr.Szechtman's datasets on the FRDR website will not change.}
+  \item{The disk space available on the application server will be sufficient to temporarily download several .CSV or .MPG files files from FRDR for
+  processing purposes.}
+  \item{A boilerplate query for the database will be sufficient for every unique query, only needing to be augmented algorithmically through the requested
+  filters.}
+\end{itemize}
+\subsubsection{Access Routine Semantics}
+
+\noindent $Get\_Dataset() \rightarrow File[]$:
+\begin{itemize}
+\item output: out := DataSet
+\item exceptions: exc:= (HasData := False $=>$ empty\_dataset), exc := ($HTTP\_Response \in \{4++\}$)
+\end{itemize}
+
+\noindent $Request\_RawFiles(JSON~Object: DataSet): \rightarrow File[]$
+\begin{itemize}
+  \item{$transition: out := $Array of files provided via automatic downloads faciliatated by \\ HTTP requests to the DataSet\{"FileLocations"\} Attribute}
+  \item{$exception: exc := (HasData := False => Empty\_Result), \\ exc := (Database~Connection~Unsuccessful => Connection\_Refused)$}
+
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+\par{$Choose\_Query\_Process(String: QueryType) \rightarrow JSON~Object$: }
+\begin{itemize}
+  \item{transition: $ DataSet := if (QueryType == 'NaturalLanguage') \{NLP\_Query(HTTP\_Request)\} \\ elseif (QueryType == 'Structured') \{Structured\_Query(HTTP\_Request)\}$}
+  \item{exception: $exc := (\not(QueryType \in \{'NaturalLanguage','Structured'\}) => Bad\_Query\_Type$)}
+\end{itemize}
+
+\noindent{$NLP\_Query(HTTP~Request: HTTP\_Request): \rightarrow SQL~Query$ }
+\begin{itemize}
+  \item{$transition: RequestedQuery := $ Augmented Base Query Based on Output of NLPModule.NLP\_Processor(HTTP\_Request.body)}
+  \item{$exception: exc := (HTTP\_Request.body~IS~NULL => empty\_filters)$}
+\end{itemize}
+
+\noindent{$Structured\_Query(HTTP~Response: HTTP\_response): \rightarrow SQL~Query$ }
+\begin{itemize}
+  \item{$transition: RequestedQuery := $ Augmented Base Query Based on filters in HTTP\_Request.body}
+  \item{$exception: exc := (HTTP\_Request.body~IS~NULL => empty\_filters)$}
+\end{itemize}
+
+\noindent{$Request\_DataSet(SQL~Query: RequestedQuery, String: HostedDatabaseEndPoint): \rightarrow JSON~Object$}
+\begin{itemize}
+  \item{$transition: DataSet := $JSON Object generated from result of RequestedQuery API request at URL of HostedDatabaseEndPoint}
+  \item{$transition: if(DataSet~IS~NOT~NULL) \{HasData := True\}$}
+  \item{$exception: exc := ($ HasData := False => Empty\_Result), exc := (Database Connection Unsuccessful => Connection\_Refused)}
 
 \end{itemize}
 
