@@ -7,7 +7,6 @@ import { Home } from "./pages/Home"
 import {NotFound} from "./pages/NotFound"
 import { About } from "./pages/About";
 import { Query } from "./pages/Query"
-import { NotFound } from "./pages/NotFound"
 
 function App() {
   return (
