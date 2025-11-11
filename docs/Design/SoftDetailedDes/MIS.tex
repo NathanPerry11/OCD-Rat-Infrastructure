@@ -468,6 +468,295 @@ Request RawFiles & DataSet\{"FileLocations"\} & File[] & empty dataset, bad URL\
 
 \end{itemize}
 
+\section{MIS of M5: Data Schema and Storage Module} \label{Module 5}
+
+\subsection{Module}
+
+DataBaseSchema \\
+
+\par{\textbf{Note: }It does not make sense to outline this as a typical module with functions, variables etc... since this module consists of our database schema
+	for querying the experimental data relevant to this project. As a result, this module will be outlined via the schema definition of our database.
+  Also note that our team and Dr.Szechtman have already worked to develop a schema that makes sense based on Dr.Szechtman's understanding of the datasets.
+  Thus, this will be very detailed and specific, more so than is likely necessary but since the work has already been done, the full design will be
+  outlined.}
+
+\subsection{Schema Overview}
+
+\subsubsection{Core Entity Tables}
+
+\begin{itemize}
+
+	\item{1. apparatuses - Testing Equipment}
+	\item{2. rats - Subject Animals}
+	\item{3. brain\_mainpulations - Surgical interventions}
+	\item{4. drug\_rx - Drug regimen combinations}
+	\item{5. drug\_rx\_details - Individual compound specifications}
+
+\end{itemize}
+
+\subsubsection{Reference Tables}
+
+\begin{itemize}
+
+	\item{6. light\_cycles - Colony room light/dark cycles}
+	\item{7. session\_types - Session classification codes}
+	\item{8. testers - Experimenter identifiers}
+	\item{9. apparatus\_patterns - Object arrangement configurations}
+	\item{10. drugs - Pharmacological agents}
+	\item{11. brain\_regions - Brain region codes}
+	\item{12. testing\_rooms - Physical testing locations}
+
+\end{itemize}
+
+\subsubsection{Experimental Session Tables}
+
+\begin{itemize}
+
+	\item{13. experimental\_sessions - All 20,491 experimental sessions}
+	\item{14. session\_drug\_details - Drug administration for experimental sessions}
+
+\end{itemize}
+
+\subsubsection{Histology and Video Tables}
+
+\begin{itemize}
+
+	\item{15. histology\_results – Post-mortem lesion verification}
+	\item{16. movie\_files – Video file metadata}
+
+\end{itemize}
+
+\subsubsection{Data File Locations Table}
+
+\begin{itemize}
+
+	\item{17. data\_file\_locations – Physical storage locations (336,507 records)}
+
+\end{itemize}
+
+\subsubsection{Session Data Files and Observations Tables}
+
+\begin{itemize}
+
+	\item{18. session\_data\_files – Session-to-data-file linking}
+	\item{19. session\_observations – Quality control and notes}
+
+\end{itemize}
+
+\subsection{Schema Definition}
+
+\begin{itemize}
+
+\item 1. apparatuses - Testing Equipment
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE apparatuses (apparatus\_id SERIAL PRIMARY KEY, apparatus\_name VARCHAR(100), apparatus\_code VARCHAR(10),
+	      testing\_room\_id INTEGER REFERENCES testing\_rooms(room\_id),
+	      \\ apparatus\_location\_in\_room VARCHAR(50),
+	      apparatus\_notes TEXT);}
+	\item{\textbf{Referenced By: }experimental\_sessions \textbf{Foreign Key: }apparatus\_id (Many-to-One: many sessions use same apparatus)}
+\end{itemize}
+\item 2. rats - Subject Animals
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE rats (
+	      rat\_id SERIAL PRIMARY KEY,
+	      legacy\_rat\_id VARCHAR(20) UNIQUE,
+	      sex VARCHAR(10),
+	      light\_cycle\_id INTEGER REFERENCES light\_cycles(light\_cycle\_id),
+	      strain VARCHAR(50),
+	      birth\_date DATE
+	      );
+	      }
+	\item{\textbf{Referenced By: }experimental\_sessions \textbf{Foreign Key: }rat\_id (One-to-Many: one rat, many sessions)}
+	\item{\textbf{Referenced By: }brain\_manipulations \textbf{Foreign Key: }rat\_id (One-to-Many: one rat can have multiple manipulations)}
+\end{itemize}
+\item 3. brain\_mainpulations - Surgical interventions
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE brain\_manipulations (
+	      manipulation\_id SERIAL PRIMARY KEY,
+	      rat\_id INTEGER REFERENCES rats(rat\_id),
+	      surgery\_type VARCHAR(50),
+	      target\_region\_id INTEGER REFERENCES brain\_regions(region\_id),
+	      surgery\_date DATE
+	      );
+
+	      }
+	\item{\textbf{Referenced By: }histology\_results table \textbf{Foreign Key: }manipulation\_id (One-to-One: each lesion has histology assessment)}
+\end{itemize}
+\item 4. drug\_rx - Drug regimen combinations
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE drug\_rx (
+	      drug\_rx\_id SERIAL PRIMARY KEY,
+	      rx\_label VARCHAR(200),
+	      num\_drugs INTEGER,
+	      notes\_drug\_rx TEXT
+	      );
+
+	      }
+	\item{\textbf{Referenced By: }experimental\_sessions \textbf{Foreign Key: }drug\_rx\_id (Many-to-One: many sessions use same regimen)}
+	\item{\textbf{Referenced By: }drug\_rx\_details  \textbf{Foreign Key: }drug\_rx\_id (One-to-Many: each regimen has multiple detail records)}
+\end{itemize}
+
+\item 5. drug\_rx\_details - Individual compound specifications
+
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE drug\_rx\_details (
+	      drug\_rx\_detail\_id SERIAL PRIMARY KEY,
+	      drug\_rx\_id INTEGER REFERENCES drug\_rx(drug\_rx\_id),
+	      drug\_id INTEGER REFERENCES drugs(drug\_id),
+	      prescribed\_dose NUMERIC(10,6),
+	      dose\_unit VARCHAR(50),
+	      route VARCHAR(50),
+	      time\_before\_session\_hours NUMERIC(10,2)
+	      );
+
+
+	      }
+\end{itemize}
+
+\item light\_cycles
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE light\_cycles (light\_cycle\_id SERIAL PRIMARY KEY, cycle\_name VARCHAR(50) NOT NULL, lights\_on\_time TIME, lights\_off\_time TIME);}
+	\item{\textbf{Referenced By: }rats \textbf{Foreign Key: }light\_cycle\_id (Many-to-One: many rats share same light cycle)}
+\end{itemize}
+\item session\_types - Session classification codes
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE session\_types (session\_type\_id SERIAL PRIMARY KEY, type\_name VARCHAR(100) NOT NULL, session\_types\_notes TEXT);}
+	\item{\textbf{Referenced By: }experimental\_sessions \textbf{Foreign Key: }session\_type\_id (Many-to-One: many sessions can be the same type)}
+\end{itemize}
+\item 8. testers - Experimenter identifiers
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE testers (tester\_id SERIAL PRIMARY KEY, first\_last\_name VARCHAR(100), initials VARCHAR(10));}
+	\item{\textbf{Referenced By: }experimental\_sessions \textbf{Foreign Key: }tester\_id (Many-to-One: each tester conducted many sessions)}
+\end{itemize}
+\item 9. apparatus\_patterns - Object arrangement configurations
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE apparatus\_patterns (pattern\_id SERIAL PRIMARY KEY, pattern\_description TEXT);}
+	\item{\textbf{Referenced By: }experimental\_sessions \textbf{Foreign Key: }pattern\_id (Many-to-One: many sessions use the same pattern)}
+\end{itemize}
+\item 10. drugs - Pharmacological agents
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE drugs (drug\_id SERIAL PRIMARY KEY, drug\_abbreviation VARCHAR(20), drug\_name
+	      VARCHAR(200), drug\_is\_active BOOLEAN, dose\_unit VARCHAR(20), drugs\_notes TEXT);}
+	\item{\textbf{Referenced By: }drug\_rx\_details \textbf{Foreign Key: }drug\_id (Many-to-One: specifies drugs in prescription regimens)}
+	\item{\textbf{Referenced By: }session\_drug\_details \textbf{Foreign Key: }drug\_id (Many-to-One: records actual drugs administered)}
+\end{itemize}
+\item 11. brain\_regions - Brain region codes
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE brain\_regions (region\_id SERIAL PRIMARY KEY, region\_name VARCHAR(100), region\_abbreviation VARCHAR(20));}
+	\item{\textbf{Referenced By: }brain\_manipulations \textbf{Foreign Key: }target\_region\_id (Many-to-One: many rats received surgery targeting the same brain region)}
+\end{itemize}
+\item 12. testing\_rooms - Physical testing locations
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE testing\_rooms (room\_id SERIAL PRIMARY KEY, room\_name VARCHAR(50), room\_notes
+	      TEXT);}
+	\item{\textbf{Referenced By: }apparatuses \textbf{Foreign Key: }testing\_room\_id (Many-to-One: multiple apparatus can be in the same room)}
+\end{itemize}
+
+\item 13. experimental\_sessions - All 20,491 experimental sessions
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE experimental\_sessions (session\_id SERIAL PRIMARY KEY, legacy\_session\_id VARCHAR(7)
+	      UNIQUE, session\_type\_id INTEGER REFERENCES session\_types(session\_type\_id), rat\_id INTEGER
+	      REFERENCES rats(rat\_id), body\_weight\_grams NUMERIC(6,2), drug\_rx\_id INTEGER REFERENCES
+	      drug\_rx(drug\_rx\_id), tester\_id INTEGER REFERENCES testers(tester\_id), effective\_manipulation\_id
+	      INTEGER REFERENCES \\ brain\_manipulations(manipulation\_id), apparatus\_id INTEGER REFERENCES
+	      apparatuses(apparatus\_id), pattern\_id INTEGER REFERENCES \\ apparatus\_patterns(pattern\_id),
+	      locale\_in\_room VARCHAR(20), room\_id INTEGER REFERENCES testing\_rooms(room\_id),
+	      testing\_lights\_on SMALLINT, session\_timestamp TIMESTAMP, data\_trial\_id VARCHAR(28),
+	      cumulative\_drug\_injection\_number INTEGER);
+	      }
+	\item{\textbf{Referenced By: }session\_drug\_details \textbf{Foreign Key: } session\_id (One-to-Many. Each session has 1-4 drug detail records specifying actual drugs and doses administered)}
+	\item{\textbf{Referenced By: }session\_data\_files \textbf{Foreign Key: }  session\_id (One-to-Many. Each session links to multiple data files (videos, tracks, plots))}
+	\item{\textbf{Referenced By: }session\_observations \textbf{Foreign Key: }  session\_id (One-to-Many. Quality control notes and behavioral observations for sessions)}
+\end{itemize}
+\item 14. session\_drug\_details - Drug administration for experimental sessions
+
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE session\_drug\_details (
+	      detail\_id SERIAL PRIMARY KEY,
+	      session\_id INTEGER REFERENCES experimental\_sessions(session\_id),
+	      drug\_id INTEGER REFERENCES drugs(drug\_id),
+	      dose\_given NUMERIC(12,5),
+	      dose\_unit VARCHAR(20),
+	      route VARCHAR(50),
+	      time\_before\_session\_hours NUMERIC(10,2),
+	      cumulative\_injections\_count\_for\_regimen INTEGER,
+	      \\ cumulative\_apparatus\_exposure\_number INTEGER
+	      );
+	      }
+\end{itemize}
+
+\item 15. histology\_results – Post-mortem lesion verification
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE histology\_results (
+	      histology\_id SERIAL PRIMARY KEY,
+	      manipulation\_id INTEGER REFERENCES \\ brain\_manipulations(manipulation\_id),
+	      histology\_status\_id INTEGER REFERENCES lkp\_histology\_status(histology\_status\_id),
+	      intact\_status\_id INTEGER REFERENCES functional\_intact\_status(intact\_status\_id),
+	      left\_percent\_damage DOUBLE PRECISION,
+	      right\_percent\_damage DOUBLE PRECISION,
+	      notes\_histology\_results TEXT
+	      );}
+\end{itemize}
+\item 16. movie\_files – Video file metadata
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE movie\_files (
+	      movie\_file\_id SERIAL PRIMARY KEY,
+	      movie\_file\_name VARCHAR(255),
+	      legacy\_movie\_file\_name VARCHAR(255),
+	      file\_size\_mb DOUBLE PRECISION,
+	      is\_file\_available BOOLEAN,
+	      notes\_movie\_files TEXT
+	      );}
+	\item{\textbf{Referenced By: }session\_data\_files \textbf{Foreign Key: }.movie\_file\_id (Many-to-One: Multiple sessions can reference the same movie file (video multiplexing))}
+\end{itemize}
+\item 17. data\_file\_locations – Physical storage locations (336,507 records)
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE data\_file\_locations (
+	      data\_file\_location\_id SERIAL PRIMARY KEY,
+	      data\_file\_id INTEGER REFERENCES session\_data\_files(data\_file\_id),
+	      repository\_type\_id INTEGER REFERENCES lkp\_repository\_type(repository\_type\_id),
+	      repo\_dataset\_doi VARCHAR(100),
+	      repo\_dataset\_name VARCHAR(255),
+	      repo\_dataset\_version VARCHAR(24),
+	      repo\_file\_url TEXT,
+	      is\_primary\_copy BOOLEAN,
+	      date\_linked TIMESTAMP,
+	      api\_endpoint VARCHAR(255),
+	      notes\_data\_file\_locations TEXT
+	      );
+	      }
+\end{itemize}
+\item 18. session\_data\_files – Session-to-data-file linking
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE session\_data\_files (
+	      data\_file\_id SERIAL PRIMARY KEY,
+	      session\_id INTEGER REFERENCES experimental\_sessions(session\_id),
+	      movie\_file\_id INTEGER REFERENCES movie\_files(movie\_file\_id),
+	      start\_frame INTEGER,
+	      object\_type\_id INTEGER REFERENCES lkp\_data\_file\_object\_type(object\_type\_id),
+	      file\_extension VARCHAR(10),
+	      file\_name VARCHAR(255),
+	      file\_size\_mb DOUBLE PRECISION,
+	      notes\_session\_data\_files TEXT
+	      );
+	      }
+	\item{\textbf{Referenced By: }data\_file\_locations \textbf{Foreign Key: }..data\_file\_id (One-to-Many. Each file record has multiple location records (local, FRDR v1, FRDR v2, backups))}
+\end{itemize}
+\item 19. session\_observations – Quality control and notes
+
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE session\_observations (
+	      observation\_id SERIAL PRIMARY KEY,
+	      session\_id INTEGER REFERENCES \\ experimental\_sessions(session\_id),
+	      observation\_text TEXT,
+	      num\_falls\_during\_test INTEGER,
+	      falls\_during\_test\_time\_when\_fell\_str VARCHAR(255)
+	      );
+	      }
+\end{itemize}
+
+\end{itemize}
+
 \newpage
 
 \bibliographystyle {plainnat}
