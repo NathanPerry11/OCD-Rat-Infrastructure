@@ -1,8 +1,8 @@
 import { ArrowRight } from "lucide-react";
-import { HomeCarousel } from "./HomeCarousel";
-import { TableDemo } from "./HomeTable";
-import { Card } from "./ui/card";
-import { Separator } from "./ui/separator";
+import { HomeCarousel } from "../components/HomeCarousel";
+import { TableDemo } from "../components/HomeTable";
+import { Card } from "../components/ui/card";
+import { Separator } from "../components/ui/separator";
 
 
 import SampleTrial from '@/assets/sample_trial.webp'
