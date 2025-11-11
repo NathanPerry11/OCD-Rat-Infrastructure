@@ -4,6 +4,8 @@ import { Route, Routes } from 'react-router-dom';
 import { Footer } from "./components/Footer"
 import { Home } from "./pages/Home"
 
+import {NotFound} from "./pages/NotFound"
+import { About } from "./pages/About";
 import { Query } from "./pages/Query"
 import { NotFound } from "./pages/NotFound"
 
@@ -19,7 +21,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/query" element={<Query />} />
           <Route path="/experiments" element={<NotFound />} />
-          <Route path="/about" element={<NotFound />} />
+          <Route path="/about" element={<About />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
