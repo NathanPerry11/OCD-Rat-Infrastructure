@@ -1,6 +1,7 @@
 \documentclass[12pt, titlepage]{article}
 
 \usepackage{fullpage}
+\usepackage{longtable}
 \usepackage[round]{natbib}
 \usepackage{multirow}
 \usepackage{booktabs}
@@ -60,23 +61,80 @@ This section records information for easy reference.
 \subsection{Abbreviations and Acronyms}
 
 \renewcommand{\arraystretch}{1.2}
-\begin{tabular}{l l} 
-  \toprule		
-  \textbf{symbol} & \textbf{description}\\
-  \midrule 
-  AC & Anticipated Change\\
-  DAG & Directed Acyclic Graph \\
-  M & Module \\
-  MG & Module Guide \\
-  OS & Operating System \\
-  R & Requirement\\
-  SC & Scientific Computing \\
-  SRS & Software Requirements Specification\\
-  \progname & Explanation of program name\\
-  UC & Unlikely Change \\
-  \wss{etc.} & \wss{...}\\
+\begin{longtable}{l l}
+  \toprule
+  \textbf{Symbol / Abbreviation} & \textbf{Description} \\
+  \midrule
+  \endfirsthead
+
+  \toprule
+  \textbf{Symbol / Abbreviation} & \textbf{Description} \\
+  \midrule
+  \endhead
+
   \bottomrule
-\end{tabular}\\
+  \endfoot
+
+  \bottomrule
+  \endlastfoot
+
+  % --- Anticipated and General ---
+  AC & Anticipated Change \\
+  API & Application Programming Interface \\
+  APP & Appearance Requirement \\
+  CAP & Capacity Requirement \\
+  DPP & Data Processing Pipeline (Module) \\
+  DSS & Data Schema and Storage (Module) \\
+  DV & Data Visualization (Module) \\
+  EOU & Ease of Use Requirement \\
+  EPE & Expected Physical Environment Requirement \\
+  FEM & Fault and Error Management (Module) \\
+  FR & Functional Requirement \\
+  FRDR & Federated Research Data Repository \\
+  FUNC & Functional Requirement (Prefix) \\
+  HH & Hardware-Hiding (Module) \\
+  HTTPS & Hypertext Transfer Protocol Secure \\
+  IMM & Immunity Requirement \\
+  INT & Integrity Requirement \\
+  IWAS & Interfacing with Adjacent Systems Requirement \\
+  JSON & JavaScript Object Notation \\
+  LEA & Learning Requirement \\
+  LEG & Legal Requirement \\
+  LON & Longevity Requirement \\
+  LLM & Large Language Model \\
+  M & Module \\
+  MAI & Maintenance Requirement \\
+  MG & Module Guide \\
+  NLP & Natural Language Processing \\
+  NLPQP & NLP Query Processor (Module) \\
+  NFR & Non-Functional Requirement \\
+  OCD & Obsessive-Compulsive Disorder \\
+  OI & Open Issue \\
+  OS & Operating System \\
+  POA & Precision or Accuracy Requirement \\
+  PROD & Productization Requirement \\
+  R & Requirement \\
+  REL & Release Requirement \\
+  REST & Representational State Transfer \\
+  ROFT & Robustness or Fault Tolerance Requirement \\
+  SAL & Speed and Latency Requirement \\
+  SDM & Security and Dependency Management (Module) \\
+  SOE & Scalability or Extensibility Requirement \\
+  SRS & Software Requirements Specification \\
+  SUP & Supportability Requirement \\
+  UAP & Understandability and Politeness Requirement \\
+  UC & Unlikely Change \\
+  UD & User Documentation Requirement \\
+  UI & Front-End Interface (Module) \\
+  WE & Wider Environment Requirement \\
+  WR & Waiting Room (Deferred Requirement) \\
+  AAC & Authentication and Access Control (Module) \\
+  ADA & Adaptability Requirement \\
+  ACC & Accessibility Requirement \\
+  JSON API & Structured data exchange format over HTTP(S) \\
+
+\end{longtable}
+
 
 \newpage
 
