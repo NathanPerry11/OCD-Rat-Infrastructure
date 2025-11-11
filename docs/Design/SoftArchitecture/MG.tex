@@ -157,16 +157,25 @@ adapted here is called design for
 change.
 
 \begin{description}
-\item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] The specific
-  hardware on which the software is running.
-\item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format of the
-  initial input data.
-\item ...
+\item[\refstepcounter{acnum} \actheacnum \label{acUIDesign}:] The layout, accessibility, 
+  and responsiveness of the front-end interface.
+\item[\refstepcounter{acnum} \actheacnum \label{acQueryLLM}:] Fine-tuning or using a 
+  different query NLP Model.
+\item[\refstepcounter{acnum} \actheacnum \label{acFiltersAndQueryParameters}:] The constraints of filter and query 
+  metadata field inputs.
+\item[\refstepcounter{acnum} \actheacnum \label{acDataVisualization}:] The framework used for 
+  creating visualizations from data and presenting them.
+\item[\refstepcounter{acnum} \actheacnum \label{acProcessingAlgorithms}:] The algorithms implemented for 
+  behavioural analysis or classification.
+\item[\refstepcounter{acnum} \actheacnum \label{acDatasetHosting}:] The virtual hosting location of 
+  Dr. Szechtman's dataset.
+\item[\refstepcounter{acnum} \actheacnum \label{acAccessControl}:] The implementation of the user authentication 
+  and access control mechanism for scalability.
+\item[\refstepcounter{acnum} \actheacnum \label{acErrorAndFaultHandling}:] The implementation of 
+  error detection and fault recovery mechanisms.
+\item[\refstepcounter{acnum} \actheacnum \label{acSecurityAndDependencyUpdates}:] The implementation of 
+  application security and dependency monitoring strategies.
 \end{description}
-
-\wss{Anticipated changes relate to changes that would be made in requirements,
-design or implementation choices.  They are not related to changes that are made
-at run-time, like the values of parameters.}
 
 \subsection{Unlikely Changes} \label{SecUchange}
 
@@ -178,9 +187,19 @@ will potentially need to be modified. Hence, it is not intended that these
 decisions will be changed.
 
 \begin{description}
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucReadOnlyDataset}:] The read-only access 
+  to Dr. Szechtman's dataset.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucSoleDataSource}:] The dataset hosted on FRDR 
+  being our primary and individual data source.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucDataProcessingScope}:] Scope of data 
+  processing analysis (Does not generalize rat behaviour trial data to other animal models 
+  or domains).
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucMVCDesignPattern}:] The software application's MVC design pattern.
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input/Output devices
   (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
-\item ...
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucUserComputingDevice}:] User's computing device 
+  (The assumption that the user's device will support modern browsers with Javascript enabled, 
+  will not change)
 \end{description}
 
 \section{Module Hierarchy} \label{SecMH}
@@ -192,7 +211,15 @@ actually be implemented.
 
 \begin{description}
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item ...
+\item [\refstepcounter{mnum} \mthemnum \label{mNLP}:] NLP Query Processor Module
+\item [\refstepcounter{mnum} \mthemnum \label{mUI}:] Front-End Interface Module
+\item [\refstepcounter{mnum} \mthemnum \label{mAPI}:] API Layer Module
+\item [\refstepcounter{mnum} \mthemnum \label{mDSS}:] Data Schema and Storage Module
+\item [\refstepcounter{mnum} \mthemnum \label{mDV}:] Data Visualization Module
+\item [\refstepcounter{mnum} \mthemnum \label{mDPP}:] Data Processing Pipeline Module
+\item [\refstepcounter{mnum} \mthemnum \label{mAAC}:] Authentication and Access Control Module
+\item [\refstepcounter{mnum} \mthemnum \label{mFEM}:] Fault and Error Management Module
+\item [\refstepcounter{mnum} \mthemnum \label{mSDM}:] Security and Dependency Management Module
 \end{description}
 
 
@@ -206,19 +233,17 @@ actually be implemented.
 {Hardware-Hiding Module} & ~ \\
 \midrule
 
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\ 
-& ?\\
+\multirow{3}{0.3\textwidth}{Behaviour-Hiding Module} & Front-End Interface Module\\
+& API Layer Module\\
+& Data Schema and Storage Module\\
+& Data Visualization Module\\
 \midrule
 
-\multirow{3}{0.3\textwidth}{Software Decision Module} & {?}\\
-& ?\\
-& ?\\
+\multirow{4}{0.3\textwidth}{Software Decision Module} & NLP Query Processor \\
+& Data Processing Pipeline Module\\
+& Authentication and Access Control Module\\
+& Fault and Error Management Module\\
+& Security and Dependency Management Module\\
 \bottomrule
 
 \end{tabular}
@@ -226,86 +251,121 @@ actually be implemented.
 \label{TblMH}
 \end{table}
 
-\section{Connection Between Requirements and Design} \label{SecConnection}
+\section{Connection Between Requirements and Design} \label{SecReqDesign}
 
-The design of the system is intended to satisfy the requirements developed in
-the SRS. In this stage, the system is decomposed into modules. The connection
-between requirements and modules is listed in Table~\ref{TblRT}.
+The design of the behavioral neuroscience data analysis platform is directly driven by the requirements specified in the SRS. Each module in the hierarchy (\autoref{SecMH}) was designed to fulfill specific functional, application, or system-level requirements. This section documents the decisions made to satisfy requirements and ensures traceability from requirements to design modules.
 
-\wss{The intention of this section is to document decisions that are made
-  ``between'' the requirements and the design.  To satisfy some requirements,
-  design decisions need to be made.  Rather than make these decisions implicit,
-  they are explicitly recorded here.  For instance, if a program has security
-  requirements, a specific design decision may be made to satisfy those
-  requirements with a password.}
+Table~\ref{tab:req_design} maps key requirements to the corresponding design modules, explaining the rationale behind each decision.
+
+\begin{table}[H]
+\centering
+\caption{Mapping Between System Requirements and Design Modules}
+\label{tab:req_design}
+\begin{tabularx}{\textwidth}{|p{3cm}|p{3cm}|X|}
+\hline
+\textbf{Requirement ID} & \textbf{Design Module} & \textbf{Design Decision / Rationale} \\ \hline
+FUNC.R.1 -- Store and manage behavioral datasets & Data Schema and Storage Module (\mref{mDSS}) & Implemented a PostgreSQL schema supporting spatial-temporal data, video references, and metadata to ensure efficient storage and retrieval. \\ \hline
+FUNC.R.2 -- Query and filter trials & API Layer Module (\mref{mAPI}) & REST API endpoints allow parameterized and natural language-based querying of trial data. \\ \hline
+FUNC.R.3 -- Visualize trajectories and metrics & Data Visualization Module (\mref{mDV}) & React components and charting libraries render spatial trajectories, heatmaps, and statistical summaries. \\ \hline
+APP.R.1 -- Enable intuitive researcher interaction & Front-End Interface Module (\mref{mUI}) & Accessible, responsive UI allows non-technical users to explore, filter, and download datasets. \\ \hline
+APP.R.2 -- Natural language querying & NLP Query Processor Module (\mref{mNLP}) & Translates user queries in natural language into structured database queries. \\ \hline
+SYS.R.1 -- Scalable and performant system & Data Processing Pipeline Module (\mref{mDPP}) & Parallelized pipelines and efficient indexing handle large datasets and multiple concurrent users. \\ \hline
+SYS.R.2 -- Secure and reliable data access & Authentication and Access Control Module (\mref{mAAC}) & User authentication, role-based access, and HTTPS protocols ensure secure access to sensitive research data. \\ \hline
+SYS.R.3 -- Extensible architecture for future analysis tools & Software Decision Modules (\mref{mSDM}) & Modular design with clear interfaces allows new algorithms and tools to be integrated without disrupting existing components. \\ \hline
+\end{tabularx}
+\end{table}
+
+
+This mapping makes the relationship between requirements and design explicit, demonstrating how each architectural decision satisfies specific functional, performance, and security objectives.
 
 \section{Module Decomposition} \label{SecMD}
 
-Modules are decomposed according to the principle of ``information hiding''
-proposed by \citet{ParnasEtAl1984}. The \emph{Secrets} field in a module
-decomposition is a brief statement of the design decision hidden by the
-module. The \emph{Services} field specifies \emph{what} the module will do
-without documenting \emph{how} to do it. For each module, a suggestion for the
-implementing software is given under the \emph{Implemented By} title. If the
-entry is \emph{OS}, this means that the module is provided by the operating
-system or by standard programming language libraries.  \emph{\progname{}} means the
-module will be implemented by the \progname{} software.
+The system is decomposed according to principles of information hiding \citep{ParnasEtAl1984}. Each module is defined by its \textit{Secrets} (hidden design decisions), \textit{Services} (exposed functionality), and the software or technology used for implementation. Only leaf modules in the hierarchy (\autoref{SecMH}) are directly implemented.
 
-Only the leaf modules in the hierarchy have to be implemented. If a dash
-(\emph{--}) is shown, this means that the module is not a leaf and will not have
-to be implemented.
-
-\subsection{Hardware Hiding Modules (\mref{mHH})}
+\subsection{Hardware-Hiding Module (\mref{mHH})}
 
 \begin{description}
-\item[Secrets:]The data structure and algorithm used to implement the virtual
-  hardware.
-\item[Services:]Serves as a virtual hardware used by the rest of the
-  system. This module provides the interface between the hardware and the
-  software. So, the system can use it to display outputs or to accept inputs.
-\item[Implemented By:] OS
+\item[Secrets:] Configuration of computing infrastructure including backend servers, databases, and frontend deployment environments.
+\item[Services:] Provides physical and virtual infrastructure for computation, storage, and web services.
+\item[Implemented By:] OS / Cloud Infrastructure
 \end{description}
 
-\subsection{Behaviour-Hiding Module}
+\subsection{Behaviour-Hiding Modules}
+
+\subsubsection{Front-End Interface Module (\mref{mUI})}
 
 \begin{description}
-\item[Secrets:]The contents of the required behaviours.
-\item[Services:]Includes programs that provide externally visible behaviour of
-  the system as specified in the software requirements specification (SRS)
-  documents. This module serves as a communication layer between the
-  hardware-hiding module and the software decision module. The programs in this
-  module will need to change if there are changes in the SRS.
-\item[Implemented By:] --
+\item[Secrets:] Frontend state management, routing, and layout design.
+\item[Services:] User interface for dataset search, visualization, filtering, and download.
+\item[Implemented By:] React
 \end{description}
 
-\subsubsection{Input Format Module (\mref{mInput})}
+\subsubsection{API Layer Module (\mref{mAPI})}
 
 \begin{description}
-\item[Secrets:]The format and structure of the input data.
-\item[Services:]Converts the input data into the data structure used by the
-  input parameters module.
-\item[Implemented By:] [Your Program Name Here]
-\item[Type of Module:] [Record, Library, Abstract Object, or Abstract Data Type]
-  [Information to include for leaf modules in the decomposition by secrets tree.]
+\item[Secrets:] API routing, endpoint definition, query optimization.
+\item[Services:] Provides REST API for structured and natural language queries.
+\item[Implemented By:] FastAPI
 \end{description}
 
-\subsubsection{Etc.}
-
-
-\subsection{Software Decision Module}
+\subsubsection{NLP Query Processor Module (\mref{mNLP})}
 
 \begin{description}
-\item[Secrets:] The design decision based on mathematical theorems, physical
-  facts, or programming considerations. The secrets of this module are
-  \emph{not} described in the SRS.
-\item[Services:] Includes data structure and algorithms used in the system that
-  do not provide direct interaction with the user. 
-  % Changes in these modules are more likely to be motivated by a desire to
-  % improve performance than by externally imposed changes.
-\item[Implemented By:] --
+\item[Secrets:] Query interpretation logic and integration with language model APIs.
+\item[Services:] Converts natural language queries into structured database commands.
+\item[Implemented By:] Custom Python code
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{Authentication and Access Control Module (\mref{mAAC})}
+
+\begin{description}
+\item[Secrets:] User authentication and role-based access control.
+\item[Services:] Manages secure access to data and APIs.
+\item[Implemented By:] FastAPI Security Layer
+\end{description}
+
+\subsection{Software Decision Modules}
+
+\subsubsection{Data Processing Pipeline Module (\mref{mDPP})}
+
+\begin{description}
+\item[Secrets:] Data processing algorithms and pipeline configuration for efficiency and scalability.
+\item[Services:] Processes behavioral datasets to compute metrics and prepare data for visualization.
+\item[Implemented By:] Python (NumPy, Pandas)
+\end{description}
+
+\subsubsection{Data Schema and Storage Module (\mref{mDSS})}
+
+\begin{description}
+\item[Secrets:] Database schema, indexing strategies, and query optimization.
+\item[Services:] Efficient storage and retrieval of behavioral datasets and metadata.
+\item[Implemented By:] PostgreSQL
+\end{description}
+
+\subsubsection{Data Visualization Module (\mref{mDV})}
+
+\begin{description}
+\item[Secrets:] Visualization design and interactive plotting logic.
+\item[Services:] Generates charts, trajectories, and heatmaps for research analysis.
+\item[Implemented By:] React + Charting Libraries
+\end{description}
+
+\subsubsection{Fault and Error Management Module (\mref{mFEM})}
+
+\begin{description}
+\item[Secrets:] Error detection, logging, and recovery mechanisms.
+\item[Services:] Ensures robustness and reliability during runtime exceptions or unexpected input.
+\item[Implemented By:] Python logging / monitoring frameworks
+\end{description}
+
+\subsubsection{Security and Dependency Management Module (\mref{mSDM})}
+
+\begin{description}
+\item[Secrets:] Internal security protocols, dependency versions, and update management.
+\item[Services:] Maintains system integrity, reduces vulnerabilities, and ensures reproducibility.
+\item[Implemented By:] OS / Package Management Tools
+\end{description}
+
 
 \section{Traceability Matrix} \label{SecTM}
 
@@ -403,9 +463,39 @@ needed. Drawings, Sketches, Figma}
 
 \section{Timeline}
 
-\wss{Schedule of tasks and who is responsible}
+The project timeline outlines the major milestones, deliverables, and responsibilities
+for each development phase. Progress, task assignments, and discussions are tracked
+publicly through the project's GitHub repository at:
 
-\wss{You can point to GitHub if this information is included there}
+\begin{center}
+\url{https://github.com/OCD-Rats-Capstone/OCD-Rat-Infrastructure/issues}
+\end{center}
+
+This repository serves as the primary project management platform, where issues correspond
+to individual tasks or features, each labeled with priority, category, and assignee.
+
+Table~\ref{tab:timeline} summarizes the high-level schedule of the project, organized
+by development phase and major deliverables.
+
+\begin{table}[h!]
+\centering
+\caption{Project Timeline and Responsibilities}
+\label{tab:timeline}
+\begin{tabular}{|p{2.5cm}|p{5.5cm}|p{3.5cm}|p{2cm}|}
+\hline
+\textbf{Phase} & \textbf{Major Tasks / Deliverables} & \textbf{Responsible Members} & \textbf{Duration} \\ \hline
+\textbf{Week 1--2} & Project setup, environment configuration, and repository initialization. Define database schema draft. & Backend + Database Teams & 2 weeks \\ \hline
+\textbf{Week 3--5} & Develop and test PostgreSQL schema. Implement initial API endpoints for data ingestion and retrieval. & Backend Team & 3 weeks \\ \hline
+\textbf{Week 6--8} & Implement frontend React interface for search and filtering. Integrate with backend API endpoints. & Frontend Team & 3 weeks \\ \hline
+\textbf{Week 9--10} & Implement data visualization and synchronized video playback components. & Frontend + Visualization Teams & 2 weeks \\ \hline
+\textbf{Week 11--12} & Integrate NLP query functionality and improve search capabilities. & NLP + Backend Teams & 2 weeks \\ \hline
+\textbf{Week 13--14} & Conduct system testing, debugging, and performance optimization. Prepare user documentation. & All Members & 2 weeks \\ \hline
+\textbf{Week 15} & Final deployment, demonstration, and report submission. & Entire Team & 1 week \\ \hline
+\end{tabular}
+\end{table}
+
+Ongoing updates, issue tracking, and future work will continue to be maintained through
+GitHub to ensure transparency and collaboration with supervisors and contributors.
 
 \bibliographystyle {plainnat}
 \bibliography{../../../refs/References}
