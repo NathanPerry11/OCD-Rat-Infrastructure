@@ -517,7 +517,39 @@ needed. Drawings, Sketches, Figma}
 
 \section{Design of Communication Protocols}
 
-\wss{If appropriate}
+The communication protocols define how system modules exchange information and coordinate data flow between the user interface, processing components, and data sources. The goal is to maintain consistent, secure, and modular interactions across all subsystems.
+
+\subsection{Overall Communication Architecture}
+All communication follows a client–server model where the Front-End Interface Module (\mref{mUI}) acts as the client and the API Layer Module (\mref{mAPI}) serves as the central hub between client requests and backend modules.  
+Data is exchanged in JSON format over HTTPS to ensure interoperability and security.
+
+\subsection{External Communication}
+The front-end sends RESTful HTTP(S) requests to the API layer for querying behavioural datasets, submitting NLP-based searches, and requesting visualizations.  
+Responses are returned as JSON objects containing results, metadata, or error information.
+
+\subsection{Internal Communication}
+The API Layer (\mref{mAPI}) intermediates between modules:
+\begin{itemize}
+    \item Sends parsed queries to the NLP Query Processor (\mref{mNLP}).
+    \item Retrieves structured data from the Data Schema and Storage Module (\mref{mDSS}).
+    \item Forwards subsets to the Data Processing Pipeline (\mref{mDPP}) for analysis.
+    \item Provides outputs to the Data Visualization Module (\mref{mDV}).
+    \item Coordinates with Authentication and Access Control (\mref{mAAC}) for validation.
+    \item Works with Fault and Error Management (\mref{mFEM}) for monitoring and recovery.
+    \item Integrates with Security and Dependency Management (\mref{mSDM}) to enforce security policies.
+\end{itemize}
+
+\subsection{Communication Reliability and Standards}
+All communication uses HTTPS/TLS encryption.  
+Backend interactions are stateless, enabling independent module deployment.  
+Standard HTTP response codes are used for consistency (e.g., 200, 400, 401, 500).  
+Asynchronous queues handle long-running tasks to prevent blocking.
+
+\subsection{Scalability and Fault Tolerance}
+Modules support horizontal scaling through containerization.  
+The Fault and Error Management Module (\mref{mFEM}) provides retry and fallback mechanisms.  
+The Hardware-Hiding Module (\mref{mHH}) abstracts hosting details, allowing migration across environments without affecting communication.
+
 
 \section{Timeline}
 
