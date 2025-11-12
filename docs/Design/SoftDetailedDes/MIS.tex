@@ -464,7 +464,7 @@ Request RawFiles & DataSet\{"FileLocations"\} & File[] & empty dataset, bad URL\
 \begin{itemize}
   \item{$transition: DataSet := $JSON Object generated from result of RequestedQuery API request at URL of HostedDatabaseEndPoint}
   \item{$transition: if(DataSet~IS~NOT~NULL) \{HasData := True\}$}
-  \item{$exception: exc := ( HasData := False => Empty\_Result), exc := (Database Connection Unsuccessful => Connection\_Refused)$}
+  \item{$exception: exc := ( HasData := False => Empty\_Result), exc := \\ (Database Connection Unsuccessful => Connection\_Refused)$}
 
 \end{itemize}
 
