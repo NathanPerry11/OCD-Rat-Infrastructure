@@ -259,6 +259,102 @@ The following table is taken directly from the Module Guide document for this pr
 
 \newpage
 
+\section{MIS of Data Visualization Module} \label{DataVisualization} 
+
+\subsection{Module}
+
+\textbf{Visualization Engine}
+
+
+\subsection{Uses}
+
+\par{
+  This module is responsible for rendering interactive charts and graphs using the D3.js library. it accepts raw or processed data, as well a Visualization type specifier and generates the necessary JavaScript/SVG code to render the visualization.
+}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+This module exports a set of predefined visualization/chart type constants.
+
+\begin{itemize}
+  \item \textbf{VTYPE\_BAR} String constant representing bar chart. 
+  \item \textbf{VTYPE\_PLOT} String constant representing a general plot area (points, curves). 
+  \item \textbf{VTYPE\_PIE} String constant representing a pie chart. 
+  \item \textbf{VTYPE\_HEATMAP} String constant representing an (x,y) heatmap. 
+  \item \textbf{VTYPE\_TIMESERIES} String constant representing time series (x,y,t) position data. 
+
+\end{itemize}
+
+
+
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2cm} p{4cm} p{2cm} p{4cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+GenerateViz & (VType, DataBlob, ChartConfig)  & Viz\_SVG & InvalidDataSchema \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+The Data Visualization Model acts as a stateless data transformation stage and therefore has no associated state variables. 
+
+\subsubsection{Environment Variables}
+
+\begin{itemize}
+  \item \textbf{D3\_Library}: External Dependency 
+\end{itemize}
+\subsubsection{Assumptions}
+
+
+\begin{itemize}
+  \item All input data provided via DataBlob is in valid JSON form.
+  \item There will be continued D3 support and existence of all visualization types exported. 
+  \item The client environment supports modern SVG standards. 
+\end{itemize}
+
+
+\subsubsection{Access Routine Semantics}
+
+GenerateViz(VType, DataBlob, ChartConfig):
+\begin{itemize}
+\item  \textbf{Transition:} \textbf{None}
+\item  \textbf{Output:} \textbf{Viz\_SVG} (String) representing the rendered D3.js SVG visualization. 
+\item[] Note that the image is represented by the XML path string for the resulting SVG. 
+\item exception: \textbf{InvalidDataSchema}: Error raised if the JSON DataBlob is incompatible with the specified visualization type.
+\item[] For example, most charts are constructed from a tabular form. If this is violated the exception will be raised. 
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+\noindent VerifyDataSchema(Data,VType):
+
+\begin{itemize}
+  \item \textbf{Purpose:} to check if the JSON data blob conforms to the input specification of the requested visualization. For example, a scatter plot requires 2 vectors for x and y data, while a bar chart requires categorical (key,value) pairs.
+  \item \textbf{Output: Boolean} True if valid, False otherwise.  
+\end{itemize}
+
+\noindent ApplyD3Template(Data,Type,Config):
+
+\begin{itemize}
+  \item \textbf{Purpose:} Convert the validated input data into the specified D3 template, and generate the SVG output. 
+  \item \textbf{Output:} SVG (String). 
+\end{itemize}
+
+\newpage
+
+
+
+
 \bibliographystyle {plainnat}
 \bibliography {../../../refs/References}
 
