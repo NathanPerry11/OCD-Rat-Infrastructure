@@ -280,11 +280,45 @@ graduate attribute of Problem Analysis and Design.
 
 \begin{enumerate}
   \item What went well while writing this deliverable? 
+
+  The team was much more focused this deliverable than we had been for the previous deliverable (VnV Plan). Now that
+  midterms are over, we had more time to really spend a lot of time trying to do this deliverable well. The previous deliverable
+  was less of a priority due to the midterms dwarfing it in terms of grade weight. We think this resulted in a more well done,
+  coherent and complete deliverable that puts us in a good spot as we begin the implementation of our system. Additionally, the teamwork
+  aspect of this deliverable was also quite good this deliverable. This likely also ties back into having more time in general but group
+  members were more willing to take on more parts and help others that needed it. Two members even focused largely on the PoC rather than
+  writing the design document because the other three members had the capacity to shoulder a larger documentation load.
+
   \item What pain points did you experience during this deliverable, and how
     did you resolve them?
+
+    There were not too many major pain points experienced during this deliverable, it generally went quite well. The first pain point of note
+    would be ensuring consistency across all parts and between documents. Although we work as a team, we mainly complete the section individually
+    and thus we need to ensure that two members don't write things in different sections that are not aligned with each other. This deliverable's sections
+    were the most interconnected yet and thus it will require a pretty thorough document review to ensure everything is consistent. The second pain point
+    for this deliverable was the MIS design of each module. This was the final section to be completed as we were not quite sure how to split it up or exactly
+    what was required. As it turns out this is not just one section but rather a section for each module (so essentially 10 additional sections of the document)
+    which was quite a large workload to complete, especially since it was left right until the end. This was simply resolved by splitting up the modules based
+    on who had the capacity to take them on and to commit the needed time to completing it. As mentioned earlier, members generally had time to do this so it wasn't
+    a terribly painful process.
+
   \item Which of your design decisions stemmed from speaking to your client(s)
   or a proxy (e.g. your peers, stakeholders, potential users)? For those that
   were not, why, and where did they come from?
+
+    First and foremost, essentially all of module 5 was developed by speaking with our client, Dr. Henry Szechtman. He
+    is the definitive expert on these datasets and thus he is most equipped to develop a schema for our system. Luckily, he
+    has enough technical knowledge to develop this for us to look over and decide if it is workable, which we believe it is.
+    Additionally, the data-processing module, the visualization module and the front-end module were all largely influenced by our discussions
+    with Dr.Szechtman, specficially through him describing to us what specific functions he wants the system to have (e.g. data processing abilities,
+    front-end design, available visualizations). Outside of these design aspects, most of the rest of the design was created outside of
+    much influence from our client. This includes things like the natural language processing module, the fault and error management module, the API
+    layer module etc... The reason that these decisions were not made based on client interactions is because they are more purely part
+    of what could be called the 'intermediate technical design' rather than user specifications. For example, the natural language processing
+    module requires it to be designed such that natural language can be accurately converted into a SQL query. Alternatively, the error management
+    module simply regulates UI, API and query inputs to prevent any undesired behaviour. Both of these design outlines do not require
+    much input from the client/users as they are basically purely technical implementation (there are not really many different ways to specify natural
+    language into a SQL query). As such, they are left to the technical experts which are the members of our group.
   \item While creating the design doc, what parts of your other documents (e.g.
   requirements, hazard analysis, etc), it any, needed to be changed, and why?
   \item What are the limitations of your solution?  Put another way, given
