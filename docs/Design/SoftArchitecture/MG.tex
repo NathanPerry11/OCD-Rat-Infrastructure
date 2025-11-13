@@ -441,28 +441,84 @@ requirements and between the modules and the anticipated changes.
 
 % the table should use mref, the requirements should be named, use something
 % like fref
-\begin{table}[H]
-\centering
-\begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
+\begin{longtable}{p{0.2\textwidth} p{0.6\textwidth}}
+\caption{Trace Between Requirements and Modules} \label{TblRTFull} \\
 \toprule
-\textbf{Req.} & \textbf{Modules}\\
+\textbf{Requirements} & \textbf{Modules}\\
 \midrule
-R1 & \mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mControl}\\
-R2 & \mref{mInput}, \mref{mParams}\\
-R3 & \mref{mVerify}\\
-R4 & \mref{mOutput}, \mref{mControl}\\
-R5 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R6 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R7 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R8 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R9 & \mref{mVerifyOut}\\
-R10 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}\\
-R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
+\endfirsthead
+
+\multicolumn{2}{c}%
+{{\bfseries Table \thetable\ (continued)}} \\
+\toprule
+\textbf{Requirements} & \textbf{Modules}\\
+\midrule
+\endhead
+
 \bottomrule
-\end{tabular}
-\caption{Trace Between Requirements and Modules}
-\label{TblRT}
-\end{table}
+\multicolumn{2}{r}{{Continued on next page}} \\
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+FUNC.R.1 & \mref{mUI}, \mref{mDSS},  \mref{mDPP}\\
+FUNC.R.2 & \mref{mNLP}, \mref{mAPI}, \mref{mDSS} \\
+FUNC.R.3 & \mref{mUI}, \mref{mDSS}, \mref{mDPP} \\
+FUNC.R.4 & \mref{mDSS}, \mref{mDV}, \mref{mDPP} \\
+FUNC.R.5 & \mref{mUI}, \mref{mAPI}, \mref{mDV} \\
+FUNC.R.6 & \mref{mUI}, \mref{mAPI}, \mref{mDSS} \\
+FUNC.R.7 & \mref{mHH}, \mref{mUI}, \mref{mAPI} \\
+APP.R.1  & \mref{mUI}, \mref{mDPP} \\
+APP.R.2  & \mref{mUI} \\
+APP.R.3  & \mref{mUI}, \mref{mDPP} \\
+EOU.R.1  & \mref{mUI}, \mref{mNLP} \\
+EOU.R.2  & \mref{mNLP}, \mref{mUI}, \mref{mDV} \\
+LEA.R.1  & \mref{mNLP}, \mref{mUI} \\
+LEA.R.2  & \mref{mUI}, \mref{mDV} \\
+UAP.R.1  & \mref{mNLP}, \mref{mUI}, \mref{mAPI} \\
+UAP.R.2  & \mref{mUI} \\
+ACC.R.1  & \mref{mUI} \\
+SAL.R.1  & \mref{mDPP} \\
+SAL.R.2  & \mref{mAPI} \\
+POA.R.1  & \mref{mDSS}, \mref{mDPP} \\
+POA.R.2  & \mref{mAPI}, \mref{mDSS}, \mref{mDPP}, \mref{mFEM} \\
+ROFT.R.1 & \mref{mUI}, \mref{mFEM}\\
+ROFT.R.2 & \mref{mFEM}, \mref{mSDM} \\
+CAP.R.1  & \mref{mAPI}, \mref{mDSS} \\
+CAP.R.2  & \mref{mHH}, \mref{mDSS} \\
+SOE.R.1  & \mref{mAPI}, \mref{mSDM} \\
+SOE.R.2  & \mref{mAPI}, \mref{mDPP}, \mref{mSDM} \\
+LON.R.1  & \mref{mFEM}, \mref{mSDM} \\
+LON.R.2  & \mref{mAPI} \\
+EPE.R.1  & \mref{mHH}, \mref{mAPI} \\
+EPE.R.2  & \mref{mHH}, \mref{mAPI} \\
+EPE.R.3  & \mref{mHH} \\
+WE.R.1   & \mref{mHH}, \mref{mUI}, \mref{mAPI} \\
+IWAS.R.1 & \mref{mAPI}, \mref{mDSS}, \mref{mSDM} \\
+PROD.R.1 & \mref{mSDM} \\
+PROD.R.2 & \mref{mSDM} \\
+REL.R.1  & \mref{mSDM} \\
+REL.R.2  & \mref{mSDM} \\
+MAI.R.1  & \mref{mFEM}, \mref{mSDM} \\
+MAI.R.2  & \mref{mAPI}, \mref{mDSS} \\
+SUP.R.1  & \mref{mUI} \\
+SUP.R.2  & \mref{mUI} \\
+ADA.R.1  & \mref{mHH}, \mref{mAPI} \\
+ADA.R.2  & \mref{mHH}, \mref{mUI}, \mref{mAPI} \\
+ADA.R.2  & \mref{mAPI}, \mref{mSDM} \\
+INT.R.1  & \mref{mAAC}, \mref{mFEM}, \mref{mSDM} \\
+IMM.R.1  & \mref{mAAC}, \mref{mSDM} \\
+IMM.R.2  & \mref{mAPI}, \mref{mAAC}, \mref{mSDM} \\
+LEG.R.1  & \mref{mSDM} \\
+STA.R.1  & \mref{mSDM} \\
+STA.R.2  & \mref{mSDM} \\
+WR.1     & \mref{mDV}, \mref{mDPP} \\
+WR.2     & \mref{mDSS}, \mref{mDPP} \\
+WR.3     & \mref{mDPP}, \mref{mSDM} \\
+
+\end{longtable}
+
 
 \begin{table}[H]
 \centering
@@ -470,18 +526,16 @@ R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
 \toprule
 \textbf{AC} & \textbf{Modules}\\
 \midrule
-\acref{acHardware} & \mref{mHH}\\
-\acref{acInput} & \mref{mInput}\\
-\acref{acParams} & \mref{mParams}\\
-\acref{acVerify} & \mref{mVerify}\\
-\acref{acOutput} & \mref{mOutput}\\
-\acref{acVerifyOut} & \mref{mVerifyOut}\\
-\acref{acODEs} & \mref{mODEs}\\
-\acref{acEnergy} & \mref{mEnergy}\\
-\acref{acControl} & \mref{mControl}\\
-\acref{acSeqDS} & \mref{mSeqDS}\\
-\acref{acSolver} & \mref{mSolver}\\
-\acref{acPlot} & \mref{mPlot}\\
+\acref{acUIDesign} & \mref{mUI}\\
+\acref{acQueryLLM} & \mref{mNLP}\\
+\acref{acFiltersAndQueryParameters} & \mref{mAPI}, \mref{mDSS}\\
+\acref{acDataVisualization} & \mref{mDV}\\
+\acref{acProcessingAlgorithms} & \mref{mDPP}\\
+\acref{acDatasetHosting} & \mref{mHH}, \mref{mDSS}\\
+\acref{acAccessControl} & \mref{mAAC}\\
+\acref{acErrorAndFaultHandling} & \mref{mFEM}\\
+\acref{acSecurityAndDependencyUpdates} & \mref{mSDM}\\
+
 \bottomrule
 \end{tabular}
 \caption{Trace Between Anticipated Changes and Modules}
