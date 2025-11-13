@@ -118,7 +118,6 @@ This section records information for easy reference.
   REST & Representational State Transfer \\
   ROFT & Robustness or Fault Tolerance Requirement \\
   SAL & Speed and Latency Requirement \\
-  SDM & Security and Dependency Management (Module) \\
   SOE & Scalability or Extensibility Requirement \\
   SRS & Software Requirements Specification \\
   SUP & Supportability Requirement \\
@@ -231,8 +230,6 @@ change.
   and access control mechanism for scalability.
 \item[\refstepcounter{acnum} \actheacnum \label{acErrorAndFaultHandling}:] The implementation of 
   error detection and fault recovery mechanisms.
-\item[\refstepcounter{acnum} \actheacnum \label{acSecurityAndDependencyUpdates}:] The implementation of 
-  application security and dependency monitoring strategies.
 \end{description}
 
 \subsection{Unlikely Changes} \label{SecUchange}
@@ -476,38 +473,38 @@ SAL.R.2  & \mref{mAPI} \\
 POA.R.1  & \mref{mDSS}, \mref{mDPP} \\
 POA.R.2  & \mref{mAPI}, \mref{mDSS}, \mref{mDPP}, \mref{mFEM} \\
 ROFT.R.1 & \mref{mUI}, \mref{mFEM}\\
-ROFT.R.2 & \mref{mFEM}, \mref{mSDM} \\
+ROFT.R.2 & \mref{mFEM} \\
 CAP.R.1  & \mref{mAPI}, \mref{mDSS} \\
 CAP.R.2  & \mref{mHH}, \mref{mDSS} \\
-SOE.R.1  & \mref{mAPI}, \mref{mSDM} \\
-SOE.R.2  & \mref{mAPI}, \mref{mDPP}, \mref{mSDM} \\
-LON.R.1  & \mref{mFEM}, \mref{mSDM} \\
+SOE.R.1  & \mref{mAPI} \\
+SOE.R.2  & \mref{mAPI}, \mref{mDPP} \\
+LON.R.1  & \mref{mFEM} \\
 LON.R.2  & \mref{mAPI} \\
 EPE.R.1  & \mref{mHH}, \mref{mAPI} \\
 EPE.R.2  & \mref{mHH}, \mref{mAPI} \\
 EPE.R.3  & \mref{mHH} \\
 WE.R.1   & \mref{mHH}, \mref{mUI}, \mref{mAPI} \\
-IWAS.R.1 & \mref{mAPI}, \mref{mDSS}, \mref{mSDM} \\
-PROD.R.1 & \mref{mSDM} \\
-PROD.R.2 & \mref{mSDM} \\
-REL.R.1  & \mref{mSDM} \\
-REL.R.2  & \mref{mSDM} \\
-MAI.R.1  & \mref{mFEM}, \mref{mSDM} \\
+IWAS.R.1 & \mref{mAPI}, \mref{mDSS} \\
+PROD.R.1 & No Module \\
+PROD.R.2 & No Module \\
+REL.R.1  & No Module \\
+REL.R.2  & No Module \\
+MAI.R.1  & \mref{mFEM} \\
 MAI.R.2  & \mref{mAPI}, \mref{mDSS} \\
 SUP.R.1  & \mref{mUI} \\
 SUP.R.2  & \mref{mUI} \\
 ADA.R.1  & \mref{mHH}, \mref{mAPI} \\
 ADA.R.2  & \mref{mHH}, \mref{mUI}, \mref{mAPI} \\
-ADA.R.2  & \mref{mAPI}, \mref{mSDM} \\
-INT.R.1  & \mref{mAAC}, \mref{mFEM}, \mref{mSDM} \\
-IMM.R.1  & \mref{mAAC}, \mref{mSDM} \\
-IMM.R.2  & \mref{mAPI}, \mref{mAAC}, \mref{mSDM} \\
-LEG.R.1  & \mref{mSDM} \\
-STA.R.1  & \mref{mSDM} \\
-STA.R.2  & \mref{mSDM} \\
+ADA.R.2  & \mref{mAPI} \\
+INT.R.1  & \mref{mAAC}, \mref{mFEM} \\
+IMM.R.1  & \mref{mAAC} \\
+IMM.R.2  & \mref{mAPI}, \mref{mAAC} \\
+LEG.R.1  & No Module \\
+STA.R.1  & No Module \\
+STA.R.2  & No Module \\
 WR.1     & \mref{mDV}, \mref{mDPP} \\
 WR.2     & \mref{mDSS}, \mref{mDPP} \\
-WR.3     & \mref{mDPP}, \mref{mSDM} \\
+WR.3     & \mref{mDPP} \\
 
 \end{longtable}
 
@@ -526,7 +523,6 @@ WR.3     & \mref{mDPP}, \mref{mSDM} \\
 \acref{acDatasetHosting} & \mref{mHH}, \mref{mDSS}\\
 \acref{acAccessControl} & \mref{mAAC}\\
 \acref{acErrorAndFaultHandling} & \mref{mFEM}\\
-\acref{acSecurityAndDependencyUpdates} & \mref{mSDM}\\
 
 \bottomrule
 \end{tabular}
@@ -654,7 +650,6 @@ The API Layer (\mref{mAPI}) intermediates between modules:
     \item Provides outputs to the Data Visualization Module (\mref{mDV}).
     \item Coordinates with Authentication and Access Control (\mref{mAAC}) for validation.
     \item Works with Fault and Error Management (\mref{mFEM}) for monitoring and recovery.
-    \item Integrates with Security and Dependency Management (\mref{mSDM}) to enforce security policies.
 \end{itemize}
 
 \subsection{Communication Reliability and Standards}
