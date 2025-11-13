@@ -306,41 +306,13 @@ actually be implemented.
 
 \section{Connection Between Requirements and Design} \label{SecReqDesign}
 
-The design of the behavioral neuroscience data analysis platform is directly driven by the requirements specified in the SRS. Each module in the hierarchy (\autoref{SecMH}) was designed to fulfill specific functional, application, or system-level requirements. This section documents the decisions made to satisfy requirements and ensures traceability from requirements to design modules.
-Table~\ref{tab:req_design_func} and Table~\ref{tab:req_design_sys} map key requirements to the corresponding design modules, explaining the rationale behind each decision.
+This section summarizes how the system design satisfies the requirements defined in the SRS. The traceability matrices in \autoref{SecTM} provide the detailed mappings. We highlight the main design rationale.
 
-\begin{table}[H]
-\centering
-\small
-\caption{Mapping Between Functional and Application Requirements and Design Modules}
-\label{tab:req_design_func}
-\begin{tabularx}{\textwidth}{|p{2.8cm}|p{2.8cm}|X|}
-\hline
-\textbf{Requirement ID} & \textbf{Design Module(s)} & \textbf{Design Decision / Rationale} \\ \hline
-FUNC.R.1 -- Store and manage behavioral datasets & M5: Data Schema and Storage Module & Implemented a PostgreSQL-based schema supporting spatial-temporal data, video references, and metadata to ensure efficient and reliable data storage and retrieval. \\ \hline
-FUNC.R.2 -- Query and filter trials & M4: API Layer Module, M2: NLP Query Processor Module & REST API endpoints handle structured queries, while the NLP processor translates natural language requests into database queries for user-friendly data access. \\ \hline
-APP.R.1 -- Enable intuitive researcher interaction & M3: Front-End Interface Module & Provides a responsive, accessible web interface for researchers to explore, filter, and download datasets without needing technical expertise. \\ \hline
-APP.R.2 -- Support natural language querying & M2: NLP Query Processor Module & Employs NLP models to interpret user questions and map them to database operations for seamless data exploration. \\ \hline
-\end{tabularx}
-\end{table}
+The functional requirements are met through the coordinated behaviour of the \mref{mUI}, \mref{mAPI}, \mref{mNLP}, \mref{mDSS}, and \mref{mDPP} modules, which together support querying, dataset retrieval, processing, and visualization. Non-functional requirements related to usability, appearance, and accessibility are addressed primarily by the \mref{mUI} and \mref{mNLP} modules, which enforce a simple interface and natural-language interaction.
 
-\begin{table}[H]
-\centering
-\small
-\caption{Mapping Between System Requirements and Design Modules (continued)}
-\label{tab:req_design_sys}
-\begin{tabularx}{\textwidth}{|p{2.8cm}|p{2.8cm}|X|}
-\hline
-\textbf{Requirement ID} & \textbf{Design Module(s)} & \textbf{Design Decision / Rationale} \\ \hline
-SYS.R.1 -- Scalable and performant system & M7: Data Processing Pipeline Module & Uses distributed data processing, efficient indexing, and caching mechanisms to handle large-scale datasets and concurrent requests. \\ \hline
-SYS.R.2 -- Secure and reliable data access & M8: Authentication and Access Control Module & Implements user authentication, role-based access, encryption, and dependency auditing to ensure data integrity and confidentiality. \\ \hline
-SYS.R.3 -- Fault tolerance and error handling & M9: Fault and Error Management Module & Provides logging, monitoring, and recovery mechanisms to detect, report, and mitigate system faults or data inconsistencies. \\ \hline
-SYS.R.4 -- Extensible architecture for future analysis tools & M1: Hardware-Hiding Module, M4: API Layer Module & Hardware abstraction and modular API interfaces support integration of new algorithms, sensors, and external analysis tools without disrupting core functionality. \\ \hline
-\end{tabularx}
-\end{table}
+Performance, reliability, and scalability needs are handled by backend modules such as \mref{mAPI}, \mref{mDSS}, \mref{mDPP}, and \mref{mFEM}, while security and maintainability are supported by \mref{mAAC}, and \mref{mFEM}. These design choices isolate complexity and align with information-hiding principles.
 
-
-This mapping makes the relationship between requirements and design explicit, demonstrating how each architectural decision satisfies specific functional, performance, and security objectives.
+Anticipated change requirements map to the modules identified in \autoref{TblACT}, demonstrating that the system decomposition localizes change and supports future extensibility.
 
 \section{Module Decomposition} \label{SecMD}
 
