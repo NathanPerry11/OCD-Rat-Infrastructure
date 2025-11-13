@@ -758,7 +758,7 @@ DataBaseSchema \\
 
 \newpage
 
-\section{MIS of Data Visualization Module} \label{DataVisualization} 
+\section{MIS of M6: Data Visualization Module} \label{Module 6} 
 
 \subsection{Module}
 
@@ -919,8 +919,132 @@ This module interfaces with:
 
 \newpage
 
+\section{MIS of M8: Authentication and Access Control Module} \label{Module 8}
 
+\subsection{Module}
 
+\par{The Authentication and Access Control Module is responsible for verifying 
+user identities, assigning access roles, and ensuring scalable entry points for users 
+that access the software through the web application or through our API clients.}
+
+\subsection{Uses}
+
+\par{This module interfaces with the following modules:}
+
+\begin{itemize}
+  \item{M4: API Layer Module}
+  \item{M3: Front-End Interface Module}
+\end{itemize}
+
+\par{Additionally, this module will use external libraries, including 
+FastAPI's OAuth2PasswordBearer, and JWT libraries for token generation, 
+encryption, and validation.}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+\par{N/A}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{4cm} p{4cm} p{4cm} p{4cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+Login User & String Username, String Password & String JWT Token & InvalidCredentialsError \\
+Verify Token & String JWT Token & User Object & TokenExpiredError, InvalidTokenError \\
+Get User & String JWT Token & User Object & Authentication Error \\
+Authorize Role & User Object, String JWT Token & Boolean & AccessDeniedError \\
+Logout User & String JWT Token & Boolean & InvalidTokenError \\
+Refresh Token & String JWT Token & String JWT Token & InvalidTokenError, TokenExpiredError \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\begin{itemize}
+  \item{User Credentials: A HashMap of usernames to password hashes.}
+  \item{Active Tokens: Dictionary of JWT Token Strings mapped to Expiry Timestamps.}
+  \item{Permissions Mapping: Dictionary of Role Strings mapped to Permission Strings.}
+\end{itemize}
+
+\subsubsection{Environment Variables}
+
+\begin{itemize}
+  \item{JWT SECRET KEY: User key used for token signing and verification.}
+  \item{MAX CONCURRENT USERS: Maximum allowed concurrent users.}
+  \item{NUM CONCURRENT USERS: Number of current concurrent users.}
+  \item{USER DATABASE URL: Connection URL to the credential and role management database.}
+  \item{TOKEN EXPIRY: Token lifetime configuration for user session.}
+\end{itemize}
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+  \item{Authentication requests may orginiate concurrently from both UI or API clients.}
+  \item{Passwords are stored securely using a one-way hash.}
+  \item{HTTPS is enforced for all login and token exchange operations.}
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent loginUser():
+\begin{itemize}
+\item transition: Verifies credentials from userCredentials.
+\item output: JWT Token as a String.
+\item exception: InvalidCredentialsError.
+\end{itemize}
+
+\noindent verifyToken():
+\begin{itemize}
+\item transition: Checks JWT Token signature, expiry time, and status in activeTokens.
+\item output: User Object if token is valid.
+\item exception: InvalidTokenError or TokenExpiredError.
+\end{itemize}
+
+\noindent getUser():
+\begin{itemize}
+\item transition: None.
+\item output: User Object.
+\item exception: AuthenticationError.
+\end{itemize}
+
+\noindent authorizeRole():
+\begin{itemize}
+\item transition: None.
+\item output: True if authorized, False otherwise.
+\item exception: AccessDeniedError.
+\end{itemize}
+
+\noindent logoutUser():
+\begin{itemize}
+\item transition: Removes identifier from activeTokens, logging out the user.
+\item output: True if successful, False otherwise.
+\item exception: InvalidTokenError.
+\end{itemize}
+
+\noindent refreshToken():
+\begin{itemize}
+\item transition: Validates token and reissues a fresh JWT Token with renewed expiry time.
+\item output: JWT Token as a String
+\item exception: InvalidTokenError or TokenExpiredError.
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+\begin{itemize}
+  \item{hashPassword(String password): Generates a secure hash of a user password.}
+  \item{createJWTToken(User Object, int expiry): Generates a JWT Token containing user data and expiry period.}
+  \item{decodeJWTToken(String JWTToken): Decodes and validates a JWT Token, extracting user data and expiry period.}
+  \item{validateUser(String username, String password): Authenticates user via stored credentials.}
+\end{itemize}
+
+\newpage
 
 \bibliographystyle {plainnat}
 \bibliography {../../../refs/References}
@@ -944,19 +1068,129 @@ graduate attribute of Problem Analysis and Design.
 
 \begin{enumerate}
   \item What went well while writing this deliverable? 
+
+  The team was much more focused this deliverable than we had been for the previous deliverable (VnV Plan). Now that
+  midterms are over, we had more time to really spend a lot of time trying to do this deliverable well. The previous deliverable
+  was less of a priority due to the midterms dwarfing it in terms of grade weight. We think this resulted in a more well done,
+  coherent and complete deliverable that puts us in a good spot as we begin the implementation of our system. Additionally, the teamwork
+  aspect of this deliverable was also quite good this deliverable. This likely also ties back into having more time in general but group
+  members were more willing to take on more parts and help others that needed it. Two members even focused largely on the PoC rather than
+  writing the design document because the other three members had the capacity to shoulder a larger documentation load.
+
   \item What pain points did you experience during this deliverable, and how
     did you resolve them?
+
+    There were not too many major pain points experienced during this deliverable, it generally went quite well. The first pain point of note
+    would be ensuring consistency across all parts and between documents. Although we work as a team, we mainly complete the section individually
+    and thus we need to ensure that two members don't write things in different sections that are not aligned with each other. This deliverable's sections
+    were the most interconnected yet and thus it will require a pretty thorough document review to ensure everything is consistent. The second pain point
+    for this deliverable was the MIS design of each module. This was the final section to be completed as we were not quite sure how to split it up or exactly
+    what was required. As it turns out this is not just one section but rather a section for each module (so essentially 10 additional sections of the document)
+    which was quite a large workload to complete, especially since it was left right until the end. This was simply resolved by splitting up the modules based
+    on who had the capacity to take them on and to commit the needed time to completing it. As mentioned earlier, members generally had time to do this so it wasn't
+    a terribly painful process.
+
   \item Which of your design decisions stemmed from speaking to your client(s)
   or a proxy (e.g. your peers, stakeholders, potential users)? For those that
   were not, why, and where did they come from?
+
+    First and foremost, essentially all of module 5 was developed by speaking with our client, Dr. Henry Szechtman. He
+    is the definitive expert on these datasets and thus he is most equipped to develop a schema for our system. Luckily, he
+    has enough technical knowledge to develop this for us to look over and decide if it is workable, which we believe it is.
+    Additionally, the data-processing module, the visualization module and the front-end module were all largely influenced by our discussions
+    with Dr.Szechtman, specficially through him describing to us what specific functions he wants the system to have (e.g. data processing abilities,
+    front-end design, available visualizations). Outside of these design aspects, most of the rest of the design was created outside of
+    much influence from our client. This includes things like the natural language processing module, the fault and error management module, the API
+    layer module etc... The reason that these decisions were not made based on client interactions is because they are more purely part
+    of what could be called the 'intermediate technical design' rather than user specifications. For example, the natural language processing
+    module requires it to be designed such that natural language can be accurately converted into a SQL query. Alternatively, the error management
+    module simply regulates UI, API and query inputs to prevent any undesired behaviour. Both of these design outlines do not require
+    much input from the client/users as they are basically purely technical implementation (there are not really many different ways to specify natural
+    language into a SQL query). As such, they are left to the technical experts which are the members of our group.
+
   \item While creating the design doc, what parts of your other documents (e.g.
   requirements, hazard analysis, etc), it any, needed to be changed, and why?
+
+  \begin{enumerate}
+    \item{Our functional requirement related to serving pre-defined datasets will need to be revised. After further discussion with our client,
+          we elicited this requirement in more detail and he is looking more so for a 'web store' outline in the sense that you can sort through
+          the available records based on various available categories rather than displaying specific data sets as 'products' which is how we initially
+          understood it.}
+    \item{Our database schema containing all of the data related to the session trials will now be implemented specifically using a PostGres SQL server.
+          This will need to be specified in our SRS.}
+    \item{We are not technically using the FRDR API directly because it only serves the metadata for the datasets. Accessing the data objects themselves
+          are done via an HTTP request to a specified URL that the FRDR organization provides to us. This is not technically using the API and is rather
+          just making HTTP requests to publicly available URLs that exist within the FRDR domain. This requirement should be updated accordingly.}
+    \item{Likewise, our hazard related to the API layer should be slightly augmented since we are going to be dealing with HTTP requests. This hazard
+    should now focus on hazards related specifically to HTTP such as what could happen due to various error codes and othe related issues that could
+    come up.}
+    \item{Initially, the idea for our database was that all the data is publicly available to all users at all times. We are beginning to develop
+    a new requirement which would both be an addition (as it's a new requirement) and a revision to this publicly available clause. The idea
+    is that users can essentially create a materialized view for their experiments and save them on the database so that other users can view them.
+    However, in the case that they are not allowed to make the details of their experiment public, we would like to restrict access to this view for a set
+    time period (maybe one year after the experiment is created).}
+  \end{enumerate}
   \item What are the limitations of your solution?  Put another way, given
   unlimited resources, what could you do to make the project better? (LO\_ProbSolutions)
+
+    A major limitation of our solution is the resources available for running our server and backend. The total amount of disk space taken up by 
+    all of the data objects that are relevant to our project is about 11 terabytes. This amount of space is not feasible for our server, not to mention
+    the amount of computational resources required to do data processing on all of that data. If this were not an issue, hosting all of the data objects
+    on our server without the need to interact with the FRDR API to access the files would greatly streamline the workflow, likely improve performance
+    of our system and also give us more control over our implementation without the need to conform and work around the specifications of FRDR.
+
+    A secondary limitation of our system is our access to LLMs and other machine learning models. Natural language processing and behavioural cateogorization are important parts of our
+    system. However, we realistically do not have the resources or expertise to develop our own model for these specific purposes and will have to rely
+    on Off-The-Shelf software or external systems for these purposes. We can make the best of this by using system prompts to guide the model in the exact direction
+    we need it to go, add error checking for coherent results or even train the model with our available data if needed. None of these would be quite as 
+    effective as developing a model specifically for the intended purpose of natural language input into query output or behavioral categorizations of rats.
+
+    Finally, maybe the biggest limitation for us is our lack of time. The lack of time is twofold. First, we only have about 6 more months to build the project 
+    and secondly, the entire team will likely have 5 other courses happening the entire time we are working on it. It is very common for capstone teams to not
+    build anything close to a finalized project, sometimes it doesn't even work at all really. We envision that we will land somewhere in the middle but the time limit
+    imposed on us almost guarantees that we will not be able to implement the plethora of integrations desired for this system. From natural language input to extensive
+    behavioural categorizations to countless possible visualizations of the datasets and statistical information we could potentially provide that would be useful for
+    future researchers, the chances we are able to implement a complete toolbox of these functionalities is slim to none.
+
   \item Give a brief overview of other design solutions you considered.  What
   are the benefits and tradeoffs of those other designs compared with the chosen
   design?  From all the potential options, why did you select the documented design?
   (LO\_Explores)
+
+  We actually did not consider too many different design options for two reasons. The first is that a previous iteration of this project already
+  exists so our supervisor has a general idea of what he wants it to look like and thus we are expected to mostly conform to the general outline
+  that was devised by him and last year's team. So, they most broad high level conceptual design was already mostly predetermined when the project started.
+  Secondly, when talking about the system architecture, since this will essentially be a full-stack web application with many integrations, it is kind
+  of automatically assumed that an MVC architecture or something that approximates that will be used as that is the bog standard for this sort of project.
+  Of course, there are many more aspects to the design (especially at slightly higher granularity) that had a couple options for us to decide on. Below are a
+  few of possible design alternatives and our reasoning for avoiding them.
+
+  \begin{enumerate}
+    \item{Exclusively using the FRDR API to query the relevant data rather than producing a seperate database schema which then points us to the relevant
+    endpoints in the FRDR domain. This would allow us to avoid needing to create a database and load all ~20,000 session details into the schema. This
+    might have been useful if there were an order of magnitude or two more sessions and storing them ourselves would become an issue. In the end, making
+    a schema streamlines the query process and gives us more control over data processing. Furthermore, after investigating the FRDR API, accessing this
+    data would have actually been a lot more difficult than we initially had expected.}
+    \item{Buying our own personal LLM model (likely would be
+    a mostly blank model to be trained) that could run on our application server rather than using an LLM API (such as the OpenAI API). This
+    would actually likely improve the accuracy of our prompts if we could train it on the relevant trial data. However, the main concerns with this
+    would be the potential lack of data to train it enough to be beneficial (we only have about 20,000 trials, the model may need millions of
+    data points) and that it may be quite expensive to purchase a full model for our personal use. In the end, we figured that using an LLM API
+    with a sufficient system prompt to guide it's response would be the most cost-effective route that we are confident will provide good enough
+    results for our purposes.}
+    \item{This is more of a subtle design alternative but one of our modules handles error detection and fault tolerance. This will provide the means
+    to track, log and provide details on the various errors that can be raised by the various different modules (such as bad HTTP requests, invalid
+    NLP responses etc...). We heavily considered removing this module and leaving this up to each individual module as we thought it would simplify
+    the implementation (one less module after all). However, in the end we decided that having a unified error management module would it make it
+    easier to track and manage errors across modules as well as ensure they are reported consistently.}
+    \item{Using a different front-end development kit other than React. We considered building the front-end from the ground up using HTML/CSS/JavaScript
+    as we felt it would give us more control over the interface and would be more purely our work rather than relying on components created by other people.
+    However, in the end we decided that using a React component library to build the front-end user interface would both result in a better looking final
+    product (we are not graphic designers and thus a React component library will certainly look better than what we could make) and offloading our effort
+    to a component library will open up more time for us to implement more backend functionality which is what truly drives the value of this project.}
+  \end{enumerate}
+
+
 \end{enumerate}
 
 
