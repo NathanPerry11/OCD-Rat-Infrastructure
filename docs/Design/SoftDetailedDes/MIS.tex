@@ -31,6 +31,8 @@ urlcolor=cyan          % color of external links
 
 \usepackage{array}
 
+\allowdisplaybreaks
+
 \externaldocument{../../SRS/SRS}
 
 \input{../../Comments}
@@ -185,16 +187,21 @@ The following table is taken directly from the Module Guide document for this pr
 \newpage
 ~\newpage
 
-\section{MIS of \wss{Module Name}} \label{Module} \wss{Use labels for
-  cross-referencing}
+\section{MIS of M1: Hardware-Hiding Module} \label{Module 1}
 
-\wss{You can reference SRS labels, such as R\ref{R_Inputs}.}
+\subsection{Module}
 
-\wss{It is also possible to use \LaTeX for hypperlinks to external documents.}
+\par{The hardware hiding module will be implemented by the native OS of the machine running our system. This will not be designed by us. For
+detailed design implementation please see the breakdown of the OS of the local machine running our system's web page (client-side) or the 
+Linux-based OS of the server hosting our system's backend and database.}
+
+\section{MIS of M2: Query Processor Module} \label{Module 2}
 
 \subsection{Module}
 
 \wss{Short name for the module}
+
+NLPModule
 
 \subsection{Uses}
 
@@ -203,14 +210,16 @@ The following table is taken directly from the Module Guide document for this pr
 
 \subsubsection{Exported Constants}
 
+\par
+
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+\begin{tabular}{p{4cm} p{4cm} p{4cm} p{4cm}}
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\wss{accessProg} & - & - & - \\
+NLP Processor & String & String & incoherent prompt, empty input \\
 \hline
 \end{tabular}
 \end{center}
@@ -219,42 +228,533 @@ The following table is taken directly from the Module Guide document for this pr
 
 \subsubsection{State Variables}
 
-\wss{Not all modules will have state variables.  State variables give the module
-  a memory.}
+\par{None}
 
 \subsubsection{Environment Variables}
 
-\wss{This section is not necessary for all modules.  Its purpose is to capture
-  when the module has external interaction with the environment, such as for a
-  device driver, screen interface, keyboard, file, etc.}
+\begin{itemize}
+
+  \item{$LLM\_API\_KEY$: String}
+  \item{$System\_Prompt$: String}
+  \item{$Schema\_Attributes$: String{}}
+  \item{$Valid\_Operators$: String{}}
+
+\end{itemize}
 
 \subsubsection{Assumptions}
 
-\wss{Try to minimize assumptions and anticipate programmer errors via
-  exceptions, but for practical purposes assumptions are sometimes appropriate.}
+\begin{itemize}
+
+  \item{The system prompt environment variable will provide enough information to the LLM to ensure that the returned response string conforms exactly
+  to the structure of the needed input format for a database query.}
+  \item{The large language model used to process the natural language input into database commands will require the use of an API key and will not
+  be locally hosted, thus the need for an API key environment variable.}
+
+
+\end{itemize}
+
 
 \subsubsection{Access Routine Semantics}
 
-\noindent \wss{accessProg}():
+\noindent $NLP\_Processor(String: natural\_language) \rightarrow String$:
 \begin{itemize}
-\item transition: \wss{if appropriate} 
-\item output: \wss{if appropriate} 
-\item exception: \wss{if appropriate} 
+\item output: out := if $(is\_valid\_output(natural\_language))~then~
+\\ \{LLM\_API\_Response(natural\_language)\}~else~\{raise~incoherent\_prompt\}$ 
+\item exceptions: $(natural\_language$ IS NULL $=> empty\_input), (!is\_valid\_output(natural\_language) => incoherent\_prompt)$
 \end{itemize}
-
-\wss{A module without environment variables or state variables is unlikely to
-  have a state transition.  In this case a state transition can only occur if
-  the module is changing the state of another module.}
-
-\wss{Modules rarely have both a transition and an output.  In most cases you
-  will have one or the other.}
 
 \subsubsection{Local Functions}
 
-\wss{As appropriate} \wss{These functions are for the purpose of specification.
-  They are not necessarily something that is going to be implemented
-  explicitly.  Even if they are implemented, they are not exported; they only
-  have local scope.}
+\noindent $is\_valid\_output(String: LLM\_Response) \rightarrow bool$
+\begin{itemize}
+\item output: out := $($b such that b $\in ([x \in Schema\_Attributes];[y \in Valid\_Operators];[<Value>]))$
+\end{itemize}
+
+\noindent $LLM\_API\_Call(String: natural\_language, String: System\_Prompt) \rightarrow String$
+\begin{itemize}
+\item $output: LLM\_Response := (Call~LLM~API~where: \\ Prompt input = natural\_language~prepended~by~System\_Prompt)$
+\end{itemize}
+
+
+
+\section{MIS of M3: Front-End Interface Module} \label{Module 3}
+
+\wss{You can reference SRS labels, such as R\ref{R_Inputs}.}
+
+\wss{It is also possible to use \LaTeX for hypperlinks to external documents.}
+
+\subsection{Module}
+
+FrontEnd
+
+\subsection{Uses}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+\par{N/A}
+
+\subsubsection{Exported Access Programs}
+
+\par{N/A}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\begin{itemize}
+  \item{NavPage: String (URL)}
+  \item{HTTPStatusCode: int}
+  \item{UserInterfaceComponents: {bool, String, int, char} (Variables which provide values to UI components such as a checkbox being checked or the value
+  in an input box. Aggregated as it would be a waste of time to list each individual component and it's state variable(s))}
+  \item{DataSet: JSON Object}
+\end{itemize}
+
+\subsubsection{State Invariant}
+
+\begin{itemize}
+  \item{$NavPage \in \{FrontEndURLs\}$ }
+  \item{$HTTPStatusCode \in \{$Standard HTTP Status Codes$\}$}
+\end{itemize}
+
+\subsubsection{Environment Variables}
+
+  \begin{itemize}
+    \item{BackEndLocation: String (URL for HTTP request destinations)}
+    \item{FrontEndURLs: String{}}
+  \end{itemize}
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+  \item{Only one backend location will be necessary. HTTP request body will contain sufficient information to call the correct corresponding
+  module and serve the proper response.}
+  \item{Front end module will be free of explicit business logic and will simply package user input and serve output responded. Aggregating user input,
+  formatting HTTP requests and serving responses are the extent of the front end requirements.}
+\end{itemize}
+\subsubsection{Access Routine Semantics}
+
+\par{N/A}
+
+\subsubsection{Local Functions}
+
+\par{$HTTP\_Send\_Request(HTTP~Request: HTTP\_request) \rightarrow HTTP\_Response$: }
+\begin{itemize}
+  \item{output: $out := HTTP\_response~from~backend~modules$}
+  \item{exception: None}
+\end{itemize}
+
+\par{$Nav\_Page(String: Nav\_URL):$ }
+\begin{itemize}
+  \item{$transition: NavPage := Nav\_URL$}
+  \item{$exception: exc := (NavPage = bad~URL => page\_not\_found)$}
+\end{itemize}
+
+\par{$HTTP\_Error\_Handle(HTTP~Response: HTTP\_response):$ }
+\begin{itemize}
+  \item{$transition: HTTPStatusCode := HTTP\_response.StatusCode, NavPage := \\'Initial~Landing~Page', UserInterfaceComponents := \{$component initial values$\}$ }
+  \item{exception: None}
+\end{itemize}
+
+\par{$HTTP\_Serve\_Data($JSON Object: DataSet): }
+\begin{itemize}
+  \item{$transition: DataSet := HTTP\_Send\_Request(HTTP\_request).body$}
+  \item{$exception: exc := (HTTP\_Send\_Request(HTTP\_request).body == NULL =>$ Empty HTTP Response)}
+
+\end{itemize}
+
+\section{MIS of M4: API Layer Module} \label{Module 4}
+
+\subsection{Module}
+
+APILayer
+
+\subsection{Uses}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+\par{N/A}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{4cm} p{5cm} p{3cm} p{4cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+Get DataSet & None & JSON Object & empty dataset \\
+Request RawFiles & DataSet\{"FileLocations"\} & File[] & empty dataset, bad URL\\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\begin{itemize}
+  \item{$QueryType: String \in \{'NaturalLanguage','Structured'\}$}
+  \item{ModuleHasData: bool}
+  \item{Dataset: JSON Object}
+  \item{RequestedQuery: SQL Query}
+
+
+\end{itemize}
+
+\subsubsection{Environment Variables}
+
+  \begin{itemize}
+    \item{HostedDatabaseEndPoint: String (URL for Database Connection)}
+    \item{DatabaseAccessKey: String}
+    \item{FRDRDataSetEndPoint: String (URL EndPoint for Dr.Szechtman's Data Sets in the FRDR repository)}
+    \item{BaseQuery: SQL Query (To be augmented by requested filters)}
+  \end{itemize}
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+  \item{Only one instance of our database will be hosted and thus, one hardcoded endpoint will be sufficient for handling our database connection. Additionally,
+  a single access key will be sufficient to provide all users access to the database connection.}
+  \item{The Endpoint for accessing Dr.Szechtman's datasets on the FRDR website will not change.}
+  \item{The disk space available on the application server will be sufficient to temporarily download several .CSV or .MPG files files from FRDR for
+  processing purposes.}
+  \item{A boilerplate query for the database will be sufficient for every unique query, only needing to be augmented algorithmically through the requested
+  filters.}
+\end{itemize}
+\subsubsection{Access Routine Semantics}
+
+\noindent $Get\_Dataset() \rightarrow File[]$:
+\begin{itemize}
+\item output: out := DataSet
+\item exceptions: exc:= (HasData := False $=>$ empty\_dataset), exc := ($HTTP\_Response \in \{4++\}$)
+\end{itemize}
+
+\noindent $Request\_RawFiles(JSON~Object: DataSet): \rightarrow File[]$
+\begin{itemize}
+  \item{$transition: out := $Array of files provided via automatic downloads faciliatated by \\ HTTP requests to the DataSet\{"FileLocations"\} Attribute}
+  \item{$exception: exc := (HasData := False => Empty\_Result), \\ exc := (Database~Connection~Unsuccessful => Connection\_Refused)$}
+
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+\par{$Choose\_Query\_Process(String: QueryType) \rightarrow JSON~Object$: }
+\begin{itemize}
+  \item{transition: $ DataSet := if (QueryType == 'NaturalLanguage') \{NLP\_Query(HTTP\_Request)\} \\ elseif (QueryType == 'Structured') \{Structured\_Query(HTTP\_Request)\}$}
+  \item{exception: $exc := (\not(QueryType \in \{'NaturalLanguage','Structured'\}) => Bad\_Query\_Type$)}
+\end{itemize}
+
+\noindent{$NLP\_Query(HTTP~Request: HTTP\_Request): \rightarrow SQL~Query$ }
+\begin{itemize}
+  \item{$transition: RequestedQuery := $ Augmented Base Query Based on Output of NLPModule.NLP\_Processor(HTTP\_Request.body)}
+  \item{$exception: exc := (HTTP\_Request.body~IS~NULL => empty\_filters)$}
+\end{itemize}
+
+\noindent{$Structured\_Query(HTTP~Response: HTTP\_response): \rightarrow SQL~Query$ }
+\begin{itemize}
+  \item{$transition: RequestedQuery := $ Augmented Base Query Based on filters in HTTP\_Request.body}
+  \item{$exception: exc := (HTTP\_Request.body~IS~NULL => empty\_filters)$}
+\end{itemize}
+
+\noindent{$Request\_DataSet(SQL~Query: RequestedQuery, String: HostedDatabaseEndPoint): \rightarrow JSON~Object$}
+\begin{itemize}
+  \item{$transition: DataSet := $JSON Object generated from result of RequestedQuery API request at URL of HostedDatabaseEndPoint}
+  \item{$transition: if(DataSet~IS~NOT~NULL) \{HasData := True\}$}
+  \item{$exception: exc := ( HasData := False => Empty\_Result), exc := \\ (Database Connection Unsuccessful => Connection\_Refused)$}
+
+\end{itemize}
+
+\section{MIS of M5: Data Schema and Storage Module} \label{Module 5}
+
+\subsection{Module}
+
+DataBaseSchema \\
+
+\par{\textbf{Note: }It does not make sense to outline this as a typical module with functions, variables etc... since this module consists of our database schema
+	for querying the experimental data relevant to this project. As a result, this module will be outlined via the schema definition of our database.
+  Also note that our team and Dr.Szechtman have already worked to develop a schema that makes sense based on Dr.Szechtman's understanding of the datasets.
+  Thus, this will be very detailed and specific, more so than is likely necessary but since the work has already been done, the full design will be
+  outlined.}
+
+\subsection{Schema Overview}
+
+\subsubsection{Core Entity Tables}
+
+\begin{itemize}
+
+	\item{1. apparatuses - Testing Equipment}
+	\item{2. rats - Subject Animals}
+	\item{3. brain\_mainpulations - Surgical interventions}
+	\item{4. drug\_rx - Drug regimen combinations}
+	\item{5. drug\_rx\_details - Individual compound specifications}
+
+\end{itemize}
+
+\subsubsection{Reference Tables}
+
+\begin{itemize}
+
+	\item{6. light\_cycles - Colony room light/dark cycles}
+	\item{7. session\_types - Session classification codes}
+	\item{8. testers - Experimenter identifiers}
+	\item{9. apparatus\_patterns - Object arrangement configurations}
+	\item{10. drugs - Pharmacological agents}
+	\item{11. brain\_regions - Brain region codes}
+	\item{12. testing\_rooms - Physical testing locations}
+
+\end{itemize}
+
+\subsubsection{Experimental Session Tables}
+
+\begin{itemize}
+
+	\item{13. experimental\_sessions - All 20,491 experimental sessions}
+	\item{14. session\_drug\_details - Drug administration for experimental sessions}
+
+\end{itemize}
+
+\subsubsection{Histology and Video Tables}
+
+\begin{itemize}
+
+	\item{15. histology\_results – Post-mortem lesion verification}
+	\item{16. movie\_files – Video file metadata}
+
+\end{itemize}
+
+\subsubsection{Data File Locations Table}
+
+\begin{itemize}
+
+	\item{17. data\_file\_locations – Physical storage locations (336,507 records)}
+
+\end{itemize}
+
+\subsubsection{Session Data Files and Observations Tables}
+
+\begin{itemize}
+
+	\item{18. session\_data\_files – Session-to-data-file linking}
+	\item{19. session\_observations – Quality control and notes}
+
+\end{itemize}
+
+\subsection{Schema Definition}
+
+\begin{itemize}
+
+\item 1. apparatuses - Testing Equipment
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE apparatuses (apparatus\_id SERIAL PRIMARY KEY, apparatus\_name VARCHAR(100), apparatus\_code VARCHAR(10),
+	      testing\_room\_id INTEGER REFERENCES testing\_rooms(room\_id),
+	      \\ apparatus\_location\_in\_room VARCHAR(50),
+	      apparatus\_notes TEXT);}
+	\item{\textbf{Referenced By: }experimental\_sessions \textbf{Foreign Key: }apparatus\_id (Many-to-One: many sessions use same apparatus)}
+\end{itemize}
+\item 2. rats - Subject Animals
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE rats (
+	      rat\_id SERIAL PRIMARY KEY,
+	      legacy\_rat\_id VARCHAR(20) UNIQUE,
+	      sex VARCHAR(10),
+	      light\_cycle\_id INTEGER REFERENCES light\_cycles(light\_cycle\_id),
+	      strain VARCHAR(50),
+	      birth\_date DATE
+	      );
+	      }
+	\item{\textbf{Referenced By: }experimental\_sessions \textbf{Foreign Key: }rat\_id (One-to-Many: one rat, many sessions)}
+	\item{\textbf{Referenced By: }brain\_manipulations \textbf{Foreign Key: }rat\_id (One-to-Many: one rat can have multiple manipulations)}
+\end{itemize}
+\item 3. brain\_mainpulations - Surgical interventions
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE brain\_manipulations (
+	      manipulation\_id SERIAL PRIMARY KEY,
+	      rat\_id INTEGER REFERENCES rats(rat\_id),
+	      surgery\_type VARCHAR(50),
+	      target\_region\_id INTEGER REFERENCES brain\_regions(region\_id),
+	      surgery\_date DATE
+	      );
+
+	      }
+	\item{\textbf{Referenced By: }histology\_results table \textbf{Foreign Key: }manipulation\_id (One-to-One: each lesion has histology assessment)}
+\end{itemize}
+\item 4. drug\_rx - Drug regimen combinations
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE drug\_rx (
+	      drug\_rx\_id SERIAL PRIMARY KEY,
+	      rx\_label VARCHAR(200),
+	      num\_drugs INTEGER,
+	      notes\_drug\_rx TEXT
+	      );
+
+	      }
+	\item{\textbf{Referenced By: }experimental\_sessions \textbf{Foreign Key: }drug\_rx\_id (Many-to-One: many sessions use same regimen)}
+	\item{\textbf{Referenced By: }drug\_rx\_details  \textbf{Foreign Key: }drug\_rx\_id (One-to-Many: each regimen has multiple detail records)}
+\end{itemize}
+
+\item 5. drug\_rx\_details - Individual compound specifications
+
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE drug\_rx\_details (
+	      drug\_rx\_detail\_id SERIAL PRIMARY KEY,
+	      drug\_rx\_id INTEGER REFERENCES drug\_rx(drug\_rx\_id),
+	      drug\_id INTEGER REFERENCES drugs(drug\_id),
+	      prescribed\_dose NUMERIC(10,6),
+	      dose\_unit VARCHAR(50),
+	      route VARCHAR(50),
+	      time\_before\_session\_hours NUMERIC(10,2)
+	      );
+
+
+	      }
+\end{itemize}
+
+\item light\_cycles
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE light\_cycles (light\_cycle\_id SERIAL PRIMARY KEY, cycle\_name VARCHAR(50) NOT NULL, lights\_on\_time TIME, lights\_off\_time TIME);}
+	\item{\textbf{Referenced By: }rats \textbf{Foreign Key: }light\_cycle\_id (Many-to-One: many rats share same light cycle)}
+\end{itemize}
+\item session\_types - Session classification codes
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE session\_types (session\_type\_id SERIAL PRIMARY KEY, type\_name VARCHAR(100) NOT NULL, session\_types\_notes TEXT);}
+	\item{\textbf{Referenced By: }experimental\_sessions \textbf{Foreign Key: }session\_type\_id (Many-to-One: many sessions can be the same type)}
+\end{itemize}
+\item 8. testers - Experimenter identifiers
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE testers (tester\_id SERIAL PRIMARY KEY, first\_last\_name VARCHAR(100), initials VARCHAR(10));}
+	\item{\textbf{Referenced By: }experimental\_sessions \textbf{Foreign Key: }tester\_id (Many-to-One: each tester conducted many sessions)}
+\end{itemize}
+\item 9. apparatus\_patterns - Object arrangement configurations
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE apparatus\_patterns (pattern\_id SERIAL PRIMARY KEY, pattern\_description TEXT);}
+	\item{\textbf{Referenced By: }experimental\_sessions \textbf{Foreign Key: }pattern\_id (Many-to-One: many sessions use the same pattern)}
+\end{itemize}
+\item 10. drugs - Pharmacological agents
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE drugs (drug\_id SERIAL PRIMARY KEY, drug\_abbreviation VARCHAR(20), drug\_name
+	      VARCHAR(200), drug\_is\_active BOOLEAN, dose\_unit VARCHAR(20), drugs\_notes TEXT);}
+	\item{\textbf{Referenced By: }drug\_rx\_details \textbf{Foreign Key: }drug\_id (Many-to-One: specifies drugs in prescription regimens)}
+	\item{\textbf{Referenced By: }session\_drug\_details \textbf{Foreign Key: }drug\_id (Many-to-One: records actual drugs administered)}
+\end{itemize}
+\item 11. brain\_regions - Brain region codes
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE brain\_regions (region\_id SERIAL PRIMARY KEY, region\_name VARCHAR(100), region\_abbreviation VARCHAR(20));}
+	\item{\textbf{Referenced By: }brain\_manipulations \textbf{Foreign Key: }target\_region\_id (Many-to-One: many rats received surgery targeting the same brain region)}
+\end{itemize}
+\item 12. testing\_rooms - Physical testing locations
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE testing\_rooms (room\_id SERIAL PRIMARY KEY, room\_name VARCHAR(50), room\_notes
+	      TEXT);}
+	\item{\textbf{Referenced By: }apparatuses \textbf{Foreign Key: }testing\_room\_id (Many-to-One: multiple apparatus can be in the same room)}
+\end{itemize}
+
+\item 13. experimental\_sessions - All 20,491 experimental sessions
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE experimental\_sessions (session\_id SERIAL PRIMARY KEY, legacy\_session\_id VARCHAR(7)
+	      UNIQUE, session\_type\_id INTEGER REFERENCES session\_types(session\_type\_id), rat\_id INTEGER
+	      REFERENCES rats(rat\_id), body\_weight\_grams NUMERIC(6,2), drug\_rx\_id INTEGER REFERENCES
+	      drug\_rx(drug\_rx\_id), tester\_id INTEGER REFERENCES testers(tester\_id), effective\_manipulation\_id
+	      INTEGER REFERENCES \\ brain\_manipulations(manipulation\_id), apparatus\_id INTEGER REFERENCES
+	      apparatuses(apparatus\_id), pattern\_id INTEGER REFERENCES \\ apparatus\_patterns(pattern\_id),
+	      locale\_in\_room VARCHAR(20), room\_id INTEGER REFERENCES testing\_rooms(room\_id),
+	      testing\_lights\_on SMALLINT, session\_timestamp TIMESTAMP, data\_trial\_id VARCHAR(28),
+	      cumulative\_drug\_injection\_number INTEGER);
+	      }
+	\item{\textbf{Referenced By: }session\_drug\_details \textbf{Foreign Key: } session\_id (One-to-Many. Each session has 1-4 drug detail records specifying actual drugs and doses administered)}
+	\item{\textbf{Referenced By: }session\_data\_files \textbf{Foreign Key: }  session\_id (One-to-Many. Each session links to multiple data files (videos, tracks, plots))}
+	\item{\textbf{Referenced By: }session\_observations \textbf{Foreign Key: }  session\_id (One-to-Many. Quality control notes and behavioral observations for sessions)}
+\end{itemize}
+\item 14. session\_drug\_details - Drug administration for experimental sessions
+
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE session\_drug\_details (
+	      detail\_id SERIAL PRIMARY KEY,
+	      session\_id INTEGER REFERENCES experimental\_sessions(session\_id),
+	      drug\_id INTEGER REFERENCES drugs(drug\_id),
+	      dose\_given NUMERIC(12,5),
+	      dose\_unit VARCHAR(20),
+	      route VARCHAR(50),
+	      time\_before\_session\_hours NUMERIC(10,2),
+	      cumulative\_injections\_count\_for\_regimen INTEGER,
+	      \\ cumulative\_apparatus\_exposure\_number INTEGER
+	      );
+	      }
+\end{itemize}
+
+\item 15. histology\_results – Post-mortem lesion verification
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE histology\_results (
+	      histology\_id SERIAL PRIMARY KEY,
+	      manipulation\_id INTEGER REFERENCES \\ brain\_manipulations(manipulation\_id),
+	      histology\_status\_id INTEGER REFERENCES lkp\_histology\_status(histology\_status\_id),
+	      intact\_status\_id INTEGER REFERENCES functional\_intact\_status(intact\_status\_id),
+	      left\_percent\_damage DOUBLE PRECISION,
+	      right\_percent\_damage DOUBLE PRECISION,
+	      notes\_histology\_results TEXT
+	      );}
+\end{itemize}
+\item 16. movie\_files – Video file metadata
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE movie\_files (
+	      movie\_file\_id SERIAL PRIMARY KEY,
+	      movie\_file\_name VARCHAR(255),
+	      legacy\_movie\_file\_name VARCHAR(255),
+	      file\_size\_mb DOUBLE PRECISION,
+	      is\_file\_available BOOLEAN,
+	      notes\_movie\_files TEXT
+	      );}
+	\item{\textbf{Referenced By: }session\_data\_files \textbf{Foreign Key: }.movie\_file\_id (Many-to-One: Multiple sessions can reference the same movie file (video multiplexing))}
+\end{itemize}
+\item 17. data\_file\_locations – Physical storage locations (336,507 records)
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE data\_file\_locations (
+	      data\_file\_location\_id SERIAL PRIMARY KEY,
+	      data\_file\_id INTEGER REFERENCES session\_data\_files(data\_file\_id),
+	      repository\_type\_id INTEGER REFERENCES lkp\_repository\_type(repository\_type\_id),
+	      repo\_dataset\_doi VARCHAR(100),
+	      repo\_dataset\_name VARCHAR(255),
+	      repo\_dataset\_version VARCHAR(24),
+	      repo\_file\_url TEXT,
+	      is\_primary\_copy BOOLEAN,
+	      date\_linked TIMESTAMP,
+	      api\_endpoint VARCHAR(255),
+	      notes\_data\_file\_locations TEXT
+	      );
+	      }
+\end{itemize}
+\item 18. session\_data\_files – Session-to-data-file linking
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE session\_data\_files (
+	      data\_file\_id SERIAL PRIMARY KEY,
+	      session\_id INTEGER REFERENCES experimental\_sessions(session\_id),
+	      movie\_file\_id INTEGER REFERENCES movie\_files(movie\_file\_id),
+	      start\_frame INTEGER,
+	      object\_type\_id INTEGER REFERENCES lkp\_data\_file\_object\_type(object\_type\_id),
+	      file\_extension VARCHAR(10),
+	      file\_name VARCHAR(255),
+	      file\_size\_mb DOUBLE PRECISION,
+	      notes\_session\_data\_files TEXT
+	      );
+	      }
+	\item{\textbf{Referenced By: }data\_file\_locations \textbf{Foreign Key: }..data\_file\_id (One-to-Many. Each file record has multiple location records (local, FRDR v1, FRDR v2, backups))}
+\end{itemize}
+\item 19. session\_observations – Quality control and notes
+
+\begin{itemize}
+	\item{\textbf{Schema Definition: }CREATE TABLE session\_observations (
+	      observation\_id SERIAL PRIMARY KEY,
+	      session\_id INTEGER REFERENCES \\ experimental\_sessions(session\_id),
+	      observation\_text TEXT,
+	      num\_falls\_during\_test INTEGER,
+	      falls\_during\_test\_time\_when\_fell\_str VARCHAR(255)
+	      );
+	      }
+\end{itemize}
+
+\end{itemize}
 
 \newpage
 
