@@ -1072,6 +1072,75 @@ Refresh Token & String JWT Token & String JWT Token & InvalidTokenError, TokenEx
 
 \newpage
 
+\section{MIS of M9: Fault and Error Management Module} \label{m:M9}
+
+\subsection{Module}
+
+\par{This module is responsible for tracking, logging, alerting, and automatically recovering from errors and faults in the system. It maintains both transient and persistent records of errors, interfaces with dependent modules to capture exceptions, and ensures system reliability and observability.}
+
+\subsection{Uses}
+
+This module interfaces with:
+\begin{itemize}
+    \item M4: API Layer Module – captures API-level errors and propagates responses to clients.
+    \item M7: Data Processing Pipeline Module – monitors runtime exceptions during data ingestion and transformation.
+    \item M8: Authentication and Access Control Module – tracks access-related faults and authentication failures.
+    \item M10: Security and Dependency Management Module – logs dependency-related vulnerabilities and integrity issues.
+\end{itemize}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+\begin{itemize}
+    \item \texttt{LOG\_LEVELS} – Enumerated type \{DEBUG, INFO, WARNING, ERROR, CRITICAL\} specifying verbosity levels for logging.
+\end{itemize}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{3cm} p{4cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+\texttt{logEvent} & message: string, level: LOG\_LEVELS & success: string & ValidationError \\
+\hline
+\texttt{isTrue} & two variables of the same data type & success: boolean & ValidationError \\
+\hline
+\texttt{getFaultHistory} & moduleID: string, timeRange: tuple & faultList: list & DatabaseError \\
+\hline
+\texttt{raiseError} & message: type of error, severity: LOG\_LEVELS & success: boolean & IOError \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+\begin{itemize}
+    \item \texttt{errorBuffer}: Temporary queue of recent error events awaiting persistence or notification.
+\end{itemize}
+
+\subsubsection{Environment Variables}
+\begin{itemize}
+    \item Nothing to be listed that fits the criteria.
+\end{itemize}
+
+\subsubsection{Assumptions}
+\begin{itemize}
+    \item All dependent modules provide standardized error codes and messages.
+    \item Persistent storage is available for fault logging.
+    \item System has sufficient resources (disk space, memory) to maintain logs and state variables.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent \texttt{purgeOldLogs()}:
+\begin{itemize}
+    \item description: Removes outdated log entries from the system based on the retention policy.
+\end{itemize}
+
+
+
 \section{Appendix} \label{Appendix}
 
 \wss{Extra information if required}
