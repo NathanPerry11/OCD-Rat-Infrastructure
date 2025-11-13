@@ -118,7 +118,6 @@ This section records information for easy reference.
   REST & Representational State Transfer \\
   ROFT & Robustness or Fault Tolerance Requirement \\
   SAL & Speed and Latency Requirement \\
-  SDM & Security and Dependency Management (Module) \\
   SOE & Scalability or Extensibility Requirement \\
   SRS & Software Requirements Specification \\
   SUP & Supportability Requirement \\
@@ -231,8 +230,6 @@ change.
   and access control mechanism for scalability.
 \item[\refstepcounter{acnum} \actheacnum \label{acErrorAndFaultHandling}:] The implementation of 
   error detection and fault recovery mechanisms.
-\item[\refstepcounter{acnum} \actheacnum \label{acSecurityAndDependencyUpdates}:] The implementation of 
-  application security and dependency monitoring strategies.
 \end{description}
 
 \subsection{Unlikely Changes} \label{SecUchange}
@@ -277,7 +274,6 @@ actually be implemented.
 \item [\refstepcounter{mnum} \mthemnum \label{mDPP}:] Data Processing Pipeline Module
 \item [\refstepcounter{mnum} \mthemnum \label{mAAC}:] Authentication and Access Control Module
 \item [\refstepcounter{mnum} \mthemnum \label{mFEM}:] Fault and Error Management Module
-\item [\refstepcounter{mnum} \mthemnum \label{mSDM}:] Security and Dependency Management Module
 \end{description}
 
 
@@ -301,7 +297,6 @@ actually be implemented.
 & Data Processing Pipeline Module\\
 & Authentication and Access Control Module\\
 & Fault and Error Management Module\\
-& Security and Dependency Management Module\\
 \bottomrule
 
 \end{tabular}
@@ -311,30 +306,13 @@ actually be implemented.
 
 \section{Connection Between Requirements and Design} \label{SecReqDesign}
 
-The design of the behavioral neuroscience data analysis platform is directly driven by the requirements specified in the SRS. Each module in the hierarchy (\autoref{SecMH}) was designed to fulfill specific functional, application, or system-level requirements. This section documents the decisions made to satisfy requirements and ensures traceability from requirements to design modules.
+This section summarizes how the system design satisfies the requirements defined in the SRS. The traceability matrices in \autoref{SecTM} provide the detailed mappings. We highlight the main design rationale.
 
-Table~\ref{tab:req_design} maps key requirements to the corresponding design modules, explaining the rationale behind each decision.
+The functional requirements are met through the coordinated behaviour of the \mref{mUI}, \mref{mAPI}, \mref{mNLP}, \mref{mDSS}, and \mref{mDPP} modules, which together support querying, dataset retrieval, processing, and visualization. Non-functional requirements related to usability, appearance, and accessibility are addressed primarily by the \mref{mUI} and \mref{mNLP} modules, which enforce a simple interface and natural-language interaction.
 
-\begin{table}[H]
-\centering
-\caption{Mapping Between System Requirements and Design Modules}
-\label{tab:req_design}
-\begin{tabularx}{\textwidth}{|p{3cm}|p{3cm}|X|}
-\hline
-\textbf{Requirement ID} & \textbf{Design Module} & \textbf{Design Decision / Rationale} \\ \hline
-FUNC.R.1 -- Store and manage behavioral datasets & Data Schema and Storage Module (\mref{mDSS}) & Implemented a PostgreSQL schema supporting spatial-temporal data, video references, and metadata to ensure efficient storage and retrieval. \\ \hline
-FUNC.R.2 -- Query and filter trials & API Layer Module (\mref{mAPI}) & REST API endpoints allow parameterized and natural language-based querying of trial data. \\ \hline
-FUNC.R.3 -- Visualize trajectories and metrics & Data Visualization Module (\mref{mDV}) & React components and charting libraries render spatial trajectories, heatmaps, and statistical summaries. \\ \hline
-APP.R.1 -- Enable intuitive researcher interaction & Front-End Interface Module (\mref{mUI}) & Accessible, responsive UI allows non-technical users to explore, filter, and download datasets. \\ \hline
-APP.R.2 -- Natural language querying & NLP Query Processor Module (\mref{mNLP}) & Translates user queries in natural language into structured database queries. \\ \hline
-SYS.R.1 -- Scalable and performant system & Data Processing Pipeline Module (\mref{mDPP}) & Parallelized pipelines and efficient indexing handle large datasets and multiple concurrent users. \\ \hline
-SYS.R.2 -- Secure and reliable data access & Authentication and Access Control Module (\mref{mAAC}) & User authentication, role-based access, and HTTPS protocols ensure secure access to sensitive research data. \\ \hline
-SYS.R.3 -- Extensible architecture for future analysis tools & Software Decision Modules (\mref{mSDM}) & Modular design with clear interfaces allows new algorithms and tools to be integrated without disrupting existing components. \\ \hline
-\end{tabularx}
-\end{table}
+Performance, reliability, and scalability needs are handled by backend modules such as \mref{mAPI}, \mref{mDSS}, \mref{mDPP}, and \mref{mFEM}, while security and maintainability are supported by \mref{mAAC}, and \mref{mFEM}. These design choices isolate complexity and align with information-hiding principles.
 
-
-This mapping makes the relationship between requirements and design explicit, demonstrating how each architectural decision satisfies specific functional, performance, and security objectives.
+Anticipated change requirements map to the modules identified in \autoref{TblACT}, demonstrating that the system decomposition localizes change and supports future extensibility.
 
 \section{Module Decomposition} \label{SecMD}
 
@@ -363,7 +341,7 @@ The system is decomposed according to principles of information hiding \citep{Pa
 \begin{description}
 \item[Secrets:] API routing, endpoint definition, query optimization.
 \item[Services:] Provides REST API for structured and natural language queries.
-\item[Implemented By:] FastAPI
+\item[Implemented By:] FastAPI, Python
 \end{description}
 
 \subsubsection{NLP Query Processor Module (\mref{mNLP})}
@@ -416,14 +394,6 @@ The system is decomposed according to principles of information hiding \citep{Pa
 \item[Implemented By:] Python logging / monitoring frameworks
 \end{description}
 
-\subsubsection{Security and Dependency Management Module (\mref{mSDM})}
-
-\begin{description}
-\item[Secrets:] Internal security protocols, dependency versions, and update management.
-\item[Services:] Maintains system integrity, reduces vulnerabilities, and ensures reproducibility.
-\item[Implemented By:] OS / Package Management Tools
-\end{description}
-
 
 \section{Traceability Matrix} \label{SecTM}
 
@@ -432,28 +402,84 @@ requirements and between the modules and the anticipated changes.
 
 % the table should use mref, the requirements should be named, use something
 % like fref
-\begin{table}[H]
-\centering
-\begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
+\begin{longtable}{p{0.2\textwidth} p{0.6\textwidth}}
+\caption{Trace Between Requirements and Modules} \label{TblRTFull} \\
 \toprule
-\textbf{Req.} & \textbf{Modules}\\
+\textbf{Requirements} & \textbf{Modules}\\
 \midrule
-R1 & \mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mControl}\\
-R2 & \mref{mInput}, \mref{mParams}\\
-R3 & \mref{mVerify}\\
-R4 & \mref{mOutput}, \mref{mControl}\\
-R5 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R6 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R7 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R8 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R9 & \mref{mVerifyOut}\\
-R10 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}\\
-R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
+\endfirsthead
+
+\multicolumn{2}{c}%
+{{\bfseries Table \thetable\ (continued)}} \\
+\toprule
+\textbf{Requirements} & \textbf{Modules}\\
+\midrule
+\endhead
+
 \bottomrule
-\end{tabular}
-\caption{Trace Between Requirements and Modules}
-\label{TblRT}
-\end{table}
+\multicolumn{2}{r}{{Continued on next page}} \\
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+FUNC.R.1 & \mref{mUI}, \mref{mDSS},  \mref{mDPP}\\
+FUNC.R.2 & \mref{mNLP}, \mref{mAPI}, \mref{mDSS} \\
+FUNC.R.3 & \mref{mUI}, \mref{mDSS}, \mref{mDPP} \\
+FUNC.R.4 & \mref{mDSS}, \mref{mDV}, \mref{mDPP} \\
+FUNC.R.5 & \mref{mUI}, \mref{mAPI}, \mref{mDV} \\
+FUNC.R.6 & \mref{mUI}, \mref{mAPI}, \mref{mDSS} \\
+FUNC.R.7 & \mref{mHH}, \mref{mUI}, \mref{mAPI} \\
+APP.R.1  & \mref{mUI}, \mref{mDPP} \\
+APP.R.2  & \mref{mUI} \\
+APP.R.3  & \mref{mUI}, \mref{mDPP} \\
+EOU.R.1  & \mref{mUI}, \mref{mNLP} \\
+EOU.R.2  & \mref{mNLP}, \mref{mUI}, \mref{mDV} \\
+LEA.R.1  & \mref{mNLP}, \mref{mUI} \\
+LEA.R.2  & \mref{mUI}, \mref{mDV} \\
+UAP.R.1  & \mref{mNLP}, \mref{mUI}, \mref{mAPI} \\
+UAP.R.2  & \mref{mUI} \\
+ACC.R.1  & \mref{mUI} \\
+SAL.R.1  & \mref{mDPP} \\
+SAL.R.2  & \mref{mAPI} \\
+POA.R.1  & \mref{mDSS}, \mref{mDPP} \\
+POA.R.2  & \mref{mAPI}, \mref{mDSS}, \mref{mDPP}, \mref{mFEM} \\
+ROFT.R.1 & \mref{mUI}, \mref{mFEM}\\
+ROFT.R.2 & \mref{mFEM} \\
+CAP.R.1  & \mref{mAPI}, \mref{mDSS} \\
+CAP.R.2  & \mref{mHH}, \mref{mDSS} \\
+SOE.R.1  & \mref{mAPI} \\
+SOE.R.2  & \mref{mAPI}, \mref{mDPP} \\
+LON.R.1  & \mref{mFEM} \\
+LON.R.2  & \mref{mAPI} \\
+EPE.R.1  & \mref{mHH}, \mref{mAPI} \\
+EPE.R.2  & \mref{mHH}, \mref{mAPI} \\
+EPE.R.3  & \mref{mHH} \\
+WE.R.1   & \mref{mHH}, \mref{mUI}, \mref{mAPI} \\
+IWAS.R.1 & \mref{mAPI}, \mref{mDSS} \\
+PROD.R.1 & No Module \\
+PROD.R.2 & No Module \\
+REL.R.1  & No Module \\
+REL.R.2  & No Module \\
+MAI.R.1  & \mref{mFEM} \\
+MAI.R.2  & \mref{mAPI}, \mref{mDSS} \\
+SUP.R.1  & \mref{mUI} \\
+SUP.R.2  & \mref{mUI} \\
+ADA.R.1  & \mref{mHH}, \mref{mAPI} \\
+ADA.R.2  & \mref{mHH}, \mref{mUI}, \mref{mAPI} \\
+ADA.R.2  & \mref{mAPI} \\
+INT.R.1  & \mref{mAAC}, \mref{mFEM} \\
+IMM.R.1  & \mref{mAAC} \\
+IMM.R.2  & \mref{mAPI}, \mref{mAAC} \\
+LEG.R.1  & No Module \\
+STA.R.1  & No Module \\
+STA.R.2  & No Module \\
+WR.1     & \mref{mDV}, \mref{mDPP} \\
+WR.2     & \mref{mDSS}, \mref{mDPP} \\
+WR.3     & \mref{mDPP} \\
+
+\end{longtable}
+
 
 \begin{table}[H]
 \centering
@@ -461,18 +487,15 @@ R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
 \toprule
 \textbf{AC} & \textbf{Modules}\\
 \midrule
-\acref{acHardware} & \mref{mHH}\\
-\acref{acInput} & \mref{mInput}\\
-\acref{acParams} & \mref{mParams}\\
-\acref{acVerify} & \mref{mVerify}\\
-\acref{acOutput} & \mref{mOutput}\\
-\acref{acVerifyOut} & \mref{mVerifyOut}\\
-\acref{acODEs} & \mref{mODEs}\\
-\acref{acEnergy} & \mref{mEnergy}\\
-\acref{acControl} & \mref{mControl}\\
-\acref{acSeqDS} & \mref{mSeqDS}\\
-\acref{acSolver} & \mref{mSolver}\\
-\acref{acPlot} & \mref{mPlot}\\
+\acref{acUIDesign} & \mref{mUI}\\
+\acref{acQueryLLM} & \mref{mNLP}\\
+\acref{acFiltersAndQueryParameters} & \mref{mAPI}, \mref{mDSS}\\
+\acref{acDataVisualization} & \mref{mDV}\\
+\acref{acProcessingAlgorithms} & \mref{mDPP}\\
+\acref{acDatasetHosting} & \mref{mHH}, \mref{mDSS}\\
+\acref{acAccessControl} & \mref{mAAC}\\
+\acref{acErrorAndFaultHandling} & \mref{mFEM}\\
+
 \bottomrule
 \end{tabular}
 \caption{Trace Between Anticipated Changes and Modules}
@@ -503,8 +526,71 @@ because they use modules from the lower levels.
 
 \section{User Interfaces}
 
-\wss{Design of user interface for software and hardware.  Attach an appendix if
-needed. Drawings, Sketches, Figma}
+This section presents the main user interface designs for \textbf{RatBat2}, 
+it shows the structure and layout of the system’s main pages. The following 
+figures show a revised user interface design of the application, developed 
+to guide implementation and maintain a consistent user experience across the program.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{UIScreenshots/HomepageF1.png}
+  \caption{RatBat2 Homepage – Initial Layout Frame 1}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{UIScreenshots/HomepageF2.png}
+  \caption{RatBat 2 Homepage – Initial Layout Frame 2}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{UIScreenshots/HomepageF3.png}
+  \caption{RatBat2 Homepage – Trial Data Display}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{UIScreenshots/HomepageF4.png}
+  \caption{RatBat2 Homepage – NLP Information}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{UIScreenshots/QueryPage.png}
+  \caption{Query Page – Search and Filter Interface}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{UIScreenshots/QueryPageTest.png}
+  \caption{Query Page – Test of Sample Prompt}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{UIScreenshots/ExperimentPage.png}
+  \caption{Experiment Page – Experiment Management and Overview}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{UIScreenshots/AboutPageF1.png}
+  \caption{About Page – Team Section}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{UIScreenshots/AboutPageF2.png}
+  \caption{About Page – Frequently Asked Questions (FAQ) and Background Information}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{UIScreenshots/ErrorPage.png}
+  \caption{Error Page – 404 Not Found Screen}
+\end{figure}
+
 
 \section{Design of Communication Protocols}
 
@@ -527,7 +613,6 @@ The API Layer (\mref{mAPI}) intermediates between modules:
     \item Provides outputs to the Data Visualization Module (\mref{mDV}).
     \item Coordinates with Authentication and Access Control (\mref{mAAC}) for validation.
     \item Works with Fault and Error Management (\mref{mFEM}) for monitoring and recovery.
-    \item Integrates with Security and Dependency Management (\mref{mSDM}) to enforce security policies.
 \end{itemize}
 
 \subsection{Communication Reliability and Standards}
