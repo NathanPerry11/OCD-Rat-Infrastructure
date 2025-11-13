@@ -62,7 +62,7 @@ Date 2 & 1.1 & Notes\\
 
 \section{Symbols, Abbreviations and Acronyms}
 
-See SRS Documentation at \wss{give url}
+See SRS Documentation at \url{https://github.com/OCD-Rats-Capstone/OCD-Rat-Infrastructure/blob/main/docs/SRS-Volere/SRS.pdf}
 
 \wss{Also add any additional symbols, abbreviations or acronyms}
 
@@ -77,81 +77,110 @@ See SRS Documentation at \wss{give url}
 \section{Introduction}
 
 The following document details the Module Interface Specifications for
-\wss{Fill in your project name and description}
+\textbf{RatBat2}, a data analysis web application designed to visualize, query, and process behavioural data from experiments involving rats with Obsessive-Compulsive Disorder (OCD). The system enables researchers to upload experimental trial data, perform natural language–based searches, and generate dynamic visualizations for behavioural comparisons and trend analysis.
 
-Complementary documents include the System Requirement Specifications
-and Module Guide.  The full documentation and implementation can be
-found at \url{...}.  \wss{provide the url for your repo}
+Complementary documents include the \textit{System Requirements Specification (SRS)} and \textit{Module Guide (MG)}.  
+The full documentation and implementation can be found at  
+\url{https://github.com/OCD-Rats-Capstone/OCD-Rat-Infrastructure}.
+
 
 \section{Notation}
 
-\wss{You should describe your notation.  You can use what is below as
-  a starting point.}
+This document adopts a formal notation and structural convention to describe the architecture and module interface specifications (MIS) for the Behavioral Data Analysis Platform for Animal Models of OCD. 
 
-The structure of the MIS for modules comes from \citet{HoffmanAndStrooper1995},
-with the addition that template modules have been adapted from
-\cite{GhezziEtAl2003}.  The mathematical notation comes from Chapter 3 of
-\citet{HoffmanAndStrooper1995}.  For instance, the symbol := is used for a
-multiple assignment statement and conditional rules follow the form $(c_1
-\Rightarrow r_1 | c_2 \Rightarrow r_2 | ... | c_n \Rightarrow r_n )$.
+The structure of each MIS follows the framework of \citet{HoffmanAndStrooper1995}, extended to incorporate template modules as described by \citet{GhezziEtAl2003}. The mathematical and logical notation is consistent with Chapter 3 of \citet{HoffmanAndStrooper1995}, with domain-specific adaptations for data processing and behavioral event analysis.
 
-The following table summarizes the primitive data types used by \progname. 
+\subsection*{Mathematical and Logical Conventions}
 
-\begin{center}
-\renewcommand{\arraystretch}{1.2}
-\noindent 
-\begin{tabular}{l l p{7.5cm}} 
-\toprule 
-\textbf{Data Type} & \textbf{Notation} & \textbf{Description}\\ 
-\midrule
-character & char & a single symbol or digit\\
-integer & $\mathbb{Z}$ & a number without a fractional component in (-$\infty$, $\infty$) \\
-natural number & $\mathbb{N}$ & a number without a fractional component in [1, $\infty$) \\
-real & $\mathbb{R}$ & any number in (-$\infty$, $\infty$)\\
-\bottomrule
-\end{tabular} 
-\end{center}
+\begin{itemize}
+    \item The symbol \texttt{:=} denotes an assignment or multiple assignment statement.  
+    For example, \texttt{session.avg\_latency := sum(latency) / count(latency)}.
 
-\noindent
-The specification of \progname \ uses some derived data types: sequences, strings, and
-tuples. Sequences are lists filled with elements of the same data type. Strings
-are sequences of characters. Tuples contain a list of values, potentially of
-different types. In addition, \progname \ uses functions, which
-are defined by the data types of their inputs and outputs. Local functions are
-described by giving their type signature followed by their specification.
+    \item Conditional expressions follow the form:
+    \[
+        (c_1 \Rightarrow r_1 \;|\; c_2 \Rightarrow r_2 \;|\; \dots \;|\; c_n \Rightarrow r_n)
+    \]
+    For instance:
+    \[
+        (\text{event.type = "drug 1"} \Rightarrow \text{increment(count)} \;|\; \text{event.type = "drug 2"} \Rightarrow \text{record(duration)})
+    \]
+    where the rule corresponding to the first true condition is applied.
+
+    \item Logical connectives are used as follows:
+    \begin{itemize}
+        \item \(\land\) — logical AND  
+        \item \(\lor\) — logical OR  
+        \item ` — logical NOT  
+        \item \(\Rightarrow\) — implication
+    \end{itemize}
+
+    \item Set notation follows standard mathematical conventions:  
+    \(\{x \mid P(x)\}\) represents the set of all \(x\) satisfying predicate \(P(x)\).  
+    Example:  
+    \(\{ e \in Events \mid e.duration > 10s \}\) denotes the set of long-duration events.
+
+    \item Ranges are denoted as \([a..b]\), representing all integer time indices \(t\) such that \(a \leq t \leq b\).
+
+    \item Function definitions are expressed as mappings:  
+    \[
+        f : Input \rightarrow Output
+    \]
+    Example:  
+    \[
+        \texttt{computeMetrics} : SessionData \rightarrow BehavioralSummary
+    \]
+\end{itemize}
+
+\subsection*{Data and Type Notation}
+
+\begin{itemize}
+    \item \(Session\) — a structured dataset representing a single experimental trial.  
+    \item \(Event\) — a tuple of attributes describing a behavioral observation, e.g. \((type, timestamp, duration)\).
+    \item \(Metric\) — a computed quantitative value derived from one or more events.
+    \item \(AnimalID\) — a unique identifier for a subject.
+    \item \(TrialSet := \{ s_1, s_2, ..., s_n \}\) — the set of all sessions recorded for a given animal.
+\end{itemize}
+
+\subsection*{Units and Measurement Conventions}
+\begin{itemize}
+    \item Time values are expressed in seconds (s).  
+    \item Counts and frequencies are represented as integers.  
+    \item Statistical metrics (e.g., mean, standard deviation, z-score) are expressed as real numbers (\(\mathbb{R}\)).
+\end{itemize}
+
+These conventions are used consistently throughout the system specification to ensure mathematical clarity and facilitate unambiguous interpretation of the behavioral data models, algorithms, and transformations.
+
 
 \section{Module Decomposition}
 
 The following table is taken directly from the Module Guide document for this project.
 
 \begin{table}[h!]
-\centering
-\begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
-\toprule
-\textbf{Level 1} & \textbf{Level 2}\\
-\midrule
-
-{Hardware-Hiding} & ~ \\
-\midrule
-
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding} & Input Parameters\\
-& Output Format\\
-& Output Verification\\
-& Temperature ODEs\\
-& Energy Equations\\ 
-& Control Module\\
-& Specification Parameters Module\\
-\midrule
-
-\multirow{3}{0.3\textwidth}{Software Decision} & {Sequence Data Structure}\\
-& ODE Solver\\
-& Plotting\\
-\bottomrule
-
-\end{tabular}
-\caption{Module Hierarchy}
-\label{TblMH}
-\end{table}
+  \centering
+  \begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
+  \toprule
+  \textbf{Level 1} & \textbf{Level 2}\\
+  \midrule
+  
+  {Hardware-Hiding Module} & ~ \\
+  \midrule
+  
+  \multirow{3}{0.3\textwidth}{Behaviour-Hiding Module} & Front-End Interface Module\\
+  & API Layer Module\\
+  & Data Schema and Storage Module\\
+  & Data Visualization Module\\
+  \midrule
+  
+  \multirow{4}{0.3\textwidth}{Software Decision Module} & NLP Query Processor \\
+  & Data Processing Pipeline Module\\
+  & Authentication and Access Control Module\\
+  & Fault and Error Management Module\\
+  \bottomrule
+  
+  \end{tabular}
+  \caption{Module Hierarchy}
+  \label{TblMH}
+  \end{table}
 
 \newpage
 ~\newpage
