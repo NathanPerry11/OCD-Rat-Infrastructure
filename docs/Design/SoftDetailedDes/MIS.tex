@@ -185,32 +185,46 @@ The following table is taken directly from the Module Guide document for this pr
 \newpage
 ~\newpage
 
-\section{MIS of \wss{Module Name}} \label{Module} \wss{Use labels for
-  cross-referencing}
-
-\wss{You can reference SRS labels, such as R\ref{R_Inputs}.}
-
-\wss{It is also possible to use \LaTeX for hypperlinks to external documents.}
+\section{MIS of M8: Authentication and Access Control Module} \label{Module 8}
 
 \subsection{Module}
 
-\wss{Short name for the module}
+\par{The Authentication and Access Control Module is responsible for verifying 
+user identities, assigning access roles, and ensuring scalable entry points for users 
+that access the software through the web application or through our API clients.}
 
 \subsection{Uses}
 
+\par{This module interfaces with the following modules:}
+
+\begin{itemize}
+  \item{M4: API Layer Module}
+  \item{M3: Front-End Interface Module}
+\end{itemize}
+
+\par{Additionally, this module will use external libraries, including 
+FastAPI's OAuth2PasswordBearer, and JWT libraries for token generation, 
+encryption, and validation.}
 
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
 
+\par{N/A}
+
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+\begin{tabular}{p{4cm} p{4cm} p{4cm} p{4cm}}
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\wss{accessProg} & - & - & - \\
+Login User & String Username, String Password & String JWT Token & InvalidCredentialsError \\
+Verify Token & String JWT Token & User Object & TokenExpiredError, InvalidTokenError \\
+Get User & String JWT Token & User Object & Authentication Error \\
+Authorize Role & User Object, String JWT Token & Boolean & AccessDeniedError \\
+Logout User & String JWT Token & Boolean & InvalidTokenError \\
+Refresh Token & String JWT Token & String JWT Token & InvalidTokenError, TokenExpiredError \\
 \hline
 \end{tabular}
 \end{center}
@@ -219,42 +233,82 @@ The following table is taken directly from the Module Guide document for this pr
 
 \subsubsection{State Variables}
 
-\wss{Not all modules will have state variables.  State variables give the module
-  a memory.}
+\begin{itemize}
+  \item{User Credentials: A HashMap of usernames to password hashes.}
+  \item{Active Tokens: Dictionary of JWT Token Strings mapped to Expiry Timestamps.}
+  \item{Permissions Mapping: Dictionary of Role Strings mapped to Permission Strings.}
+\end{itemize}
 
 \subsubsection{Environment Variables}
 
-\wss{This section is not necessary for all modules.  Its purpose is to capture
-  when the module has external interaction with the environment, such as for a
-  device driver, screen interface, keyboard, file, etc.}
+\begin{itemize}
+  \item{JWT SECRET KEY: User key used for token signing and verification.}
+  \item{MAX CONCURRENT USERS: Maximum allowed concurrent users.}
+  \item{NUM CONCURRENT USERS: Number of current concurrent users.}
+  \item{USER DATABASE URL: Connection URL to the credential and role management database.}
+  \item{TOKEN EXPIRY: Token lifetime configuration for user session.}
+\end{itemize}
 
 \subsubsection{Assumptions}
 
-\wss{Try to minimize assumptions and anticipate programmer errors via
-  exceptions, but for practical purposes assumptions are sometimes appropriate.}
+\begin{itemize}
+  \item{Authentication requests may orginiate concurrently from both UI or API clients.}
+  \item{Passwords are stored securely using a one-way hash.}
+  \item{HTTPS is enforced for all login and token exchange operations.}
+\end{itemize}
 
 \subsubsection{Access Routine Semantics}
 
-\noindent \wss{accessProg}():
+\noindent loginUser():
 \begin{itemize}
-\item transition: \wss{if appropriate} 
-\item output: \wss{if appropriate} 
-\item exception: \wss{if appropriate} 
+\item transition: Verifies credentials from userCredentials.
+\item output: JWT Token as a String.
+\item exception: InvalidCredentialsError.
 \end{itemize}
 
-\wss{A module without environment variables or state variables is unlikely to
-  have a state transition.  In this case a state transition can only occur if
-  the module is changing the state of another module.}
+\noindent verifyToken():
+\begin{itemize}
+\item transition: Checks JWT Token signature, expiry time, and status in activeTokens.
+\item output: User Object if token is valid.
+\item exception: InvalidTokenError or TokenExpiredError.
+\end{itemize}
 
-\wss{Modules rarely have both a transition and an output.  In most cases you
-  will have one or the other.}
+\noindent getUser():
+\begin{itemize}
+\item transition: None.
+\item output: User Object.
+\item exception: AuthenticationError.
+\end{itemize}
+
+\noindent authorizeRole():
+\begin{itemize}
+\item transition: None.
+\item output: True if authorized, False otherwise.
+\item exception: AccessDeniedError.
+\end{itemize}
+
+\noindent logoutUser():
+\begin{itemize}
+\item transition: Removes identifier from activeTokens, logging out the user.
+\item output: True if successful, False otherwise.
+\item exception: InvalidTokenError.
+\end{itemize}
+
+\noindent refreshToken():
+\begin{itemize}
+\item transition: Validates token and reissues a fresh JWT Token with renewed expiry time.
+\item output: JWT Token as a String
+\item exception: InvalidTokenError or TokenExpiredError.
+\end{itemize}
 
 \subsubsection{Local Functions}
 
-\wss{As appropriate} \wss{These functions are for the purpose of specification.
-  They are not necessarily something that is going to be implemented
-  explicitly.  Even if they are implemented, they are not exported; they only
-  have local scope.}
+\begin{itemize}
+  \item{hashPassword(String password): Generates a secure hash of a user password.}
+  \item{createJWTToken(User Object, int expiry): Generates a JWT Token containing user data and expiry period.}
+  \item{decodeJWTToken(String JWTToken): Decodes and validates a JWT Token, extracting user data and expiry period.}
+  \item{validateUser(String username, String password): Authenticates user via stored credentials.}
+\end{itemize}
 
 \newpage
 
