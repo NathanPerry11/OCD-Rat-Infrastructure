@@ -336,7 +336,7 @@ APP.R.2 -- Support natural language querying & M2: NLP Query Processor Module & 
 \hline
 \textbf{Requirement ID} & \textbf{Design Module(s)} & \textbf{Design Decision / Rationale} \\ \hline
 SYS.R.1 -- Scalable and performant system & M7: Data Processing Pipeline Module & Uses distributed data processing, efficient indexing, and caching mechanisms to handle large-scale datasets and concurrent requests. \\ \hline
-SYS.R.2 -- Secure and reliable data access & M8: Authentication and Access Control Module, M10: Security and Dependency Management Module & Implements user authentication, role-based access, encryption, and dependency auditing to ensure data integrity and confidentiality. \\ \hline
+SYS.R.2 -- Secure and reliable data access & M8: Authentication and Access Control Module & Implements user authentication, role-based access, encryption, and dependency auditing to ensure data integrity and confidentiality. \\ \hline
 SYS.R.3 -- Fault tolerance and error handling & M9: Fault and Error Management Module & Provides logging, monitoring, and recovery mechanisms to detect, report, and mitigate system faults or data inconsistencies. \\ \hline
 SYS.R.4 -- Extensible architecture for future analysis tools & M1: Hardware-Hiding Module, M4: API Layer Module & Hardware abstraction and modular API interfaces support integration of new algorithms, sensors, and external analysis tools without disrupting core functionality. \\ \hline
 \end{tabularx}
@@ -372,7 +372,7 @@ The system is decomposed according to principles of information hiding \citep{Pa
 \begin{description}
 \item[Secrets:] API routing, endpoint definition, query optimization.
 \item[Services:] Provides REST API for structured and natural language queries.
-\item[Implemented By:] FastAPI
+\item[Implemented By:] FastAPI, Python
 \end{description}
 
 \subsubsection{NLP Query Processor Module (\mref{mNLP})}
@@ -423,14 +423,6 @@ The system is decomposed according to principles of information hiding \citep{Pa
 \item[Secrets:] Error detection, logging, and recovery mechanisms.
 \item[Services:] Ensures robustness and reliability during runtime exceptions or unexpected input.
 \item[Implemented By:] Python logging / monitoring frameworks
-\end{description}
-
-\subsubsection{Security and Dependency Management Module (\mref{mSDM})}
-
-\begin{description}
-\item[Secrets:] Internal security protocols, dependency versions, and update management.
-\item[Services:] Maintains system integrity, reduces vulnerabilities, and ensures reproducibility.
-\item[Implemented By:] OS / Package Management Tools
 \end{description}
 
 
