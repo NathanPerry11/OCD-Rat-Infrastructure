@@ -758,7 +758,7 @@ DataBaseSchema \\
 
 \newpage
 
-\section{MIS of Data Visualization Module} \label{DataVisualization} 
+\section{MIS of M6: Data Visualization Module} \label{Module 6} 
 
 \subsection{Module}
 
@@ -848,6 +848,95 @@ GenerateViz(VType, DataBlob, ChartConfig):
   \item \textbf{Purpose:} Convert the validated input data into the specified D3 template, and generate the SVG output. 
   \item \textbf{Output:} SVG (String). 
 \end{itemize}
+
+
+\section{MIS of M7: Data Processing Pipeline Module} \label{Module 7} 
+
+\subsection{Module}
+
+DataProcessingPipeline
+
+\subsection{Uses}
+\begin{itemize}
+    \item Data Schema and Storage – for retrieving structured experimental datasets and metadata.
+    \item Data Visualization – for providing processed outputs ready for visualization.
+    \item API Layer – for receiving processing requests and returning results.
+\end{itemize}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None.
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{3cm} p{4cm} p{4cm} p{3cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+ProcessData & Dataset (CSV / JSON), Parameters (dict) & Processed DataFrame / JSON & invalid format, missing fields \\
+ComputeMetrics & Processed DataFrame / JSON & Metrics (dict) & empty input, computation error \\
+GenerateSummary & Processed DataFrame / JSON & Summary Statistics (dict) & invalid input \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+None. All computations are stateless and performed on data inputs provided per request.
+
+\subsubsection{Environment Variables}
+\begin{itemize}
+    \item \textbf{DATA\_CACHE\_PATH:} String – temporary directory for caching intermediate results.
+    \item \textbf{MAX\_WORKERS:} Integer – controls the number of concurrent processing threads.
+\end{itemize}
+
+\subsubsection{Assumptions}
+\begin{itemize}
+    \item Input datasets conform to schema definitions from Data Schema and Storage Module.
+    \item Parameters for filtering, grouping, or aggregation are valid and correspond to known attributes.
+    \item The environment has sufficient memory and CPU resources for parallel processing.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent ProcessData(Dataset, Parameters) $\rightarrow$ Processed DataFrame:
+\begin{itemize}
+    \item \textbf{output:} out := cleaned and structured dataset prepared for computation.
+    \item \textbf{exception:} invalid format if dataset fails schema validation; missing fields if required attributes are absent.
+\end{itemize}
+
+\noindent ComputeMetrics(Processed DataFrame) $\rightarrow$ Metrics:
+\begin{itemize}
+    \item \textbf{output:} out := computed behavioral metrics (e.g., grooming duration, trial success rate).
+    \item \textbf{exception:} empty input if dataset is empty; computation error if numerical operation fails.
+\end{itemize}
+
+\noindent GenerateSummary(Processed DataFrame) $\rightarrow$ Summary Statistics:
+\begin{itemize}
+    \item \textbf{output:} out := dictionary of aggregated statistics (mean, median, standard deviation).
+    \item \textbf{exception:} invalid input if DataFrame structure mismatches expected schema.
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+\noindent validateInput(Dataset) $\rightarrow$ bool  
+\begin{itemize}
+    \item \textbf{output:} true if dataset matches schema attributes and expected datatypes.
+\end{itemize}
+
+\noindent computeAggregateMetrics(DataFrame) $\rightarrow$ dict  
+\begin{itemize}
+    \item \textbf{output:} dictionary of computed metrics (e.g., total grooming time, movement variance).
+\end{itemize}
+
+\noindent cleanData(Dataset) $\rightarrow$ DataFrame  
+\begin{itemize}
+    \item \textbf{output:} dataset with missing values handled and outliers removed.
+\end{itemize}
+
 
 \newpage
 
