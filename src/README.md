@@ -54,3 +54,12 @@ Go to local server that is shows you
 
 
 
+## Make the front end
+
+brew install node
+
+npm run dev 
+
+npm install -g vite   
+
+npm run dev    
