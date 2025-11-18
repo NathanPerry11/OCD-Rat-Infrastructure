@@ -1,6 +1,7 @@
 # from oaipmh_scythe import Scythe
 # import xmltodict, json
 import pandas as pd
+import numpy as np
 import os
 
 #### Set API KEY, Enter secret key ###
@@ -78,60 +79,67 @@ def augment_query(sql_query,extra_sql):
 
     
 
-
-
-try:
+def main():
+    try:
     ### Connection to your local postgres SQL thing (may need to set own password)###
-    cnxn = psycopg2.connect(
-            host="localhost",
-            database="postgres",
-            user="postgres",
-            password="Gouda",
-            port=5432
-        )
-    print("Connection to PostgreSQL successful!")
+        cnxn = psycopg2.connect(
+                host="localhost",
+                database="postgres",
+                user="postgres",
+                password="Gouda",
+                port=5432
+            )
+        print("Connection to PostgreSQL successful!")
 
-    # You can now create a cursor and execute queries
-    cursor = cnxn.cursor()
+        # You can now create a cursor and execute queries
+        cursor = cnxn.cursor()
 
-    ###Input filters manually, (requires table alias in <Filter Subject>)###
+        ###Input filters manually, (requires table alias in <Filter Subject>)###
 
-    filters = str(input("Enter filters in the form [<Filter Subject>,<Operator>,<Relevant values ([low$high] for a range)>]. Seperate each filter as such [<filter1>];[<filter2>]"))
+        #filters = str(input("Enter filters in the form [<Filter Subject>,<Operator>,<Relevant values ([low$high] for a range)>]. Seperate each filter as such [<filter1>];[<filter2>]"))
 
-    ###Generate filters with NLP ###
-    #natural_input = str(input("Enter Natural Language Filter"))
-    #filters = nlp_module(natural_input)
+        ###Generate filters with NLP ###
+        natural_input = str(input("Enter Natural Language Filter"))
+        filters = nlp_module(natural_input)
 
-    extra_sql = query_filter_rules(filters)
-
-
-    ### Master Query ###
-    sql_query = "SELECT * FROM ((((((((experimental_sessions as E1 LEFT" \
-" OUTER JOIN rats as R1 ON R1.rat_id = E1.rat_id) " \
-"LEFT OUTER JOIN brain_manipulations as B1 ON B1.rat_id = E1.rat_id) LEFT OUTER JOIN testers as T1 ON T1.tester_id = E1.tester_id) " \
-"LEFT OUTER JOIN apparatuses as A1 ON A1.apparatus_ID = E1.apparatus_ID)" \
-"LEFT OUTER JOIN apparatus_patterns as AP1 ON AP1.pattern_ID = E1.pattern_ID) " \
-"LEFT OUTER JOIN testing_rooms as TR1 ON TR1.Room_ID = E1.Room_ID) " \
-"LEFT OUTER JOIN session_drug_details as SDD1 ON SDD1.Session_ID = E1.Session_ID) "\
-"LEFT OUTER JOIN session_data_files as SDF1 ON SDF1.Session_ID = E1.Session_ID)"
+        extra_sql = query_filter_rules(filters)
 
 
-    print(sql_query)
+        ### Master Query ###
+        sql_query = "SELECT * FROM ((((((((experimental_sessions as E1 LEFT" \
+    " OUTER JOIN rats as R1 ON R1.rat_id = E1.rat_id) " \
+    "LEFT OUTER JOIN brain_manipulations as B1 ON B1.rat_id = E1.rat_id) LEFT OUTER JOIN testers as T1 ON T1.tester_id = E1.tester_id) " \
+    "LEFT OUTER JOIN apparatuses as A1 ON A1.apparatus_ID = E1.apparatus_ID)" \
+    "LEFT OUTER JOIN apparatus_patterns as AP1 ON AP1.pattern_ID = E1.pattern_ID) " \
+    "LEFT OUTER JOIN testing_rooms as TR1 ON TR1.Room_ID = E1.Room_ID) " \
+    "LEFT OUTER JOIN session_drug_details as SDD1 ON SDD1.Session_ID = E1.Session_ID) "\
+    "LEFT OUTER JOIN session_data_files as SDF1 ON SDF1.Session_ID = E1.Session_ID)"
+        
+        sql_query = augment_query(sql_query,extra_sql)
 
-    ### Display all columns in panda df ###
-    pd.set_option('display.max_columns', None)
 
-    ### get query ###
-    df = pd.read_sql_query(sql_query,cnxn)
+        print(sql_query)
 
-    print(df)
+        ### Display all columns in panda df ###
+        pd.set_option('display.max_columns', None)
 
-except psycopg2.Error as e:
-        print(f"Error connecting to PostgreSQL: {e}")
+        ### get query ###
+        df = pd.read_sql_query(sql_query,cnxn)
 
-finally:
-        if cnxn:
-            cnxn.close()
-            print("PostgreSQL connection closed.")
+        df = df.replace([np.inf, -np.inf], np.nan)
+        df = df.fillna("None")
+
+        print(df)
+
+    except psycopg2.Error as e:
+            print(f"Error connecting to PostgreSQL: {e}")
+
+    finally:
+            if cnxn:
+                cnxn.close()
+                print("PostgreSQL connection closed.")
+
+    return df
+
 
 
