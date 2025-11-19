@@ -5,15 +5,15 @@ import numpy as np
 import os
 
 #### Set API KEY, Enter secret key ###
-#os.environ['OPENAI_API_KEY']
+# os.environ['default_value']
 
 import pyodbc
 import psycopg2
-from openai import OpenAI
+# from openai import OpenAI
 
 
 ### Init NLP stuff ###
-client = OpenAI()
+# client = OpenAI()
 nlp_message = "Note the following query: SELECT * FROM ((((((((experimental_sessions as E1 LEFT" \
 " OUTER JOIN rats as R1 ON R1.rat_id = E1.rat_id) " \
 "LEFT OUTER JOIN brain_manipulations as B1 ON B1.rat_id = E1.rat_id) LEFT OUTER JOIN testers as T1 ON T1.tester_id = E1.tester_id) " \
@@ -54,13 +54,13 @@ def query_filter_rules(query_filters):
                 sql_extras.append(filter_components[0] + " <= "+filter_components[2])
     return sql_extras
 
-def nlp_module(natural_input):
-        response = client.responses.create(
-            model="gpt-4.1",
-            input=(nlp_message+natural_input)
-        )
-        print(f"ChatGPT: {response.output_text}")
-        return response.output_text
+# def nlp_module(natural_input):
+#         response = client.responses.create(
+#             model="gpt-4.1",
+#             input=(nlp_message+natural_input)
+#         )
+#         print(f"ChatGPT: {response.output_text}")
+#         return response.output_text
 
 
 ### Add filters to master query ###
@@ -85,8 +85,8 @@ def main():
         cnxn = psycopg2.connect(
                 host="localhost",
                 database="postgres",
-                user="postgres",
-                password="Gouda",
+                user="jer",
+                password="",
                 port=5432
             )
         print("Connection to PostgreSQL successful!")
@@ -96,11 +96,11 @@ def main():
 
         ###Input filters manually, (requires table alias in <Filter Subject>)###
 
-        #filters = str(input("Enter filters in the form [<Filter Subject>,<Operator>,<Relevant values ([low$high] for a range)>]. Seperate each filter as such [<filter1>];[<filter2>]"))
+        filters = str(input("Enter filters in the form [<Filter Subject>,<Operator>,<Relevant values ([low$high] for a range)>]. Seperate each filter as such [<filter1>];[<filter2>]"))
 
         ###Generate filters with NLP ###
-        natural_input = str(input("Enter Natural Language Filter"))
-        filters = nlp_module(natural_input)
+        # natural_input = str(input("Enter Natural Language Filter"))
+        # filters = nlp_module(natural_input)
 
         extra_sql = query_filter_rules(filters)
 
